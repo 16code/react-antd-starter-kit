@@ -1,0 +1,23 @@
+{
+  "name": "react-antd-starter-kit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/16code/react-antd-starter-kit.git"
+  },
+  "author": "16code",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/16code/react-antd-starter-kit/issues"
+  },
+  "homepage": "https://github.com/16code/react-antd-starter-kit#readme",
+  "devDependencies": {
+    "webpack-cli": "^2.0.14",
+    "wepack": "^0.0.1"
+  }
+}
