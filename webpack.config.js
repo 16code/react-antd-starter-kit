@@ -140,10 +140,6 @@ function webpackConfig(env) {
             https: false,
             stats: 'errors-only',
             clientLogLevel: 'error'
-            // watchOptions: {
-            //     aggregateTimeout: 300,
-            //     poll: 1000
-            // }
         },
         resolve: {
             symlinks: false,
@@ -235,30 +231,4 @@ function nodeModulesPath(filePath) {
     return path.join(__dirname, 'node_modules', filePath);
 }
 
-function apiBuilder(env) {
-    const apiMap = {
-        CLIENT_ID: 'cc95370ca37c409eb399ba7ad210ddd7',
-        API_GATEWAY: '//172.16.2.47:2015',
-        API_ACCOUNT: '//172.16.2.69:5006'
-    };
-    switch (true) {
-        case env.test:
-            apiMap.CLIENT_ID = 'cc95370ca37c409eb399ba7ad210ddd7';
-            apiMap.API_GATEWAY = '//staging.feelbus.cn:5010';
-            apiMap.API_ACCOUNT = '//staging.feelbus.cn:5006';
-            break;
-        case env.preview:
-            apiMap.CLIENT_ID = '55d584fa0d074d71bebcaeea613013c3';
-            apiMap.API_GATEWAY = '//preview.feelbus.cn:5010';
-            apiMap.API_ACCOUNT = '//preview.feelbus.cn:5006';
-            break;
-        case env.prod:
-            apiMap.CLIENT_ID = '55d584fa0d074d71bebcaeea613013c3';
-            apiMap.API_GATEWAY = '//igw.feiniubus.com';
-            apiMap.API_ACCOUNT = '//passport.feiniubus.com';
-            break;
-    }
-    Object.keys(apiMap).forEach(k => (apiMap[k] = JSON.stringify(apiMap[k])));
-    return apiMap;
-}
 module.exports = webpackConfig;
