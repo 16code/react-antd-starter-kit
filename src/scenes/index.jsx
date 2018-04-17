@@ -5,7 +5,7 @@ const AsyncHome = AsyncComponent(() => import('./Home'));
 export default function Routes() {
     return (
         <Switch>
-            <Route exact path="/" component={AsyncHome} />
+            <Route path="/" component={AsyncHome} exact />
         </Switch>
     );
 }
