@@ -7,8 +7,13 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const CompressionPlugin = require('compression-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+
 const srcPath = path.join(__dirname, './src');
 const distPath = path.join(__dirname, './dist');
+const libPath = path.join(__dirname, './libs');
+
 const cssLoaderConfig = ExtractTextPlugin.extract({
     fallback: 'style-loader',
     use: [
@@ -36,11 +41,35 @@ function webpackConfig(env) {
                 NODE_ENV: isMock ? JSON.stringify('development') : JSON.stringify('production')
             }
         }),
+        new CopyWebpackPlugin(
+            [{
+                from: path.resolve(libPath),
+                to: path.join(distPath, 'assets/libs/'),
+                toType: 'dir'
+            }], {
+                ignore: ['.DS_Store', '*.DS_Store', '**/locale/*']
+            }
+        ),
         new HtmlWebpackPlugin({
             template: './src/index.html',
             filename: 'index.html',
             inject: 'body'
         }),
+        new AddAssetHtmlPlugin([
+            {
+                filepath: path.resolve(libPath, 'moment/moment.*.js'),
+                outputPath: '/assets/libs/moment',
+                publicPath: '/assets/libs/moment',
+                includeSourcemap: false
+            },
+            {
+                filepath: path.resolve(libPath, 'css/antd.*.css'),
+                outputPath: '/assets/libs/css',
+                publicPath: '/assets/libs/css',
+                includeSourcemap: false,
+                typeOfAsset: 'css'
+            }
+        ]),
         new webpack.HashedModuleIdsPlugin(),
         new webpack.ProvidePlugin({
             React: 'react',
@@ -67,14 +96,12 @@ function webpackConfig(env) {
     const entry = {
         vendor: [
             './src/polyfills.js',
-            'react', 
-            'react-dom', 
-            'react-router-dom', 
+            './src/vendor.js'
             // 'redux', 
             // 'react-redux', 
             // 'redux-thunk'
         ],
-        app: ['./src/index.jsx']
+        app: ['./src/styles/index.less', './src/index.jsx']
     };
     // 开发环境
     if (isMock) {
@@ -195,7 +222,12 @@ function webpackConfig(env) {
                 {
                     test: /\.less$/,
                     include: srcPath,
-                    use: isMock ? ['style-loader', 'css-loader', 'less-loader'] : cssLoaderConfig,
+                    use: isMock ? ['style-loader', 'css-loader', 
+                        { loader: 'less-loader', 
+                            options: {
+                                javascriptEnabled: true
+                            } 
+                        }] : cssLoaderConfig,
                     exclude: /(node_modules)/
                 },
                 {

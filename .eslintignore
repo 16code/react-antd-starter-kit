@@ -6,7 +6,6 @@
 ./eslint
 server.js
 typings/*
-server.js
 .jscache/
 .uglifycache/
 .eslintcache/
