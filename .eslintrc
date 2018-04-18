@@ -76,7 +76,7 @@
         ],
         "object-curly-spacing": [2, "always"],
         "comma-style": 2,
-        "comma-dangle": 0,
+        "comma-dangle": 2,
         "no-use-before-define": 2,
         "no-underscore-dangle": 0,
         "no-debugger": 0,
@@ -103,7 +103,7 @@
         "react/jsx-max-props-per-line": [
             2,
             {
-                "maximum": 3,
+                "maximum": 1,
                 "when": "multiline"
             }
         ],

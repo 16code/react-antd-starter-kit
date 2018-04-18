@@ -1,5 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
-import Routes from '../scenes';
+import Routes from '../routes';
 const Container = () => (
     <BrowserRouter>
         <Routes />

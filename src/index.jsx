@@ -1,16 +1,16 @@
-import { AppContainer } from 'react-hot-loader';
-import App from './container/App.jsx';
+import { AppContainer as RootContainer } from 'react-hot-loader';
+import AppContainer from './containers/AppContainer';
 const rootElement = document.getElementById('app-root');
 AppContainer.displayName = 'App';
 const render = (Component) => {
     ReactDOM.render(
-        <AppContainer warnings={false}>
+        <RootContainer warnings={false}>
             <Component />
-        </AppContainer>,
+        </RootContainer>,
         rootElement
     );
 };
-render(App);
-if (module.hot) {
-    module.hot.accept('./container/App.jsx', () => render(App));
+render(AppContainer);
+if (__MOCK__ && module.hot) {
+    module.hot.accept('./containers/AppContainer', () => render(AppContainer));
 }

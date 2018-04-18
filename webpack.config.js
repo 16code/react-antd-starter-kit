@@ -42,11 +42,14 @@ function webpackConfig(env) {
             }
         }),
         new CopyWebpackPlugin(
-            [{
-                from: path.resolve(libPath),
-                to: path.join(distPath, 'assets/libs/'),
-                toType: 'dir'
-            }], {
+            [
+                {
+                    from: path.resolve(libPath),
+                    to: path.join(distPath, 'assets/libs/'),
+                    toType: 'dir'
+                }
+            ],
+            {
                 ignore: ['.DS_Store', '*.DS_Store', '**/locale/*']
             }
         ),
@@ -97,8 +100,8 @@ function webpackConfig(env) {
         vendor: [
             './src/polyfills.js',
             './src/vendor.js'
-            // 'redux', 
-            // 'react-redux', 
+            // 'redux',
+            // 'react-redux',
             // 'redux-thunk'
         ],
         app: ['./src/styles/index.less', './src/index.jsx']
@@ -176,20 +179,22 @@ function webpackConfig(env) {
                 react: isMock ? 'react' : nodeModulesPath('/react/umd/react.production.min.js'),
                 'react-dom': isMock ? 'react-dom' : nodeModulesPath('/react-dom/umd/react-dom.production.min.js'),
                 'react-router-dom': isMock
-                    ? nodeModulesPath('/react-router-dom/index.js')
+                    ? 'react-router-dom'
                     : nodeModulesPath('/react-router-dom/umd/react-router-dom.min.js'),
                 redux: nodeModulesPath('/redux/dist/redux.min.js'),
                 'react-redux': nodeModulesPath('/react-redux/dist/react-redux.min.js'),
                 'redux-thunk': nodeModulesPath('/redux-thunk/dist/redux-thunk.min.js'),
                 components: path.join(__dirname, 'src/components'),
+                containers: path.join(__dirname, 'src/containers'),
+                layouts: path.join(__dirname, 'src/layouts'),
                 actions: path.join(__dirname, 'src/actions'),
                 config: path.join(__dirname, 'src/config'),
                 reducers: path.join(__dirname, 'src/reducers'),
-                pages: path.join(__dirname, 'src/pages'),
+                routes: path.join(__dirname, 'src/routes'),
                 store: path.join(__dirname, 'src/store'),
                 utils: path.join(__dirname, 'src/utils'),
                 libs: path.join(__dirname, 'src/libs'),
-                UI: path.join(__dirname, 'src/UI.js')
+                styles: path.join(__dirname, 'src/styles')
             }
         },
         module: {
@@ -222,12 +227,18 @@ function webpackConfig(env) {
                 {
                     test: /\.less$/,
                     include: srcPath,
-                    use: isMock ? ['style-loader', 'css-loader', 
-                        { loader: 'less-loader', 
-                            options: {
-                                javascriptEnabled: true
-                            } 
-                        }] : cssLoaderConfig,
+                    use: isMock
+                        ? [
+                            'style-loader',
+                            'css-loader',
+                            {
+                                loader: 'less-loader',
+                                options: {
+                                    javascriptEnabled: true
+                                }
+                            }
+                        ]
+                        : cssLoaderConfig,
                     exclude: /(node_modules)/
                 },
                 {
