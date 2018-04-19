@@ -1,11 +1,11 @@
 const menuData = [
     {
-        name: 'home',
+        name: '首页',
         icon: 'home',
         path: 'home'
     },
     {
-        name: 'dashboard',
+        name: '仪表盘',
         icon: 'dashboard',
         path: 'dashboard',
         children: [

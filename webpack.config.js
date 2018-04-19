@@ -28,7 +28,12 @@ const cssLoaderConfig = ExtractTextPlugin.extract({
                 ]
             }
         },
-        'less-loader'
+        {
+            loader: 'less-loader',
+            options: {
+                javascriptEnabled: true
+            }
+        }
     ]
 });
 
@@ -230,15 +235,15 @@ function webpackConfig(env) {
                     include: srcPath,
                     use: isMock
                         ? [
-                              'style-loader',
-                              'css-loader',
-                              {
-                                  loader: 'less-loader',
-                                  options: {
-                                      javascriptEnabled: true
-                                  }
-                              }
-                          ]
+                            'style-loader',
+                            'css-loader',
+                            {
+                                loader: 'less-loader',
+                                options: {
+                                    javascriptEnabled: true
+                                }
+                            }
+                        ]
                         : cssLoaderConfig,
                     exclude: /(node_modules)/
                 },
