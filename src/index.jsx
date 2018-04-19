@@ -1,8 +1,7 @@
 import { AppContainer as RootContainer } from 'react-hot-loader';
 import AppContainer from './containers/AppContainer';
 const rootElement = document.getElementById('app-root');
-AppContainer.displayName = 'App';
-const render = (Component) => {
+const render = Component => {
     ReactDOM.render(
         <RootContainer warnings={false}>
             <Component />

@@ -1,6 +1,6 @@
-import './index.less';
 import PropTypes from 'prop-types';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import './index.less';
 const FormItem = Form.Item;
 class Login extends React.Component {
     static propTypes = {
