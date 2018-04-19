@@ -61,7 +61,12 @@ function webpackConfig(env) {
         new HtmlWebpackPlugin({
             template: './src/index.html',
             filename: 'index.html',
-            inject: 'body'
+            inject: 'body',
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true,
+                removeAttributeQuotes: true
+            }
         }),
         new AddAssetHtmlPlugin([
             {
