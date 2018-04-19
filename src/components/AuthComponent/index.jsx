@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
-const Authorized = ({ component: ComposedComponent, ...rest }) => {
+const AuthorizedRoute = ({ component: ComposedComponent, ...rest }) => {
     class AuthorizedComponent extends React.Component {
         constructor() {
             super();
@@ -31,7 +31,7 @@ const Authorized = ({ component: ComposedComponent, ...rest }) => {
     }
     return <AuthorizedComponent />;
 };
-Authorized.propTypes = {
+AuthorizedRoute.propTypes = {
     component: PropTypes.func
 };
-export default Authorized;
+export default AuthorizedRoute;

@@ -1,22 +1,20 @@
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Redirect } from 'react-router-dom';
 import AuthorizedRoute from 'components/AuthComponent';
-import BasicLayout from 'layouts/BasicLayout';
-import LoginLayout from 'layouts/LoginLayout';
-import Login from './Login';
+import AsyncComponent from 'components/AsyncComponent';
+
+const FormRoute = AsyncComponent(() => import('routes/form'));
+const DashboardRoute = AsyncComponent(() => import('routes/dashboard'));
+const ListRoute = AsyncComponent(() => import('routes/list'));
+const HomeRoute = AsyncComponent(() => import('routes/home'));
 
 export default function Routes() {
     return (
         <Switch>
-            <Route
-                path="/login"
-                render={props => (
-                    <LoginLayout {...props}>
-                        <Login />
-                    </LoginLayout>
-                )}
-                exact
-            />
-            <AuthorizedRoute path="/" component={BasicLayout} redirectPath="/login" />
+            <AuthorizedRoute path="/home" component={HomeRoute} />
+            <AuthorizedRoute path="/dashboard" component={DashboardRoute} />
+            <AuthorizedRoute path="/form" component={FormRoute} />
+            <AuthorizedRoute path="/list" component={ListRoute} />
+            <Redirect from="/" to="/home" />
         </Switch>
     );
 }

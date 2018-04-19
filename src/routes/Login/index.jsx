@@ -2,14 +2,18 @@ import PropTypes from 'prop-types';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import './index.less';
 const FormItem = Form.Item;
-class Login extends React.Component {
+class Login extends React.PureComponent {
     static propTypes = {
         history: PropTypes.object,
         form: PropTypes.object
     };
     handleLoginSuccess(userData) {
+        const { history, location } = this.props;
+        const {
+            state: { from }
+        } = location;
         localStorage.setItem('user', JSON.stringify(userData));
-        this.props.history.push({ pathname: '/' });
+        history.push({ pathname: from.pathname || '/' });
     }
     handleSubmit = e => {
         e.preventDefault();
@@ -24,7 +28,6 @@ class Login extends React.Component {
     };
     render() {
         const { getFieldDecorator } = this.props.form;
-
         return (
             <div className="login-form-wrapper">
                 <img src={require('./logo.png')} alt="logo" className="logo" />
