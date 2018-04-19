@@ -187,6 +187,7 @@ function webpackConfig(env) {
                 components: path.join(__dirname, 'src/components'),
                 containers: path.join(__dirname, 'src/containers'),
                 layouts: path.join(__dirname, 'src/layouts'),
+                common: path.join(__dirname, 'src/common'),
                 actions: path.join(__dirname, 'src/actions'),
                 config: path.join(__dirname, 'src/config'),
                 reducers: path.join(__dirname, 'src/reducers'),
@@ -229,15 +230,15 @@ function webpackConfig(env) {
                     include: srcPath,
                     use: isMock
                         ? [
-                            'style-loader',
-                            'css-loader',
-                            {
-                                loader: 'less-loader',
-                                options: {
-                                    javascriptEnabled: true
-                                }
-                            }
-                        ]
+                              'style-loader',
+                              'css-loader',
+                              {
+                                  loader: 'less-loader',
+                                  options: {
+                                      javascriptEnabled: true
+                                  }
+                              }
+                          ]
                         : cssLoaderConfig,
                     exclude: /(node_modules)/
                 },

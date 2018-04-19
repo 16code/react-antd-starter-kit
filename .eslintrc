@@ -23,6 +23,7 @@
         }
     },
     "rules": {
+        "import/imports-first": [2, "absolute-first"],
         "camelcase": [
             2,
             {
@@ -109,6 +110,7 @@
         ],
         "react/jsx-indent-props": [2, 4],
         "react/jsx-key": 2,
+        "react/prop-types": 0,
         "react/jsx-indent": [2, 4],
         "react/jsx-no-bind": [
             2,

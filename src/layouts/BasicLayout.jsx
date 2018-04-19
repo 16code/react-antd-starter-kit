@@ -5,6 +5,7 @@ import { getMenuData } from 'common/routerData';
 import AuthorizedRoute from 'components/AuthComponent';
 import { Switch } from 'react-router-dom';
 import AsyncComponent from 'components/AsyncComponent';
+import DocumentTitle from 'react-document-title';
 import logo from '../assets/logo.svg';
 
 const Form = AsyncComponent(() => import('routes/form'));
@@ -22,10 +23,32 @@ class BasicLayout extends React.PureComponent {
         super();
         this.menus = getMenuData();
     }
+    getFlatMenuKeys(menus) {
+        let keys = {};
+        menus.forEach(item => {
+            if (item.children) {
+                keys = Object.assign(keys, this.getFlatMenuKeys(item.children));
+            }
+            keys[item.path] = {
+                name: item.name
+            };
+        });
+        return keys;
+    }
+    getPageTitle() {
+        const { location } = this.props;
+        const { pathname } = location;
+        const routerData = this.getFlatMenuKeys(this.menus);
+        let title = 'Ant Design Pro';
+        if (routerData[pathname] && routerData[pathname].name) {
+            title = `${routerData[pathname].name} - Ant Design Pro`;
+        }
+        return title;
+    }
     handleToggleCollapse = collapsed => {
         this.setState({ collapsed });
     };
-    layout() {
+    get layout() {
         const { collapsed } = this.state;
         return (
             <Layout>
@@ -54,8 +77,7 @@ class BasicLayout extends React.PureComponent {
         );
     }
     render() {
-        // console.info(this.props);
-        return this.layout();
+        return <DocumentTitle title={this.getPageTitle()}>{this.layout}</DocumentTitle>;
     }
 }
 

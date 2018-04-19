@@ -84,25 +84,3 @@ function formatter(data, parentPath = '/', parentAuthority) {
     });
 }
 export const getMenuData = () => formatter(menuData);
-function formatterRouters(routers) {
-    const routerData = {};
-    function formatterRouter(data) {
-        data.forEach(item => {
-            if (item.children) {
-                formatterRouter(item.children);
-            } else {
-                routerData[item.path] = {
-                    path: `${item.path}`
-                };
-            }
-        });
-    }
-    formatterRouter(routers);
-    return routerData;
-}
-
-export const getRouterData = () => {
-    const formatData = formatter(menuData);
-    const routerData = formatterRouters(formatData);
-    return routerData;
-};
