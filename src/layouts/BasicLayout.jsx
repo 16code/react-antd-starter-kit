@@ -1,7 +1,7 @@
 import { Layout } from 'antd';
 import SiderMenu from 'components/SiderMenu';
 import GlobalHeader from 'components/Header';
-import { getMenuData } from 'common/routerData';
+import { getMenuData } from 'common/menuData';
 import DocumentTitle from 'react-document-title';
 import Routes from 'routes/index';
 import logo from '../assets/logo.svg';
@@ -14,7 +14,8 @@ class BasicLayout extends React.PureComponent {
     };
     constructor() {
         super();
-        this.menus = getMenuData();
+        this.menus = getMenuData('salesman');
+        console.info(this.menus);
     }
     getFlatMenuKeys(menus) {
         let keys = {};
@@ -57,7 +58,7 @@ class BasicLayout extends React.PureComponent {
                         <GlobalHeader collapsed={collapsed} onCollapse={this.handleToggleCollapse} />
                     </Header>
                     <Content style={{ margin: '24px 24px 0', height: '100%' }}>
-                        <Routes />
+                        <Routes {...this.props} />
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>Ant Design ©2016 Created by Ant UED</Footer>
                 </Layout>

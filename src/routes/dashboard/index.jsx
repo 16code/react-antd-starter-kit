@@ -9,9 +9,9 @@ export default class Dashboard extends React.Component {
         const { match } = this.props;
         return (
             <div>
-                <Route exact path={`${match.url}/monitor`} component={Monitor} />
-                <Route exact path={`${match.url}/analysis`} component={Analysis} />
-                <Route exact path={match.url} render={() => <Redirect to="/dashboard/monitor" />} />
+                <Route exact path={`${match.path}/monitor`} component={Monitor} />
+                <Route exact path={`${match.path}/analysis`} component={Analysis} />
+                <Route exact path={match.path} render={() => <Redirect to="/dashboard/monitor" />} />
             </div>
         );
     }

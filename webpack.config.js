@@ -17,7 +17,6 @@ const libPath = path.join(__dirname, './libs');
 const cssLoaderConfig = ExtractTextPlugin.extract({
     fallback: 'style-loader',
     use: [
-        'css-loader',
         {
             loader: 'postcss-loader',
             options: {
@@ -26,6 +25,15 @@ const cssLoaderConfig = ExtractTextPlugin.extract({
                         browsers: ['last 3 version']
                     })
                 ]
+            }
+        },
+        {
+            loader: 'css-loader',
+            options: {
+                root: '.',
+                importLoaders: 1,
+                modules: true,
+                localIdentName: '[local]--[hash:base64:5]'
             }
         },
         {
@@ -63,6 +71,8 @@ function webpackConfig(env) {
             filename: 'index.html',
             inject: 'body',
             minify: {
+                minifyJS: true,
+                minifyCSS: true,
                 removeComments: true,
                 collapseWhitespace: true,
                 removeAttributeQuotes: true
@@ -230,6 +240,7 @@ function webpackConfig(env) {
                         {
                             loader: 'babel-loader',
                             options: {
+                                cacheDirectory: true,
                                 extends: path.join(__dirname, '.babelrc')
                             }
                         }
@@ -241,7 +252,21 @@ function webpackConfig(env) {
                     use: isMock
                         ? [
                             'style-loader',
-                            'css-loader',
+                            {
+                                loader: 'cache-loader',
+                                options: {
+                                    cacheDirectory: path.resolve('.csscache')
+                                }
+                            },
+                            {
+                                loader: 'css-loader',
+                                options: {
+                                    root: '.',
+                                    importLoaders: 1,
+                                    modules: true,
+                                    localIdentName: '[local]--[hash:base64:5]'
+                                }
+                            },
                             {
                                 loader: 'less-loader',
                                 options: {

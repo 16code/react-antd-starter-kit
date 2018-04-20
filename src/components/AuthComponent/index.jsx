@@ -1,35 +1,52 @@
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
+import { getMenuData, getMenuDataPathKeys } from 'common/menuData';
 
+const menuData = getMenuData();
+const menuDataPathKeys = getMenuDataPathKeys(menuData);
+
+const loginPage = props => (
+    <Redirect
+        to={{
+            pathname: '/login',
+            state: {
+                from: props.location,
+                message: 'You need to sign in'
+            }
+        }}
+    />
+);
+const prmissionDeniedePage = props => (
+    <Redirect
+        to={{
+            pathname: '/403',
+            state: {
+                from: props.location,
+                message: '无权限进入'
+            }
+        }}
+    />
+);
 const AuthorizedRoute = ({ component: ComposedComponent, ...rest }) => {
-    class AuthorizedComponent extends React.Component {
-        constructor() {
-            super();
-            this.componentRender = this.componentRender.bind(this);
-        }
-        componentRender(props) {
-            if (!localStorage.getItem('user')) {
-                return (
-                    <Redirect
-                        to={{
-                            pathname: '/login',
-                            state: {
-                                from: props.location,
-                                message: 'You need to sign in'
-                            }
-                        }}
-                    />
-                );
-            } else {
+    class AuthComponent extends React.PureComponent {
+        componentRender = props => {
+            const { location } = props;
+            const user = localStorage.getItem('user');
+            if (user) {
+                const { authRole } = menuDataPathKeys[location.pathname] || {};
+                if (authRole && !~authRole.indexOf('salesman')) {
+                    return prmissionDeniedePage(props);
+                }
                 return <ComposedComponent {...props} />;
             }
-        }
+            return loginPage(props);
+        };
 
         render() {
             return <Route {...rest} render={this.componentRender} />;
         }
     }
-    return <AuthorizedComponent />;
+    return <AuthComponent />;
 };
 AuthorizedRoute.propTypes = {
     component: PropTypes.func

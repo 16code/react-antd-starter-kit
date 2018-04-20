@@ -24,5 +24,6 @@ npm-debug.log
 .eslintcache
 typings.json
 .jscache
+.csscache
 .uglifycache
 .eslintcache

@@ -1,21 +1,37 @@
-import { Switch, Redirect } from 'react-router-dom';
 import AuthorizedRoute from 'components/AuthComponent';
 import AsyncComponent from 'components/AsyncComponent';
+import { Switch, RouteShell, RouteNotFound } from 'routes/shell';
 
-const FormRoute = AsyncComponent(() => import('routes/form'));
-const DashboardRoute = AsyncComponent(() => import('routes/dashboard'));
-const ListRoute = AsyncComponent(() => import('routes/list'));
-const HomeRoute = AsyncComponent(() => import('routes/home'));
+const routeConfig = {
+    '/home': {
+        exact: true,
+        component: AsyncComponent(() => import('routes/home'))
+    },
+    '/dashboard': {
+        component: AsyncComponent(() => import('routes/dashboard'))
+    },
+    '/form': {
+        component: AsyncComponent(() => import('routes/form'))
+    },
+    '/list': {
+        component: AsyncComponent(() => import('routes/list'))
+    },
+    '/403': {
+        component: AsyncComponent(() => import('routes/errors/403'))
+    }
+};
 
 export default function Routes() {
     return (
-        <Switch>
-            <AuthorizedRoute path="/home" component={HomeRoute} />
-            <AuthorizedRoute path="/dashboard" component={DashboardRoute} />
-            <AuthorizedRoute path="/form" component={FormRoute} />
-            <AuthorizedRoute path="/list" component={ListRoute} />
-            <Redirect from="/" to="/home" />
-        </Switch>
+        <RouteShell>
+            <Switch>
+                {Object.keys(routeConfig).map(path => {
+                    const { component, exact } = routeConfig[path];
+                    return <AuthorizedRoute key={path} path={path} component={component} exact={!!exact} />;
+                })};
+                <RouteNotFound />
+            </Switch>
+        </RouteShell>
     );
 }
 Routes.displayName = 'Routes';
