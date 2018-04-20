@@ -92,10 +92,11 @@ export function getMenuDataPathKeys(menus) {
     const keys = {};
     function loop(data) {
         data.forEach(item => {
-            const { path, authRole, children } = item;
+            const { path, authRole, children, name } = item;
             if (children) loop(children);
             keys[path] = {
-                authRole: authRole
+                authRole: authRole,
+                name
             };
         });
     }

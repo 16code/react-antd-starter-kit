@@ -4,7 +4,6 @@ import { getMenuData, getMenuDataPathKeys } from 'common/menuData';
 
 const menuData = getMenuData();
 const menuDataPathKeys = getMenuDataPathKeys(menuData);
-
 const loginPage = props => (
     <Redirect
         to={{
@@ -38,7 +37,7 @@ const AuthorizedRoute = ({ component: ComposedComponent, ...rest }) => {
                 if (authRole && currentUserRole && !~authRole.indexOf(currentUserRole)) {
                     return prmissionDeniedePage(props);
                 }
-                return <ComposedComponent {...props} />;
+                return <ComposedComponent routesMap={menuDataPathKeys} {...props} />;
             }
             return loginPage(props);
         };

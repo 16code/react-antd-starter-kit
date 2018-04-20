@@ -1,7 +1,7 @@
 import { PureComponent } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
-import pathToRegexp from 'path-to-regexp';
+import { pathToRegexp, urlToList } from 'utils';
 import './index.less';
 
 const { Sider } = Layout;
@@ -16,12 +16,6 @@ const getIcon = icon => {
     return icon;
 };
 
-function urlToList(url) {
-    const urllist = url.split('/').filter(i => i);
-    return urllist.map((urlItem, index) => {
-        return `/${urllist.slice(0, index + 1).join('/')}`;
-    });
-}
 const getMeunMatcheys = (flatMenuKeys, path) => {
     return flatMenuKeys.filter(item => {
         return pathToRegexp(item).test(path);
