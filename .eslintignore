@@ -9,4 +9,4 @@ typings/*
 .jscache/
 .uglifycache/
 .eslintcache/
-./libs/*
+./libs
