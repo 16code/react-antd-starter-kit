@@ -1,8 +1,9 @@
 import { Layout } from 'antd';
 import SiderMenu from 'components/SiderMenu';
 import GlobalHeader from 'components/Header';
-import { getMenuData } from 'common/menuData';
 import DocumentTitle from 'react-document-title';
+import { getMenuData } from 'common/menuData';
+import { authorizeHelper, getAuthority } from 'utils/AuthorizeHelper';
 import Routes from 'routes/index';
 import logo from '../assets/logo.svg';
 
@@ -14,8 +15,8 @@ class BasicLayout extends React.PureComponent {
     };
     constructor() {
         super();
-        this.menus = getMenuData('salesman');
-        console.info(this.menus);
+        this.menus = getMenuData();
+        this.currentUserRole = getAuthority();
     }
     getFlatMenuKeys(menus) {
         let keys = {};
@@ -51,6 +52,8 @@ class BasicLayout extends React.PureComponent {
                     location={this.props.location}
                     menuData={this.menus}
                     collapsed={collapsed}
+                    authorizeHelper={authorizeHelper}
+                    currentUserRole={this.currentUserRole}
                     onCollapse={this.handleToggleCollapse}
                 />
                 <Layout>
@@ -58,7 +61,7 @@ class BasicLayout extends React.PureComponent {
                         <GlobalHeader collapsed={collapsed} onCollapse={this.handleToggleCollapse} />
                     </Header>
                     <Content style={{ margin: '24px 24px 0', height: '100%' }}>
-                        <Routes {...this.props} />
+                        <Routes currentUserRole={this.currentUserRole} {...this.props} />
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>Ant Design ©2016 Created by Ant UED</Footer>
                 </Layout>

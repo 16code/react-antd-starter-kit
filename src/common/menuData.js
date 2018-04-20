@@ -8,16 +8,15 @@ const menuData = [
         name: '仪表盘',
         icon: 'dashboard',
         path: 'dashboard',
-        role: ['admin', 'salesman', 'manager'],
         children: [
             {
                 name: '分析页',
-                path: 'analysis',
-                role: ['admin']
+                path: 'analysis'
             },
             {
                 name: '监控页',
-                path: 'monitor'
+                path: 'monitor',
+                role: ['salesman', 'admin']
             }
         ]
     },
@@ -25,7 +24,6 @@ const menuData = [
         name: '表单页',
         icon: 'form',
         path: 'form',
-        role: ['admin', 'salesman'],
         children: [
             {
                 name: '基础表单',
@@ -34,7 +32,7 @@ const menuData = [
             {
                 name: '分步表单',
                 path: 'step-form',
-                role: ['salesman']
+                role: ['admin']
             }
         ]
     },
@@ -70,12 +68,8 @@ const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-
 function isUrl(path) {
     return reg.test(path);
 }
-function isHideMenu(curRole, menuRole) {
-    if (!curRole) return true;
-    if (!menuRole) return false;
-    return ~menuRole.indexOf(curRole) ? false : true;
-}
-function formatter(data, currentUserRole, parentPath = '/', parentAuthRole) {
+
+function formatter(data, parentPath = '/', parentAuthRole) {
     return data.map(item => {
         let { path } = item;
         if (!isUrl(path)) {
@@ -84,16 +78,15 @@ function formatter(data, currentUserRole, parentPath = '/', parentAuthRole) {
         const result = {
             ...item,
             path,
-            authRole: item.role || parentAuthRole,
-            hideInMenu: isHideMenu(currentUserRole, item.role)
+            authRole: item.role || parentAuthRole
         };
         if (item.children) {
-            result.children = formatter(item.children, currentUserRole, `${parentPath}${item.path}/`, item.role);
+            result.children = formatter(item.children, `${parentPath}${item.path}/`, item.role);
         }
         return result;
     });
 }
-export const getMenuData = currentUserRole => formatter(menuData, currentUserRole);
+export const getMenuData = () => formatter(menuData);
 
 export function getMenuDataPathKeys(menus) {
     const keys = {};

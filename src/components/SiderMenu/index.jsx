@@ -140,9 +140,13 @@ export default class SiderMenu extends PureComponent {
             .filter(item => item.name && !item.hideInMenu)
             .map(item => {
                 const ItemDom = this.getSubMenuOrItem(item);
-                return ItemDom;
+                return this.checkPermissionItem(item.role, ItemDom);
             })
             .filter(item => item);
+    };
+    checkPermissionItem = (authRole, ItemDom) => {
+        const { authorizeHelper, currentUserRole } = this.props;
+        return authorizeHelper.check(authRole, currentUserRole, ItemDom);
     };
     render() {
         const { collapsed, onCollapse, logo } = this.props;

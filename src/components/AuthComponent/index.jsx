@@ -31,10 +31,11 @@ const AuthorizedRoute = ({ component: ComposedComponent, ...rest }) => {
     class AuthComponent extends React.PureComponent {
         componentRender = props => {
             const { location } = props;
+            const { currentUserRole } = rest;
             const user = localStorage.getItem('user');
             if (user) {
                 const { authRole } = menuDataPathKeys[location.pathname] || {};
-                if (authRole && !~authRole.indexOf('salesman')) {
+                if (authRole && currentUserRole && !~authRole.indexOf(currentUserRole)) {
                     return prmissionDeniedePage(props);
                 }
                 return <ComposedComponent {...props} />;

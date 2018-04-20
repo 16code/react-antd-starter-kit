@@ -18,6 +18,20 @@ const cssLoaderConfig = ExtractTextPlugin.extract({
     fallback: 'style-loader',
     use: [
         {
+            loader: 'cache-loader',
+            options: {
+                cacheDirectory: path.resolve('.csscache')
+            }
+        },
+        {
+            loader: 'css-loader',
+            options: {
+                importLoaders: 2,
+                modules: true,
+                localIdentName: '[local]--[hash:base64:5]'
+            }
+        },
+        {
             loader: 'postcss-loader',
             options: {
                 plugins: () => [
@@ -25,15 +39,6 @@ const cssLoaderConfig = ExtractTextPlugin.extract({
                         browsers: ['last 3 version']
                     })
                 ]
-            }
-        },
-        {
-            loader: 'css-loader',
-            options: {
-                root: '.',
-                importLoaders: 1,
-                modules: true,
-                localIdentName: '[local]--[hash:base64:5]'
             }
         },
         {
@@ -58,7 +63,7 @@ function webpackConfig(env) {
             [
                 {
                     from: path.resolve(libPath),
-                    to: path.join(distPath, 'assets/libs/'),
+                    to: path.join(distPath, '/assets/libs/'),
                     toType: 'dir'
                 }
             ],
@@ -245,6 +250,10 @@ function webpackConfig(env) {
                             }
                         }
                     ]
+                },
+                {
+                    test: /\.css$/,
+                    use: ['style-loader', 'css-loader']
                 },
                 {
                     test: /\.less$/,

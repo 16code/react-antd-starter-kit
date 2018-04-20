@@ -21,13 +21,21 @@ const routeConfig = {
     }
 };
 
-export default function Routes() {
+export default function Routes(props) {
     return (
         <RouteShell>
             <Switch>
                 {Object.keys(routeConfig).map(path => {
                     const { component, exact } = routeConfig[path];
-                    return <AuthorizedRoute key={path} path={path} component={component} exact={!!exact} />;
+                    return (
+                        <AuthorizedRoute
+                            currentUserRole={props.currentUserRole}
+                            key={path}
+                            path={path}
+                            component={component}
+                            exact={!!exact}
+                        />
+                    );
                 })};
                 <RouteNotFound />
             </Switch>
