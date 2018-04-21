@@ -125,9 +125,6 @@ function webpackConfig(env) {
         vendor: [
             './src/polyfills.js',
             './src/vendor.js'
-            // 'redux',
-            // 'react-redux',
-            // 'redux-thunk'
         ],
         app: ['./src/styles/index.less', './src/index.jsx']
     };
