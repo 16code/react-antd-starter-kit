@@ -1,6 +1,8 @@
 import { combineReducers } from 'redux';
-import { uiReducer } from '../ducks/ui';
+import { uiReducer } from './ui';
+import { authReducer } from './auth';
 
 export default combineReducers({
-    ui: uiReducer
+    ui: uiReducer,
+    auth: authReducer
 });

@@ -1,12 +1,13 @@
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
+
 import AuthorizedRoute from 'components/AuthComponent';
 import BasicLayout from 'layouts/BasicLayout';
 import LoginLayout from 'layouts/LoginLayout';
-import createStore from './Store';
-const store = createStore();
+import { store } from './Store';
+
 const Container = () => (
-    <Provider store={store}>
+    <Provider store={store()}>
         <BrowserRouter>
             <Switch>
                 <Route path="/login" component={LoginLayout} exact />

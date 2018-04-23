@@ -205,7 +205,6 @@ function webpackConfig(env) {
                     : nodeModulesPath('/react-router-dom/umd/react-router-dom.min.js'),
                 redux: nodeModulesPath('/redux/dist/redux.min.js'),
                 'react-redux': nodeModulesPath('/react-redux/dist/react-redux.min.js'),
-                'redux-thunk': nodeModulesPath('/redux-thunk/dist/redux-thunk.min.js'),
                 components: path.join(__dirname, 'src/components'),
                 containers: path.join(__dirname, 'src/containers'),
                 layouts: path.join(__dirname, 'src/layouts'),

@@ -1,19 +1,25 @@
 import PropTypes from 'prop-types';
+import connect from 'redux-connect-decorator';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { authActions } from 'reducers/auth';
+
 import './index.less';
 const FormItem = Form.Item;
+
+@connect(({ auth }) => ({ token: auth.token }), { authRequest: authActions.authRequest })
 class Login extends React.PureComponent {
     static propTypes = {
-        history: PropTypes.object,
+        // history: PropTypes.object,
         form: PropTypes.object
     };
-    handleLoginSuccess(userData) {
-        const { history, location } = this.props;
-        const {
-            state: { from }
-        } = location;
-        localStorage.setItem('user', JSON.stringify(userData));
-        history.push({ pathname: from.pathname || '/' });
+    handleLoginSuccess(user) {
+        // const { history, location } = this.props;
+        // const {
+        //     state: { from }
+        // } = location;
+        // localStorage.setItem('user', JSON.stringify(user));
+        // history.push({ pathname: from.pathname || '/' });
+        this.props.authRequest(user);
     }
     handleSubmit = e => {
         e.preventDefault();

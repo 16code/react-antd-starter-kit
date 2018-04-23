@@ -1,7 +1,11 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import rootReducers from '../ducks';
+import createSagaMiddleware from 'redux-saga';
+import rootReducers from '../reducers';
+import rootSagas from '../sagas';
 
-const middlewares = [];
+const sagaMiddleware = createSagaMiddleware(rootSagas);
+const middlewares = [sagaMiddleware];
+
 if (__MOCK__) {
     const { createLogger } = require('redux-logger');
     const loggerMiddleware = createLogger({
@@ -11,8 +15,9 @@ if (__MOCK__) {
     });
     middlewares.push(loggerMiddleware);
 }
-export default initialState => {
-    return createStore(
+
+const store = (initialState) => {
+    const s = createStore(
         rootReducers,
         initialState,
         compose(
@@ -20,4 +25,7 @@ export default initialState => {
             window.devToolsExtension ? window.devToolsExtension() : fn => fn
         )
     );
+    sagaMiddleware.run(rootSagas);
+    return s;
 };
+export { store };

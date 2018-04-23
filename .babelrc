@@ -39,7 +39,6 @@
         "react-router-dom.min.js",
         "redux.min.js",
         "react-redux.min.js",
-        "redux-thunk.min.js",
         "antd.min.js",
         "moment.min.js"
     ]
