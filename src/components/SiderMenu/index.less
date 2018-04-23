@@ -4,10 +4,17 @@
         box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
         position: relative;
         z-index: 10;
-        &.ligth {
+        &.app-sider-theme-light {
             background-color: white;
+            box-shadow: 2px 0 6px rgba(0, 21, 41, 0.1);
+            .ant-menu-inline,
+            .ant-menu-vertical,
+            .ant-menu-vertical-left {
+                border-right-color: transparent;
+            }
             .logo {
                 background: white;
+                border-bottom-color: #ddd;
                 h1 {
                     color: #002140;
                 }
@@ -24,6 +31,7 @@
             padding-left: 24px;
             transition: all 0.3s;
             background: #002140;
+            border-bottom: 1px solid #002140;
             overflow: hidden;
             img {
                 display: inline-block;

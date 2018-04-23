@@ -79,7 +79,7 @@
         "object-curly-spacing": [2, "always"],
         "comma-style": 2,
         "comma-dangle": 2,
-        "no-use-before-define": 2,
+        "no-use-before-define": [2, { "functions": false, "classes": true }],
         "no-underscore-dangle": 0,
         "no-debugger": 0,
         "dot-notation": 2,

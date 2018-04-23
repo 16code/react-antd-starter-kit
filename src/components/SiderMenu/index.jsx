@@ -2,6 +2,8 @@ import { PureComponent } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import { pathToRegexp, urlToList } from 'utils';
+import classNames from 'classnames';
+
 import './index.less';
 
 const { Sider } = Layout;
@@ -143,13 +145,14 @@ export default class SiderMenu extends PureComponent {
         return authorizeHelper.check(authRole, currentUserRole, ItemDom);
     };
     render() {
-        const { collapsed, onCollapse, logo } = this.props;
+        const { collapsed, onCollapse, logo, theme } = this.props;
         const { openKeys } = this.state;
         const menuProps = collapsed ? {} : { openKeys };
         let selectedKeys = this.getSelectedMenuKeys();
         if (!selectedKeys.length) {
             selectedKeys = [openKeys[openKeys.length - 1]];
         }
+        const clsString = classNames({ 'app-sider-theme-light': theme === 'light' }, 'app-sider');
         return (
             <Sider
                 trigger={null}
@@ -158,7 +161,7 @@ export default class SiderMenu extends PureComponent {
                 breakpoint="lg"
                 onCollapse={onCollapse}
                 width={230}
-                className="app-sider"
+                className={clsString}
             >
                 <div className="logo" key="logo">
                     <Link to="/">
@@ -168,7 +171,7 @@ export default class SiderMenu extends PureComponent {
                 </div>
                 <Menu
                     key="Menu"
-                    theme="dark"
+                    theme={theme}
                     mode="inline"
                     {...menuProps}
                     selectedKeys={selectedKeys}

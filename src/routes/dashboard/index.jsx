@@ -2,7 +2,7 @@ import AsyncComponent from 'components/AsyncComponent';
 import { Redirect, Route } from 'react-router-dom';
 
 const Monitor = AsyncComponent(() => import('./monitor'));
-const Analysis = AsyncComponent(() => import('./analysis'));
+const Analysis = AsyncComponent(() => import('./analysis?chunk=home'));
 
 export default class Dashboard extends React.Component {
     render() {

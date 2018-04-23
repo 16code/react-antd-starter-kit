@@ -1,4 +1,5 @@
 import { Layout } from 'antd';
+import connect from 'redux-connect-decorator';
 import SiderMenu from 'components/SiderMenu';
 import GlobalHeader from 'components/Header';
 import DocumentTitle from 'react-document-title';
@@ -6,13 +7,12 @@ import { getMenuData } from 'common/menuData';
 import { authorizeHelper, getAuthority } from 'utils/AuthorizeHelper';
 import Routes from 'routes/index';
 import logo from '../assets/logo.svg';
+import { uiActions } from '../ducks/ui';
 
 const { Content, Footer, Header } = Layout;
 
+@connect(({ ui }) => ({ theme: ui.theme, sideBarCollapsed: ui.sideBarCollapsed }), { ...uiActions })
 class BasicLayout extends React.PureComponent {
-    state = {
-        collapsed: false
-    };
     constructor() {
         super();
         this.menus = getMenuData();
@@ -41,24 +41,33 @@ class BasicLayout extends React.PureComponent {
         return title;
     }
     handleToggleCollapse = collapsed => {
-        this.setState({ collapsed });
+        const { toggleSideBarCollaps } = this.props;
+        toggleSideBarCollaps(collapsed);
+    };
+    handleToggleTheme = () => {
+        const { theme, toggleTheme } = this.props;
+        toggleTheme(theme);
     };
     get layout() {
-        const { collapsed } = this.state;
+        const { theme, location } = this.props;
         return (
             <Layout>
                 <SiderMenu
                     logo={logo}
-                    location={this.props.location}
+                    theme={theme}
+                    location={location}
                     menuData={this.menus}
-                    collapsed={collapsed}
+                    collapsed={this.props.sideBarCollapsed}
                     authorizeHelper={authorizeHelper}
                     currentUserRole={this.currentUserRole}
-                    onCollapse={this.handleToggleCollapse}
                 />
                 <Layout>
                     <Header style={{ padding: 0 }}>
-                        <GlobalHeader collapsed={collapsed} onCollapse={this.handleToggleCollapse} />
+                        <GlobalHeader
+                            collapsed={this.props.sideBarCollapsed}
+                            onCollapse={this.handleToggleCollapse}
+                            onToggleTheme={this.handleToggleTheme}
+                        />
                     </Header>
                     <Content style={{ margin: '24px 24px 0', height: '100%' }}>
                         <Routes currentUserRole={this.currentUserRole} {...this.props} />
