@@ -25,12 +25,7 @@
     "rules": {
         "import/imports-first": [2, "absolute-first"],
         "import/no-duplicates": 2,
-        "camelcase": [
-            2,
-            {
-                "properties": "never"
-            }
-        ],
+        "camelcase": ["error", { "properties": "never" }],
         "eqeqeq": 2,
         "no-var": 2,
         "no-mixed-spaces-and-tabs": [2, "smart-tabs"],

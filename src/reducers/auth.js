@@ -1,36 +1,36 @@
 import { createReducer } from 'utils';
-
-const types = {
-    authRequest: 'auth/request',
-    authSuccess: 'auth/success',
-    authFailure: 'auth/failure'
+export const types = {
+    authRequest: 'auth/Request',
+    authSuccess: 'auth/Success',
+    authFailure: 'auth/Failure'
 };
+
+export const authRequest = (user, toPathName, history) => ({
+    type: types.authRequest,
+    user,
+    toPathName, 
+    history
+});
+
 const initialState = {
     token: localStorage.getItem('token'),
+    isloading: false,
     error: null
 };
 
 export const authReducer = createReducer(initialState, {
-    [types.authRequest]: authRequest,
-    [types.authSuccess]: authSuccess,
-    [types.authFailure]: authFailure
+    [types.authRequest]: request,
+    [types.authSuccess]: success,
+    [types.authFailure]: error
 });
 
-export const authActions = {
-    authRequest: (user) => ({ type: types.authRequest, user }),
-    authSuccess: (payload) => ({ type: types.authSuccess, payload }),
-    authFailure: (payload) => ({ type: types.authFailure, payload })
-};
-
-function authSuccess(state, action) {
-    return Object.assign({}, state, { token: action.payload } );
+function request(state) {
+    return { ...state, isloading: true };
 }
-function authFailure(state, action) {
-    return Object.assign({}, state, { error: action.payload } );
+function success(state, action) {
+    return { ...state, ...action.payload, isloading: false };
 }
 
-function authRequest(state, action) {
-    console.info(action);
-    return Object.assign({}, state, { user: action.user } );
+function error(state, action) {
+    return { ...state, error: action.payload, isloading: false };
 }
-

@@ -1,32 +1,35 @@
 import PropTypes from 'prop-types';
 import connect from 'redux-connect-decorator';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import { authActions } from 'reducers/auth';
+import { authRequest } from 'reducers/auth';
 
 import './index.less';
 const FormItem = Form.Item;
 
-@connect(({ auth }) => ({ token: auth.token }), { authRequest: authActions.authRequest })
+@connect(({ auth }) => ({ token: auth.token }), { authRequest })
 class Login extends React.PureComponent {
     static propTypes = {
         // history: PropTypes.object,
         form: PropTypes.object
     };
     handleLoginSuccess(user) {
-        // const { history, location } = this.props;
-        // const {
-        //     state: { from }
-        // } = location;
-        // localStorage.setItem('user', JSON.stringify(user));
-        // history.push({ pathname: from.pathname || '/' });
-        this.props.authRequest(user);
+        const { history, location } = this.props;
+        const { state } = location;
+        const toPathName = state && state.from && state.from.pathname || '/';
+        user.client_id = '55d584fa0d074d71bebcaeea613013c3';
+        user.grant_type = 'password';
+        user.terminal = 'MC';
+        user.username = 'fuchao';
+        user.password = 'Aa123456';
+        user.terminal_type = 'terminal_type';
+        this.props.authRequest(user, toPathName, history);
     }
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
             if (!err) {
-                const { userName, password } = values;
-                if (userName && password) {
+                const { username, password } = values;
+                if (username && password) {
                     this.handleLoginSuccess(values);
                 }
             }
@@ -39,7 +42,7 @@ class Login extends React.PureComponent {
                 <img src={require('./logo.png')} alt="logo" className="logo" />
                 <Form className="login-form" onSubmit={this.handleSubmit}>
                     <FormItem>
-                        {getFieldDecorator('userName', {
+                        {getFieldDecorator('username', {
                             rules: [{ required: true, message: '请输入您的用户名!' }]
                         })(
                             <Input

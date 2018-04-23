@@ -31,7 +31,7 @@ const AuthorizedRoute = ({ component: ComposedComponent, ...rest }) => {
         componentRender = props => {
             const { location } = props;
             const { currentUserRole } = rest;
-            const user = localStorage.getItem('user');
+            const user = localStorage.getItem('token');
             if (user) {
                 const { authRole } = menuDataPathKeys[location.pathname] || {};
                 if (authRole && currentUserRole && !~authRole.indexOf(currentUserRole)) {
