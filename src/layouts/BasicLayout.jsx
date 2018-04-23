@@ -5,9 +5,9 @@ import GlobalHeader from 'components/Header';
 import DocumentTitle from 'react-document-title';
 import { getMenuData } from 'common/menuData';
 import { authorizeHelper, getAuthority } from 'utils/AuthorizeHelper';
+import { uiActions } from 'reducers/ui';
 import Routes from 'routes/index';
 import logo from '../assets/logo.svg';
-import { uiActions } from '../ducks/ui';
 
 const { Content, Footer, Header } = Layout;
 
