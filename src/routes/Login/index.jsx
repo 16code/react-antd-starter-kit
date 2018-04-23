@@ -6,10 +6,11 @@ import { authRequest } from 'reducers/auth';
 import './index.less';
 const FormItem = Form.Item;
 
-@connect(({ auth }) => ({ token: auth.token }), { authRequest })
+@connect(({ auth }) => ({ token: auth.token, isloading: auth.isloading }), { authRequest })
+@Form.create({})
 class Login extends React.PureComponent {
     static propTypes = {
-        // history: PropTypes.object,
+        history: PropTypes.object,
         form: PropTypes.object
     };
     handleLoginSuccess(user) {
@@ -35,10 +36,17 @@ class Login extends React.PureComponent {
             }
         });
     };
+    getBtnText(state) {
+        return state ? '登录中...' : '登 陆';
+		
+    }
     render() {
-        const { getFieldDecorator } = this.props.form;
+        const { isloading, form 
+        } = this.props;
+        const { getFieldDecorator } = form;
         return (
             <div className="login-form-wrapper">
+                {this.props.isloading}
                 <img src={require('./logo.png')} alt="logo" className="logo" />
                 <Form className="login-form" onSubmit={this.handleSubmit}>
                     <FormItem>
@@ -73,8 +81,14 @@ class Login extends React.PureComponent {
                         <a className="login-form-forgot" href="">
                             忘记密码
                         </a>
-                        <Button size="large" type="primary" htmlType="submit" className="login-form-button">
-                            登陆
+                        <Button 
+                            loading={this.props.isloading}
+                            size="large"
+                            type="primary"
+                            htmlType="submit"
+                            className="login-form-button"
+                        >
+                            {this.getBtnText(isloading)}
                         </Button>
                     </FormItem>
                 </Form>
@@ -84,4 +98,4 @@ class Login extends React.PureComponent {
     }
 }
 
-export default Form.create()(Login);
+export default Login;
