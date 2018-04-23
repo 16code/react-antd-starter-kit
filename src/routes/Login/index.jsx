@@ -43,7 +43,7 @@ class Login extends React.PureComponent {
     render() {
         const { isloading, form 
 		
-        } = this.props;
+        		} = this.props;
         const { getFieldDecorator } = form;
         return (
             <div className="login-form-wrapper">
