@@ -1,51 +1,50 @@
-import { createReducer } from 'utils';
+import { createReducer } from 'utils/index';
+import AuthService from 'services/auth.service';
+
 export const types = {
-    authRequest: 'auth/Request',
-    authSuccess: 'auth/Success',
-    authFailure: 'auth/Failure',
-    authDestroy: 'auth/Destroy',
-    unAuthorized: 'auth/UnAuthorized'
-};
-
-export const authRequest = (user, toPathName, history) => ({
-    type: types.authRequest,
-    user,
-    toPathName, 
-    history
-});
-
-export const authDestroy = () => {
-    console.info('authDestroy');
-    return { type: types.authDestroy };
+    userLogin: 'user/login',
+    userLogout: 'user/logout',
+    userLoginSuccess: 'user/loginSuccess',
+    userLoginFailure: 'user/loginFailure',
+    clearUserData: 'user/clearUserData'
 };
 
 const initialState = {
-    token: localStorage.getItem('token'),
+    token: AuthService.getUser(),
     isloading: false,
     error: null
 };
 
+// actions
+export const userActions = {
+    userLogin: (user, rest) => ({
+        type: types.userLogin,
+        payload: { user, ...rest }
+    }),
+    userLogout: () => ({ type: types.userLogout })
+};
+
+// Reducers
 export const authReducer = createReducer(initialState, {
-    [types.authRequest]: request,
-    [types.authSuccess]: success,
-    [types.authFailure]: error,
-    [types.unAuthorized]: destroy
+    [types.userLogin]: login,
+    [types.userLoginSuccess]: success,
+    [types.userLoginFailure]: failure,
+    [types.clearUserData]: clearUserData
 });
 
-function destroy() {
+function clearUserData() {
     return Object.assign({}, {
         token: null,
         isloading: false,
         error: null
     });
 }
-function request(state) {
+function login(state) {
     return { ...state, isloading: true };
 }
 function success(state, action) {
     return { ...state, ...action.payload, isloading: false };
 }
-
-function error(state, action) {
+function failure(state, action) {
     return { ...state, error: action.payload, isloading: false };
 }

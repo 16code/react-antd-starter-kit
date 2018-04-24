@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import connect from 'redux-connect-decorator';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
-import { authRequest } from 'reducers/auth';
+import { userActions } from 'reducers/auth';
 
 import './index.less';
 const FormItem = Form.Item;
 
-@connect(({ auth }) => ({ token: auth.token, isloading: auth.isloading }), { authRequest })
+@connect(({ auth }) => ({ token: auth.token, isloading: auth.isloading }), { userLogin: userActions.userLogin })
 @Form.create({})
 class Login extends React.PureComponent {
     static propTypes = {
@@ -15,15 +15,11 @@ class Login extends React.PureComponent {
     };
     handleLoginSuccess(user) {
         const { history, location } = this.props;
-        const { state } = location;
-        const toPathName = (state && state.from && state.from.pathname) || '/';
         user.client_id = '55d584fa0d074d71bebcaeea613013c3';
         user.grant_type = 'password';
         user.terminal = 'MC';
-        user.username = 'fuchao';
-        user.password = 'Aa123456';
         user.terminal_type = 'terminal_type';
-        this.props.authRequest(user, toPathName, history);
+        this.props.userLogin(user, { location, history });
     }
     handleSubmit = e => {
         e.preventDefault();
@@ -49,6 +45,7 @@ class Login extends React.PureComponent {
                 <Form className="login-form" onSubmit={this.handleSubmit}>
                     <FormItem>
                         {getFieldDecorator('username', {
+                            initialValue: 'fuchao',
                             rules: [{ required: true, message: '请输入您的用户名!' }]
                         })(
                             <Input
@@ -60,6 +57,7 @@ class Login extends React.PureComponent {
                     </FormItem>
                     <FormItem>
                         {getFieldDecorator('password', {
+                            initialValue: 'Aa123456',
                             rules: [{ required: true, message: '请输入您的用户密码!' }]
                         })(
                             <Input

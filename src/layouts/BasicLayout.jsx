@@ -7,13 +7,16 @@ import { getMenuData } from 'common/menuData';
 import AuthService from 'services/auth.service';
 
 import { uiActions } from 'reducers/ui';
-import { authDestroy } from 'reducers/auth';
+import { userActions } from 'reducers/auth';
 import Routes from 'routes/index';
 import logo from '../assets/logo.svg';
 
 const { Content, Footer, Header } = Layout;
 
-@connect(({ ui }) => ({ theme: ui.theme, sideBarCollapsed: ui.sideBarCollapsed }), { ...uiActions, authDestroy })
+@connect(({ ui }) => ({ theme: ui.theme, sideBarCollapsed: ui.sideBarCollapsed }), {
+    ...uiActions,
+    userLogout: userActions.userLogout
+})
 class BasicLayout extends React.PureComponent {
     constructor() {
         super();
@@ -51,7 +54,7 @@ class BasicLayout extends React.PureComponent {
         toggleTheme(theme);
     };
     handleLogout = () => {
-        this.props.authDestroy();
+        this.props.userLogout();
     };
     get layout() {
         const { theme, location } = this.props;

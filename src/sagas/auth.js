@@ -1,8 +1,9 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { types } from 'reducers/auth';
 import AuthService from 'services/auth.service';
-/* eslint-disable */
-function* authorize({ user, toPathName, history }) {
+
+function* userLogin({ payload }) {
+    const { user, location, history } = payload;
     try {
         const response = yield call(AuthService.login, user);
         /* eslint-disable camelcase */
@@ -15,31 +16,34 @@ function* authorize({ user, toPathName, history }) {
             uid: feiniu_user_id
         };
         yield put({
-            type: types.authSuccess,
+            type: types.userLoginSuccess,
             payload: loggedInUser
         });
-		yield AuthService.setUser(loggedInUser);
-        history.push({ pathname: toPathName });
+        yield AuthService.setUser(loggedInUser);
+        const { state } = location || {};
+        if (history && (state && state.from)) {
+            const toPathName = state.from.pathname || '/';
+            history.push({ pathname: toPathName });
+        } else {
+            window.location.href = '/';
+        }
     } catch (error) {
-        yield put({ type: types.authFailure, payload: error });
-        localStorage.removeItem('token');
+        yield put({ type: types.userLoginFailure, payload: error });
     }
 }
 
-function* unauthorize() {
-	try {
-		const response = yield call(AuthService.logout);
-		yield put({
-            type: types.unAuthorized
-        });
-	} catch (e) {
-		console.info(e);
-	}
+function* userLogout() {
+    try {
+        yield call(AuthService.logout);
+        yield put({ type: types.clearUserData });
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 export function* authSaga() {
-	yield all([
-		takeLatest(types.authRequest, authorize),
-		takeLatest(types.authDestroy, unauthorize)
-	]);
+    yield all([
+        takeLatest(types.userLogin, userLogin),
+        takeLatest(types.userLogout, userLogout)
+    ]);
 }

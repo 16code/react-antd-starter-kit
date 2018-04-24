@@ -23,6 +23,9 @@ class AuthService {
             resolve();
         });
     };
+    getUser() {
+        return localStorage.getItem('token');
+    }
     setUser(user) {
         return new Promise(resolve => {
             localStorage.setItem('token', JSON.stringify(user, ['token', 'refresh_token']));
