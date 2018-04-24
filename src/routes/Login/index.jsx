@@ -16,7 +16,7 @@ class Login extends React.PureComponent {
     handleLoginSuccess(user) {
         const { history, location } = this.props;
         const { state } = location;
-        const toPathName = state && state.from && state.from.pathname || '/';
+        const toPathName = (state && state.from && state.from.pathname) || '/';
         user.client_id = '55d584fa0d074d71bebcaeea613013c3';
         user.grant_type = 'password';
         user.terminal = 'MC';
@@ -38,12 +38,9 @@ class Login extends React.PureComponent {
     };
     getBtnText(state) {
         return state ? '登录中...' : '登 陆';
-		
     }
     render() {
-        const { isloading, form 
-		
-        			} = this.props;
+        const { isloading, form } = this.props;
         const { getFieldDecorator } = form;
         return (
             <div className="login-form-wrapper">
@@ -82,7 +79,7 @@ class Login extends React.PureComponent {
                         <a className="login-form-forgot" href="">
                             忘记密码
                         </a>
-                        <Button 
+                        <Button
                             loading={this.props.isloading}
                             size="large"
                             type="primary"

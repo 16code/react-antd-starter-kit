@@ -4,7 +4,8 @@ import SiderMenu from 'components/SiderMenu';
 import GlobalHeader from 'components/Header';
 import DocumentTitle from 'react-document-title';
 import { getMenuData } from 'common/menuData';
-import { authorizeHelper, getAuthority } from 'utils/AuthorizeHelper';
+import AuthService from 'services/auth.service';
+
 import { uiActions } from 'reducers/ui';
 import Routes from 'routes/index';
 import logo from '../assets/logo.svg';
@@ -16,7 +17,7 @@ class BasicLayout extends React.PureComponent {
     constructor() {
         super();
         this.menus = getMenuData();
-        this.currentUserRole = getAuthority();
+        this.currentUserRole = AuthService.getAuthority();
     }
     getFlatMenuKeys(menus) {
         let keys = {};
@@ -58,7 +59,7 @@ class BasicLayout extends React.PureComponent {
                     location={location}
                     menuData={this.menus}
                     collapsed={this.props.sideBarCollapsed}
-                    authorizeHelper={authorizeHelper}
+                    authorizeHelper={AuthService}
                     currentUserRole={this.currentUserRole}
                 />
                 <Layout>

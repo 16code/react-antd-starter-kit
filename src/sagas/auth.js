@@ -1,36 +1,24 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { types } from 'reducers/auth';
-
-const fetchUser = (url, options = {}) =>
-    new Promise((resolve, reject) => {
-        return fetch(url, options)
-            .then(resolve)
-            .catch(reject);
-    });
-
+import AuthService from 'services/auth.service';
+/* eslint-disable */
 function* authorize({ user, toPathName, history }) {
-    const options = {
-        body: user,
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' }
-    };
-
     try {
-        const response = yield call(fetchUser, '//stg-passport.feelbus.cn/connect/token', options);
+        const response = yield call(AuthService.login, user);
         /* eslint-disable camelcase */
         const { id_token, refresh_token, user_name, m_role, feiniu_user_id } = response;
-        const user = {
+        const loggedInUser = {
             token: id_token,
             refresh_token,
             user_name,
-            role: m_role,
+            role: m_role.toLowerCase(),
             uid: feiniu_user_id
         };
         yield put({
             type: types.authSuccess,
-            payload: user
+            payload: loggedInUser
         });
-        localStorage.setItem('token', JSON.stringify(user));
+		yield AuthService.setUser(loggedInUser);
         history.push({ pathname: toPathName });
     } catch (error) {
         yield put({ type: types.authFailure, payload: error });
