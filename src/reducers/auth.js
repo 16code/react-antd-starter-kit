@@ -2,7 +2,9 @@ import { createReducer } from 'utils';
 export const types = {
     authRequest: 'auth/Request',
     authSuccess: 'auth/Success',
-    authFailure: 'auth/Failure'
+    authFailure: 'auth/Failure',
+    authDestroy: 'auth/Destroy',
+    unAuthorized: 'auth/UnAuthorized'
 };
 
 export const authRequest = (user, toPathName, history) => ({
@@ -11,6 +13,11 @@ export const authRequest = (user, toPathName, history) => ({
     toPathName, 
     history
 });
+
+export const authDestroy = () => {
+    console.info('authDestroy');
+    return { type: types.authDestroy };
+};
 
 const initialState = {
     token: localStorage.getItem('token'),
@@ -21,9 +28,17 @@ const initialState = {
 export const authReducer = createReducer(initialState, {
     [types.authRequest]: request,
     [types.authSuccess]: success,
-    [types.authFailure]: error
+    [types.authFailure]: error,
+    [types.unAuthorized]: destroy
 });
 
+function destroy() {
+    return Object.assign({}, {
+        token: null,
+        isloading: false,
+        error: null
+    });
+}
 function request(state) {
     return { ...state, isloading: true };
 }

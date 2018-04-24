@@ -16,7 +16,7 @@ if (__MOCK__) {
     middlewares.push(loggerMiddleware);
 }
 
-const store = (initialState) => {
+const store = ((initialState) => {
     const s = createStore(
         rootReducers,
         initialState,
@@ -27,5 +27,5 @@ const store = (initialState) => {
     );
     sagaMiddleware.run(rootSagas);
     return s;
-};
+})();
 export { store };

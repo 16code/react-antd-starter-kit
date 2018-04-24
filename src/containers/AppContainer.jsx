@@ -7,7 +7,7 @@ import LoginLayout from 'layouts/LoginLayout';
 import { store } from './Store';
 
 const Container = () => (
-    <Provider store={store()}>
+    <Provider store={store}>
         <BrowserRouter>
             <Switch>
                 <Route path="/login" component={LoginLayout} exact />

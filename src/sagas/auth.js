@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { types } from 'reducers/auth';
 import AuthService from 'services/auth.service';
 /* eslint-disable */
@@ -26,6 +26,20 @@ function* authorize({ user, toPathName, history }) {
     }
 }
 
+function* unauthorize() {
+	try {
+		const response = yield call(AuthService.logout);
+		yield put({
+            type: types.unAuthorized
+        });
+	} catch (e) {
+		console.info(e);
+	}
+}
+
 export function* authSaga() {
-    yield takeLatest(types.authRequest, authorize);
+	yield all([
+		takeLatest(types.authRequest, authorize),
+		takeLatest(types.authDestroy, unauthorize)
+	]);
 }

@@ -7,12 +7,13 @@ import { getMenuData } from 'common/menuData';
 import AuthService from 'services/auth.service';
 
 import { uiActions } from 'reducers/ui';
+import { authDestroy } from 'reducers/auth';
 import Routes from 'routes/index';
 import logo from '../assets/logo.svg';
 
 const { Content, Footer, Header } = Layout;
 
-@connect(({ ui }) => ({ theme: ui.theme, sideBarCollapsed: ui.sideBarCollapsed }), { ...uiActions })
+@connect(({ ui }) => ({ theme: ui.theme, sideBarCollapsed: ui.sideBarCollapsed }), { ...uiActions, authDestroy })
 class BasicLayout extends React.PureComponent {
     constructor() {
         super();
@@ -49,6 +50,9 @@ class BasicLayout extends React.PureComponent {
         const { theme, toggleTheme } = this.props;
         toggleTheme(theme);
     };
+    handleLogout = () => {
+        this.props.authDestroy();
+    };
     get layout() {
         const { theme, location } = this.props;
         return (
@@ -68,6 +72,7 @@ class BasicLayout extends React.PureComponent {
                             collapsed={this.props.sideBarCollapsed}
                             onCollapse={this.handleToggleCollapse}
                             onToggleTheme={this.handleToggleTheme}
+                            onLogout={this.handleLogout}
                         />
                     </Header>
                     <Content style={{ margin: '24px 24px 0', height: '100%' }}>
