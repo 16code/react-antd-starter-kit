@@ -10,7 +10,7 @@ export const types = {
 };
 
 const initialState = {
-    token: AuthService.getUser(),
+    ...AuthService.getUser(),
     isloading: false,
     error: null
 };

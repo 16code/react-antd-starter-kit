@@ -7,13 +7,11 @@ function* userLogin({ payload }) {
     try {
         const response = yield call(AuthService.login, user);
         /* eslint-disable camelcase */
-        const { id_token, refresh_token, user_name, m_role, feiniu_user_id } = response;
+        const { token, refresh_token, role } = response;
         const loggedInUser = {
-            token: id_token,
+            token,
             refresh_token,
-            user_name,
-            role: m_role.toLowerCase(),
-            uid: feiniu_user_id
+            role: role.toLowerCase()
         };
         yield put({
             type: types.userLoginSuccess,
@@ -37,7 +35,7 @@ function* userLogout() {
         yield call(AuthService.logout);
         yield put({ type: types.clearUserData });
     } catch (error) {
-        console.log(error);
+        yield put({ type: types.clearUserData });
     }
 }
 

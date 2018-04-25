@@ -21,25 +21,28 @@ const routeConfig = {
     }
 };
 
-export default function Routes(props) {
-    return (
-        <RouteShell>
-            <Switch>
-                {Object.keys(routeConfig).map(path => {
-                    const { component, exact } = routeConfig[path];
-                    return (
-                        <AuthorizedRoute
-                            currentUserRole={props.currentUserRole}
-                            key={path}
-                            path={path}
-                            component={component}
-                            exact={!!exact}
-                        />
-                    );
-                })};
-                <RouteNotFound />
-            </Switch>
-        </RouteShell>
-    );
+export default class Routes extends React.PureComponent {
+    render() {
+        const { props } = this;
+        return (
+            <RouteShell>
+                <Switch>
+                    {Object.keys(routeConfig).map(path => {
+                        const { component, exact } = routeConfig[path];
+                        return (
+                            <AuthorizedRoute
+                                currentUserRole={props.currentUserRole}
+                                key={path}
+                                path={path}
+                                component={component}
+                                exact={!!exact}
+                            />
+                        );
+                    })};
+                    <RouteNotFound />
+                </Switch>
+            </RouteShell>
+        );
+    }
 }
 Routes.displayName = 'Routes';

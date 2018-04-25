@@ -1,4 +1,9 @@
 import fetchIntercept from 'fetch-intercept';
+import { notification } from 'antd';
+import AuthService from '../services/auth.service';
+// import { store } from '../containers/Store';
+// console.info(store.getState());
+
 const baseConfig = {
     method: 'GET',
     credentials: 'same-origin',
@@ -11,9 +16,13 @@ const baseConfig = {
 fetchIntercept.register({
     request: function (url, cfg = {}) {
         if (!/^\/\/[^ "]+$/.test(url)) {
-            url = `//stg.feelbus.cn${/^\//.test(url) ? url : '/'+url}`;
+            url = `//localhost:3000/api${/^\//.test(url) ? url : '/'+url}`;
         }
         const config = Object.assign({}, baseConfig, cfg);
+        const user = AuthService.getUser();
+        if (user && user.token) {
+            config.headers.Authorization = user.token;
+        }
         const { method, body, headers, params } = config;
         const methods = ['POST', 'DELETED', 'PUT', 'PATCH'];
         if(methods.includes(method) && body) {
@@ -43,7 +52,10 @@ fetchIntercept.register({
                 case (status >= 200 && status < 300):
                     handleResponseOk(response, resolve);
                     break;
-			
+                case status === 401:
+                    handleResponseError(response, reject);
+                    // setTimeout(handleResponseError(response, reject), 10000);
+                    break;
                 default:
                     handleResponseError(response, reject);
                     break;
@@ -67,7 +79,10 @@ function handleResponseOk(response, resolve) {
 function handleResponseError(response, reject) {
     response.json()
         .then(json => reject(handleErrorData(response, json)))
-        .catch(() => reject(handleErrorData(response)));
+        .catch((e) => {
+            console.info(e);
+            reject(handleErrorData(response));
+        });
 }
 function handleResponseData(response) {
     const contentType = response.headers.get('content-type');
@@ -84,24 +99,28 @@ function handleResponseData(response) {
 }
 
 function handleErrorData(response, json) {
-    const errorInfos = {
+    const errorInfo = {
         status: response.status,
         statusText: response.statusText,
         msg: null
     };
     if (response.status >= 500) {
-        errorInfos.msg = response.statusText;
+        errorInfo.msg = response.statusText;
     } else {
         if (Array.isArray(json)) {
             json.forEach(err => {
-                errorInfos.msg = err.error_description;
+                errorInfo.msg = err.error_description;
             });
-        } else if (json !== null && typeof json === 'object' 
-			&& Object.prototype.toString.toString.call(json) === '[object Object]') {
-            errorInfos.msg = json.error_description;
+        } else {
+            errorInfo.msg = json.error_description;
         }
     }
-    return errorInfos;
+    notification.error({
+        message: `${errorInfo.status} ${errorInfo.statusText}`,
+        description: errorInfo.msg,
+        duration: 4
+    });	
+    return errorInfo;
 }
 
 function objToUrlParams(obj) {
