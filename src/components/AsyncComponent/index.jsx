@@ -1,5 +1,5 @@
-export default function asyncComponent(getComponent) {
-    return class AsyncComponent extends React.Component {
+export default function asyncCmp(getComponent) {
+    return class AsyncComponent extends React.PureComponent {
         static Component = null;
         state = { Component: AsyncComponent.Component };
         constructor() {
@@ -20,11 +20,13 @@ export default function asyncComponent(getComponent) {
         }
         componentWillUnmount() {
             this.unMount = true;
+            if(this.child) this.child.setState = () => {};
         }
         render() {
+            console.info('AsyncComponent render');
             const { Component } = this.state;
             if (Component) {
-                return <Component {...this.props} />;
+                return <Component ref={node => (this.child = node)} {...this.props} />;
             }
             return <div>Loading...</div>;
         }

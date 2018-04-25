@@ -1,7 +1,6 @@
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-import AuthorizedRoute from 'components/AuthComponent';
 import BasicLayout from 'layouts/BasicLayout';
 import LoginLayout from 'layouts/LoginLayout';
 import { store } from './Store';
@@ -11,8 +10,12 @@ const Container = () => (
         <BrowserRouter>
             <Switch>
                 <Route path="/login" component={LoginLayout} exact />
-                <Redirect from="/" to="/home" exact />
-                <AuthorizedRoute path="/" component={BasicLayout} redirectPath="/login" />
+                <Redirect from="/" to="/dashboard" exact />
+                <Route
+                    path="/"
+                    render={props => store.getState().auth.token ?
+                        <BasicLayout {...props} /> : <Redirect to="/login" />}
+                />
             </Switch>
         </BrowserRouter>
     </Provider>
