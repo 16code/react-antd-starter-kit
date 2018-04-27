@@ -37,4 +37,6 @@ export function decrypt(str) {
     return c;
 }
 
-export { pathToRegexp };
+const delay = (ms) => new Promise(res => setTimeout(res, ms));
+
+export { pathToRegexp, delay };

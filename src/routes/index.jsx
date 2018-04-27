@@ -24,7 +24,6 @@ const routeConfig = {
 export default class Routes extends React.PureComponent {
     render() {
         const { props } = this;
-	        console.info('componentDidMount');
         return (
             <RouteShell>
                 <Switch>

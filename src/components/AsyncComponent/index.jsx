@@ -1,7 +1,6 @@
-export default function asyncCmp(getComponent) {
+const asyncComponent = getComponent => {
     return class AsyncComponent extends React.PureComponent {
-        static Component = null;
-        state = { Component: AsyncComponent.Component };
+        state = { Component: null };
         constructor() {
             super();
             this.unMount = false;
@@ -10,7 +9,6 @@ export default function asyncCmp(getComponent) {
             if (!this.state.Component) {
                 getComponent()
                     .then(({ default: Component }) => {
-                        AsyncComponent.Component = Component;
                         !this.unMount && this.setState({ Component });
                     })
                     .catch(e => {
@@ -30,4 +28,6 @@ export default function asyncCmp(getComponent) {
             return <div>Loading...</div>;
         }
     };
-}
+};
+
+export default asyncComponent;
