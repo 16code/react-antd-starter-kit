@@ -4,10 +4,15 @@ import fetchIntercept from '../utils/fetch-intercept';
 import AuthService from '../services/auth.service';
 import { store } from '../containers/Store';
 const API_GATEWAY = '//localhost:3000/api';
-function isUrl(url) {
-    const urlRegex = /^http(s)?|^\/\//;
-    return urlRegex.test(url);
-}
+const POST_HTTP_METHODS = ['POST', 'DELETED', 'PUT', 'PATCH'];
+
+/**
+ * fetch 拦截器 fetch(url, options)
+ * @example
+ * get 示例 fetch('path/to/url', { param: paramObj })
+ * post示例 fetch('path/to/url', { method: 'POST',  body: paramObj })
+ */
+
 fetchIntercept.register({
     request: function(url, cfg = {}) {
         const baseConfig = {
@@ -19,7 +24,7 @@ fetchIntercept.register({
                 'Content-Type': 'application/json; charset=utf-8'
             }
         };
-        if (!isUrl(url)) {
+        if (!isHttpUrl(url)) {
             url = `${API_GATEWAY}${/^\//.test(url) ? url : '/' + url}`;
         }
         const config = Object.assign({}, baseConfig, cfg);
@@ -28,13 +33,9 @@ fetchIntercept.register({
             config.headers.Authorization = user.token;
         }
         const { method, body, headers, params } = config;
-        const methods = ['POST', 'DELETED', 'PUT', 'PATCH'];
-        if (methods.includes(method) && body) {
-            if (headers['Content-Type'].includes('urlencoded')) {
-                config.body = objToUrlParams(body);
-            } else {
-                config.body = JSON.stringify(body);
-            }
+        if (POST_HTTP_METHODS.includes(method.toUpperCase()) && body) {
+            config.body = headers['Content-Type'].includes('urlencoded') ?
+                config.body = objToUrlParams(body) : JSON.stringify(body);
         }
         if (params) {
             url = `${url}?${objToUrlParams(params)}`;
@@ -43,7 +44,6 @@ fetchIntercept.register({
     },
 
     requestError: function(error) {
-        console.info(error);
         return Promise.reject(error);
     },
 
@@ -151,4 +151,8 @@ function objToUrlParams(obj) {
     const keys = Object.keys(obj).filter(key => !!obj[key]);
     const data = keys.map(key => `${encodeURIComponent(key)}=${encodeURIComponent(obj[key])}`);
     return data.join('&');
+}
+function isHttpUrl(url) {
+    const urlRegex = /^http(s)?|^\/\//;
+    return urlRegex.test(url);
 }

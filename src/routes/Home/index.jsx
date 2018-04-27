@@ -1,48 +1,38 @@
 export default class Home extends React.PureComponent {
-	state = {
-
-	}
+	state = {}
 	componentDidMount() {
-	    console.info('componentDidMount home');
 	    fetch('/list', {
 	        params: {
 	            page: 1,
 	            take: 10	
 	        }
-	    })
-	        .then(res => {
-	            console.log(res);
-	            this.setState({ list: res });
+	    }).then(res => {
+	        console.info(res);
 	        })
 	        .catch(error => {
 	            console.info(error, 'list');
 	        });
 	    fetch('/test').then(res => {
-	        console.log(res);
-	        this.setState({ test: res });
+	        console.info(res);
 	    })
 	        .catch(error => {
 	            console.info(error, 'test');
 	        });
 	    fetch('/post', {
 	        method: 'POST',
-	        params: {
-	            page: 1,
-	            take: 10	
-	        },
 	        body: {
 	            user: 'lx',
 	            pwd: 'hhahahah'
 	        }
 	    }).then(res => {
-	        console.log(res);
-	        this.setState({ post: res });
+	        /* eslint react/no-unused-state: 0 */
+	        console.info(res);
 	    })
 	        .catch(error => {
 	            console.info(error, 'test');
 	        });
 	}
 	render() {
-	    return <div>HOME</div>;
+	    return <div>13131</div>;
 	}
 }

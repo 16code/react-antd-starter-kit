@@ -61,7 +61,7 @@
         "quotes": [2, "single"],
         "jsx-quotes": ["error", "prefer-double"],
         "quote-props": [2, "as-needed"],
-        "max-len": [2, 120],
+        "max-len": [2, { "code": 120, "ignoreUrls": true }],
         "curly": [2, "multi-line"],
         "no-console": 0,
         "comma-spacing": [
@@ -136,6 +136,7 @@
         "react/jsx-curly-spacing": [2, "never"],
         "react/prefer-es6-class": [2, "always"],
         "react/jsx-equals-spacing": [2, "never"],
+        "react/jsx-space-before-closing": [2, "always"],
         "react/jsx-tag-spacing": [
             2,
             {
@@ -143,7 +144,25 @@
                 "closingSlash": "never"
             }
         ],
-        "react/jsx-first-prop-new-line": [2, "multiline-multiprop"]
+        "react/jsx-first-prop-new-line": [2, "multiline-multiprop"],
+        "react/boolean-prop-naming": ["error", { "rule": "^(is|has)[A-Z]([A-Za-z0-9]?)+" }],
+        "react/no-children-prop": 2,
+        "react/no-danger": 2,
+        "react/no-did-update-set-state": 2,
+        "react/no-direct-mutation-state": 2,
+        "react/no-find-dom-node": 2,
+        "react/no-string-refs": 2,
+        "react/no-unused-state": 2,
+        "react/no-will-update-set-state": 2,
+        "react/forbid-elements": [
+            2,
+            {
+                "forbid": [
+                    { "element": "button", "message": "use <Button> instead" },
+                    { "element": "input", "message": "use <Input> instead" }
+                ]
+            }
+        ]
     },
     "settings": {
         "import/resolver": {
