@@ -1,7 +1,6 @@
 export default class Monitor extends React.Component {
     state = {};
     componentDidMount() {
-        console.info('componentDidMount Monitor');
         fetch('/list', {
             params: {
                 page: 1,

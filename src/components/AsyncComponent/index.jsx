@@ -23,7 +23,6 @@ export default function asyncCmp(getComponent) {
             if(this.child) this.child.setState = () => {};
         }
         render() {
-            console.info('AsyncComponent render');
             const { Component } = this.state;
             if (Component) {
                 return <Component ref={node => (this.child = node)} {...this.props} />;
