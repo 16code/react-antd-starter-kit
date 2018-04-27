@@ -1,8 +1,13 @@
 import { notification } from 'antd';
+import { types as authTypes } from 'reducers/auth';
 import fetchIntercept from '../utils/fetch-intercept';
 import AuthService from '../services/auth.service';
 import { store } from '../containers/Store';
-
+const API_GATEWAY = '//localhost:3000/api';
+function isUrl(url) {
+    const urlRegex = /^http(s)?|^\/\//;
+    return urlRegex.test(url);
+}
 fetchIntercept.register({
     request: function(url, cfg = {}) {
         const baseConfig = {
@@ -14,8 +19,8 @@ fetchIntercept.register({
                 'Content-Type': 'application/json; charset=utf-8'
             }
         };
-        if (!/^\/\/[^ "]+$/.test(url)) {
-            url = `//localhost:3000/api${/^\//.test(url) ? url : '/' + url}`;
+        if (!isUrl(url)) {
+            url = `${API_GATEWAY}${/^\//.test(url) ? url : '/' + url}`;
         }
         const config = Object.assign({}, baseConfig, cfg);
         const user = AuthService.getUser();
@@ -38,7 +43,6 @@ fetchIntercept.register({
     },
 
     requestError: function(error) {
-        // Called when an error occurred during another 'request' interceptor call
         console.info(error);
         return Promise.reject(error);
     },
@@ -79,15 +83,15 @@ function handleRefreshToken(requestArgs, resolve, reject) {
     if (isRefreshing) { 
         handleWatchState(requestArgs, resolve, reject);
     } else {
-        store.dispatch({ type: 'user/refreshToken' });
+        store.dispatch({ type: authTypes.authRefreshToken });
         AuthService.refreshToken()
             .then(res => {
-                store.dispatch({ type: 'user/refreshTokenSuccess', user: res });
+                store.dispatch({ type: authTypes.authRefreshTokenSuccess, user: res });
                 fetch(...requestArgs).then(resolve).catch(reject);
             })
             .catch((err) => {
                 reject(err);
-                store.dispatch({ type: 'user/refreshTokenFailure' });
+                store.dispatch({ type: authTypes.authRefreshTokenFailure });
             });
     }
 }

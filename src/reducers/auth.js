@@ -1,3 +1,7 @@
+/**
+ * 用户登陆, token刷新
+ */
+
 import { createReducer } from 'utils/index';
 import AuthService from 'services/auth.service';
 
@@ -6,9 +10,9 @@ export const types = {
     userLogout: 'user/logout',
     userLoginSuccess: 'user/loginSuccess',
     userLoginFailure: 'user/loginFailure',
-    userRefreshToken: 'user/refreshToken',
-    userRefreshTokenSuccess: 'user/refreshTokenSuccess',
-    userRefreshTokenFailure: 'user/refreshTokenFailure',
+    authRefreshToken: 'auth/refreshToken',
+    authRefreshTokenSuccess: 'auth/refreshTokenSuccess',
+    authRefreshTokenFailure: 'auth/refreshTokenFailure',
     clearUserData: 'user/clearUserData'
 };
 
@@ -30,12 +34,12 @@ export const userActions = {
 
 // Reducers
 export const authReducer = createReducer(initialState, {
-    [types.userLogin]: login,
-    [types.userLoginSuccess]: success,
-    [types.userLoginFailure]: failure,
-    [types.userRefreshToken]: refreshToken,
-    [types.userRefreshTokenSuccess]: refreshTokenSuccess,
-    [types.userRefreshTokenFailure]: clearUserData,
+    [types.userLogin]: userLogin,
+    [types.userLoginSuccess]: userLoginSuccess,
+    [types.userLoginFailure]: userLoginFailure,
+    [types.authRefreshToken]: refreshToken,
+    [types.authRefreshTokenSuccess]: refreshTokenSuccess,
+    [types.authRefreshTokenFailure]: clearUserData,
     [types.clearUserData]: clearUserData
 });
 
@@ -48,13 +52,12 @@ function refreshTokenSuccess(state, action) {
 function clearUserData() {
     return { isloading: false, isRefreshing: true, error: null, token: null };
 }
-
-function login(state) {
+function userLogin(state) {
     return { ...state, isloading: true };
 }
-function success(state, action) {
+function userLoginSuccess(state, action) {
     return { ...state, ...action.payload, isloading: false, isRefreshing: false };
 }
-function failure(state, action) {
+function userLoginFailure(state, action) {
     return { ...state, error: action.payload, isloading: false };
 }
