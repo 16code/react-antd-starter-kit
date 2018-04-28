@@ -1,7 +1,7 @@
 import { createReducer } from 'utils';
 const types = {
     toggleTheme: 'ui/toggleTheme',
-    toggleSideBarCollaps: 'ui/toggleSideBarCollaps'
+    toggleSideBarMenu: 'ui/toggleSideBarMenu'
 };
 const initialState = {
     theme: localStorage.getItem('app-theme') || 'dark',
@@ -10,12 +10,12 @@ const initialState = {
 
 export const uiReducer = createReducer(initialState, {
     [types.toggleTheme]: toggleTheme,
-    [types.toggleSideBarCollaps]: toggleSideBarCollaps
+    [types.toggleSideBarMenu]: toggleSideBarMenu
 });
 
 export const uiActions = {
     toggleTheme: (theme) => ({ type: types.toggleTheme, theme }),
-    toggleSideBarCollaps: (collapsed) => ({ type: types.toggleSideBarCollaps, collapsed })
+    toggleSideBarMenu: (collapsed) => ({ type: types.toggleSideBarMenu, collapsed })
 };
 
 // 切换主题
@@ -23,7 +23,7 @@ function toggleTheme(state, action) {
     return Object.assign({}, state, { theme: getChangeTheme(action.theme) } );
 }
 // 切换SideBar是否展开
-function toggleSideBarCollaps(state, action) {
+function toggleSideBarMenu(state, action) {
     localStorage.setItem('app-sidebar-collapsed', action.collapsed);
     return Object.assign({}, state, { sideBarCollapsed: action.collapsed } );
 }

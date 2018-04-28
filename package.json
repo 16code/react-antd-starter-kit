@@ -6,7 +6,7 @@
     "scripts": {
         "start": "cross-env BABEL_ENV=development webpack-dev-server --inline --hot --env.mock",
         "build:css": "webpack --config webpack.css.js -p",
-        "build:prod": "cross-env BABEL_ENV=production webpack -p --progress --colors --display minimal --env.prod",
+        "build": "cross-env BABEL_ENV=production webpack -p --progress --colors --display minimal --env.prod",
         "lint": "node_modules/.bin/eslint --cache --cache-location '.eslintcache/' --config .eslintrc --quiet './src/**/*.js' './src/**/*.jsx'"
     },
     "repository": {

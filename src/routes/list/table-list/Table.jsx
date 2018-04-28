@@ -28,5 +28,5 @@ for (let i = 0; i < 100; i++) {
 }
 
 export default function T() {
-    return <Table columns={columns} pagination={{ pageSize: 20 }} dataSource={data} />;
+    return <Table columns={columns} pagination={{ pageSize: 20 }} dataSource={data} scroll={{ x: 980 }} />;
 }

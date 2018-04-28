@@ -3,8 +3,7 @@ import React from 'react';
 import DrawerMenu from 'rc-drawer-menu';
 import SiderMenu from './SiderMenu';
 
-export default function Test(props) {
-    console.info(props.isMobile);
+export default function AppSiderMenu(props) {
     return props.isMobile ? (
         <DrawerMenu
             parent={null}
