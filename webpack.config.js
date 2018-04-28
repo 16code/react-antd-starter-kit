@@ -184,6 +184,12 @@ function webpackConfig(env) {
             headers: {
                 'Access-Control-Allow-Origin': '*'
             },
+            proxy: {
+                '/api': {
+                    target: 'http://localhost:3000/api',
+                    pathRewrite: { '^/api': '' }
+                }
+            },
             contentBase: distPath,
             publicPath: '/',
             historyApiFallback: true,

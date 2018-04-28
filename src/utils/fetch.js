@@ -3,7 +3,7 @@ import { types as authTypes } from 'reducers/auth';
 import fetchIntercept from '../utils/fetch-intercept';
 import AuthService from '../services/auth.service';
 import { store } from '../containers/Store';
-const API_GATEWAY = '//localhost:3000/api';
+const API_GATEWAY = '/api';
 const POST_HTTP_METHODS = ['POST', 'DELETED', 'PUT', 'PATCH'];
 
 /**

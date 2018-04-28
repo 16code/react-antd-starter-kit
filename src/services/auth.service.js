@@ -6,7 +6,7 @@ const USER_TOKEN_KEY_NAME = 'USER_TOKEN';
 const ONLY_CACHED_KEYS = ['token', 'refresh_token', 'role'];
 
 class AuthService {
-    url = '//localhost:3000/api/login';
+    url = '/login';
     options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8' }
@@ -37,7 +37,7 @@ class AuthService {
 	    // });	
 	    const options = {
 	        method: 'POST',
-	        url: '//localhost:3000/api/refreshToken',
+	        url: '/api/refreshToken',
 	        headers: {
 	            'Content-Type': 'application/json'
 	        }

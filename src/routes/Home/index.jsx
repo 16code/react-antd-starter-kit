@@ -25,7 +25,6 @@ export default class Home extends React.PureComponent {
 	            pwd: 'hhahahah'
 	        }
 	    }).then(res => {
-	        /* eslint react/no-unused-state: 0 */
 	        console.info(res);
 	    })
 	        .catch(error => {
