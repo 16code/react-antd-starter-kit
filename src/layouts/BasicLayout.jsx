@@ -85,10 +85,11 @@ class BasicLayout extends React.PureComponent {
 	    }
 	    return title;
 	}
-    handleToggleCollapse = collapsed => {
-        const { toggleSideBarCollaps } = this.props;
-        toggleSideBarCollaps(collapsed);
-    };
+	handleToggleCollapse = collapsed => {
+	    console.info(collapsed);
+	    const { toggleSideBarCollaps } = this.props;
+	    toggleSideBarCollaps(collapsed);
+	};
     handleToggleTheme = () => {
         const { theme, toggleTheme } = this.props;
         toggleTheme(theme);

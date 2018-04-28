@@ -1,5 +1,6 @@
-export default class TableList extends React.Component {
+import Table from './Table';
+export default class TableList extends React.PureComponent {
     render() {
-        return <div>TableList</div>;
+        return <div>Table List<Table /></div>;
     }
 }

@@ -9,9 +9,9 @@ export default class Forms extends React.PureComponent {
         const { match } = this.props;
         return (
             <div>
-                <Route exact path={`${match.url}/table-list`} component={Tablelist} />
-                <Route exact path={match.url} render={() => <Redirect to={`${match.url}/table-list`} />} />
-                <Route path={`${match.url}/search`} component={Search} />
+                <Route exact path={`${match.path}/table-list`} component={Tablelist} />
+                <Route exact path={match.path} render={() => <Redirect to={`${match.path}/table-list`} />} />
+                <Route path={`${match.path}/search`} component={Search} />
             </div>
         );
     }

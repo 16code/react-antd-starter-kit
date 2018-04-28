@@ -4,6 +4,7 @@ import DrawerMenu from 'rc-drawer-menu';
 import SiderMenu from './SiderMenu';
 
 export default function Test(props) {
+    console.info(props.isMobile);
     return props.isMobile ? (
         <DrawerMenu
             parent={null}
