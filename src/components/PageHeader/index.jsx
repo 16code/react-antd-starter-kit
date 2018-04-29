@@ -7,7 +7,6 @@ import { urlToList } from 'utils';
 import styles from './index.less';
 
 const { TabPane } = Tabs;
-
 export default class PageHeader extends PureComponent {
     static contextTypes = {
         routesMap: PropTypes.object,

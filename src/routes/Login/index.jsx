@@ -45,7 +45,7 @@ class Login extends React.PureComponent {
                 <Form className="login-form" onSubmit={this.handleSubmit}>
                     <FormItem>
                         {getFieldDecorator('username', {
-                            initialValue: 'fuchao',
+                            initialValue: 'liuxin',
                             rules: [{ required: true, message: '请输入您的用户名!' }]
                         })(
                             <Input

@@ -22,7 +22,7 @@ function HeaderMenu(props) {
                 <Avatar
                     size="small"
                     icon="user"
-                    src={require('../../assets/avatar.jpg')}
+                    src={require('../../assets/avatar.png')}
                     className={styles.avatar}
                 />
                 <span className={styles.name}>Liuxin Test</span>
