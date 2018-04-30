@@ -43,7 +43,7 @@ class Login extends React.PureComponent {
                 {this.props.isloading}
                 <img src={require('./logo.png')} alt="logo" className="logo" />
                 <Form className="login-form" onSubmit={this.handleSubmit}>
-                    <FormItem>
+                    <FormItem key="username">
                         {getFieldDecorator('username', {
                             initialValue: 'liuxin',
                             rules: [{ required: true, message: '请输入您的用户名!' }]
@@ -55,7 +55,7 @@ class Login extends React.PureComponent {
                             />
                         )}
                     </FormItem>
-                    <FormItem>
+                    <FormItem key="password">
                         {getFieldDecorator('password', {
                             initialValue: 'Aa123456',
                             rules: [{ required: true, message: '请输入您的用户密码!' }]

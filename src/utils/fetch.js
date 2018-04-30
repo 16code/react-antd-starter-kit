@@ -1,5 +1,6 @@
 import { notification } from 'antd';
 import { types as authTypes } from 'reducers/auth';
+import { types as ajaxTypes } from 'reducers/ajax';
 import fetchIntercept from '../utils/fetch-intercept';
 import AuthService from '../services/auth.service';
 import { store } from '../containers/Store';
@@ -12,6 +13,7 @@ const POST_HTTP_METHODS = ['POST', 'DELETED', 'PUT', 'PATCH'];
  * get 示例 fetch('path/to/url', { param: paramObj })
  * post示例 fetch('path/to/url', { method: 'POST',  body: paramObj })
  */
+const pendingRequest = [];
 
 fetchIntercept.register({
     request: function(url, cfg = {}) {
@@ -40,6 +42,10 @@ fetchIntercept.register({
         if (params) {
             url = `${url}?${objToUrlParams(params)}`;
         }
+        if (!pendingRequest.length) {
+            store.dispatch({ type: ajaxTypes.ajaxRequest });
+        }
+        pendingRequest.push(url);
         return [url, config];
     },
 
@@ -47,7 +53,8 @@ fetchIntercept.register({
         return Promise.reject(error);
     },
 
-    response: function(response, requestArgs) {
+    response: function (response, requestArgs) {
+        pendingRequest.shift();
         const status = response.status;
         return new Promise((resolve, reject) => {
             switch (true) {
@@ -60,6 +67,12 @@ fetchIntercept.register({
                 default:
                     reject(handleResponseError(response));
                     break;
+            }
+            if (!pendingRequest.length) {
+                const timer = setTimeout(() => {
+                    clearTimeout(timer);
+                    store.dispatch({ type: ajaxTypes.ajaxDone });
+                }, 1000);
             }
         });
     },

@@ -1,3 +1,4 @@
+import { Loading } from '../Loading';
 const asyncComponent = getComponent => {
     return class AsyncComponent extends React.PureComponent {
         state = { Component: null };
@@ -23,9 +24,9 @@ const asyncComponent = getComponent => {
         render() {
             const { Component } = this.state;
             if (Component) {
-                return <Component ref={node => (this.child = node)} {...this.props} />;
+                return <Component key="Component" ref={node => (this.child = node)} {...this.props} />;
             }
-            return <div>Loading...</div>;
+            return <Loading key="Loading" size="small" />;
         }
     };
 };

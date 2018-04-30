@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { ContainerQuery } from 'react-container-query';
 import SiderMenu from 'components/SiderMenu';
 import GlobalHeader from 'components/GlobalHeader';
+import { ButterBar } from 'components/Loading';
 import DocumentTitle from 'react-document-title';
 import { getMenuData } from 'common/menuData';
 import AuthService from 'services/auth.service';
@@ -40,7 +41,7 @@ let isMobile;
 enquireScreen(b => {
     isMobile = b;
 });
-@connect(({ ui }) => ({ theme: ui.theme, sideBarCollapsed: ui.sideBarCollapsed }), {
+@connect(({ ui, ajax }) => ({ theme: ui.theme, sideBarCollapsed: ui.sideBarCollapsed, isFetching: ajax.isFetching }), {
     ...uiActions,
     userLogout: userActions.userLogout
 })
@@ -110,7 +111,7 @@ class BasicLayout extends React.PureComponent {
         }
     };
     get layout() {
-        const { theme, location } = this.props;
+        const { theme, location, history, match, staticContext } = this.props;
         return (
             <Layout>
                 <SiderMenu
@@ -134,8 +135,15 @@ class BasicLayout extends React.PureComponent {
                             onCollapse={this.handleToggleCollapse}
                         />
                     </Header>
+                    <ButterBar key="ButterBar" visible={this.props.isFetching} />
                     <Content style={{ margin: '24px 24px 0', height: '100%' }}>
-                        <Routes currentUserRole={this.currentUserRole} {...this.props} />
+                        <Routes
+                            currentUserRole={this.currentUserRole}
+                            location={location}
+                            history={history}
+                            match={match}
+                            staticContext={staticContext}
+                        />		
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>@2018</Footer>
                 </Layout>

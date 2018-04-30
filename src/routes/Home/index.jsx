@@ -7,13 +7,13 @@ export default class Home extends React.PureComponent {
 	            take: 10	
 	        }
 	    }).then(res => {
-	        console.info(res);
+	        this.setState({ list: res });
 	        })
 	        .catch(error => {
 	            console.info(error, 'list');
 	        });
 	    fetch('/test').then(res => {
-	        console.info(res);
+	        this.setState({ test: res });
 	    })
 	        .catch(error => {
 	            console.info(error, 'test');
@@ -25,13 +25,14 @@ export default class Home extends React.PureComponent {
 	            pwd: 'hhahahah'
 	        }
 	    }).then(res => {
-	        console.info(res);
+	        this.setState({ post: res });
 	    })
 	        .catch(error => {
 	            console.info(error, 'test');
 	        });
 	}
 	render() {
+	    console.log(this.state);
 	    return <div>13131</div>;
 	}
 }
