@@ -1,13 +1,18 @@
 import { PureComponent } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Breadcrumb, Tabs } from 'antd';
 import classNames from 'classnames';
-import { Link, withRouter } from 'react-router-dom';
 import { urlToList } from 'utils';
+import { getMenuData, getMenuDataPathKeys } from 'common/menuData';
 import styles from './index.less';
-
+const menuData = getMenuData();
+const menuDataPathKeys = getMenuDataPathKeys(menuData);
 const { TabPane } = Tabs;
 class PageHeader extends PureComponent {
+	static defaultProps = {
+	    routesMap: menuDataPathKeys
+	}
     static propTypes = {
         routesMap: PropTypes.object.isRequired,
         location: PropTypes.object.isRequired

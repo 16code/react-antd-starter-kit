@@ -1,5 +1,5 @@
+import { Redirect, Route, Switch, Link } from 'react-router-dom';
 import AsyncComponent from 'components/AsyncComponent';
-import { Redirect, Route, Switch, Link, RouteNotFound } from 'routes/shell';
 import PageHeaderLayout from 'layouts/PageHeaderLayout';
 
 const Basic = AsyncComponent(() => import('./basic-form'));
@@ -28,11 +28,11 @@ export default class Forms extends React.PureComponent {
                 <br />
                 <Link to={'/form/step-form1111'}>404页面</Link>
                 <Switch>
+                    <Redirect exact from={match.path} to={`${match.path}/basic-form`} />
                     <Route exact path={`${match.path}/step-form/:userId`} component={Topic} />
                     <Route exact path={`${match.path}/step-form`} component={Step} />
                     <Route exact path={`${match.path}/basic-form`} component={Basic} />
-                    <Redirect exact from={match.path} to={`${match.path}/basic-form`} />
-                    <RouteNotFound />
+                    <Route render={() => <Redirect to="/404" />} />
                 </Switch>
             </PageHeaderLayout>
         );

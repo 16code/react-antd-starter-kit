@@ -32,13 +32,13 @@ const AuthorizedRoute = ({ component: ComposedComponent, ...rest }) => {
     class AuthComponent extends React.PureComponent {
         componentRender = props => {
             const { location } = props;
-            const { currentUserRole } = rest;
+            const { userRole } = rest;
             if (this.props.token) {
                 const { authRole } = menuDataPathKeys[location.pathname] || {};
-                if (authRole && currentUserRole && !~authRole.indexOf(currentUserRole)) {
+                if (authRole && userRole && !~authRole.indexOf(userRole)) {
                     return prmissionDeniedePage(props);
                 }
-                return <ComposedComponent routesMap={menuDataPathKeys} {...props} />;
+                return <ComposedComponent {...props} />;
             }
             return loginPage(props);
         };

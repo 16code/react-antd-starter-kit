@@ -1,5 +1,5 @@
 import { Icon, Menu, Dropdown, Avatar, Tooltip, Divider } from 'antd';
-import { Link } from 'routes/shell';
+import { Link } from 'react-router-dom';
 import styles from './index.less';
 
 function HeaderMenu(props) {

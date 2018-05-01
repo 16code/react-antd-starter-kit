@@ -80,8 +80,9 @@ export default function D(props) {
             breadcrumbList={breadcrumbList}
             tabList={tabList}
             tabActiveKey="detail"
-            {...props}
             onTabChange={onTabChange}
-        />
+        >
+            {props.children}	
+        </PageHeaderLayout>	
     );
 };

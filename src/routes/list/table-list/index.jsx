@@ -37,7 +37,7 @@ export default class TableList extends React.PureComponent {
             });
         }
         return (
-            <Header routesMap={this.props.routesMap}>
+            <Header>
                 <DynamicTable
                     dataSource={data}
                     columns={columns}

@@ -1,18 +1,19 @@
 import AsyncComponent from 'components/AsyncComponent';
-import { Redirect, Route } from 'react-router-dom';
+import { Switch, Redirect, Route } from 'react-router-dom';
 
 const Monitor = AsyncComponent(() => import('./monitor'));
-const Analysis = AsyncComponent(() => import('./analysis?chunk=home'));
+const Analysis = AsyncComponent(() => import('./analysis'));
 
 export default class Dashboard extends React.Component {
     render() {
         const { match } = this.props;
         return (
-            <div>
-                <Route exact path={`${match.path}/monitor`} component={Monitor} />
+            <Switch>
+                <Redirect exact from="/dashboard" to="/dashboard/analysis" />
                 <Route exact path={`${match.path}/analysis`} component={Analysis} />
-                <Route exact path={match.path} render={() => <Redirect to="/dashboard/monitor" />} />
-            </div>
+                <Route exact path={`${match.path}/monitor`} component={Monitor} />
+                <Route render={() => <Redirect to="/404" />} />
+            </Switch>
         );
     }
 }

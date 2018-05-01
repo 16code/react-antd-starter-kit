@@ -32,7 +32,7 @@ const menuData = [
             {
                 name: '分步表单',
                 path: 'step-form',
-                role: ['admin']
+                role: ['admin', 'salesman']
             }
         ]
     },
