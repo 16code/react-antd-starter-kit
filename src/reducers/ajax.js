@@ -14,6 +14,6 @@ export const ajaxActions = {
 };
 
 function cb(state, action) {
-    return action.type === 'ajax/ajaxRequest' ? { isFetching: true } : { isFetching: false };
+    return action.type === types.ajaxRequest ? { isFetching: true } : { isFetching: false };
 }
 

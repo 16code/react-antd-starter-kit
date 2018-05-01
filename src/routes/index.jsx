@@ -17,7 +17,7 @@ const routeConfig = {
         component: AsyncComponent(() => import('routes/list'))
     },
     '/403': {
-        component: AsyncComponent(() => import('routes/errors/403'))
+        component: require('routes/errors/403').default
     }
 };
 
@@ -39,7 +39,7 @@ export default class Routes extends React.PureComponent {
                             />
                         );
                     })};
-                    <RouteNotFound />
+                    <RouteNotFound key="404" />
                 </Switch>
             </RouteShell>
         );

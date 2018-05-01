@@ -2,15 +2,15 @@ import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Breadcrumb, Tabs } from 'antd';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { urlToList } from 'utils';
 import styles from './index.less';
 
 const { TabPane } = Tabs;
-export default class PageHeader extends PureComponent {
-    static contextTypes = {
-        routesMap: PropTypes.object,
-        location: PropTypes.object
+class PageHeader extends PureComponent {
+    static propTypes = {
+        routesMap: PropTypes.object.isRequired,
+        location: PropTypes.object.isRequired
     };
     handleOnChange = key => {
         if (this.props.onTabChange) {
@@ -95,3 +95,4 @@ export default class PageHeader extends PureComponent {
         );
     }
 }
+export default withRouter(PageHeader);
