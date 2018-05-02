@@ -1,7 +1,10 @@
+@import '../../styles/theme.less';
 :global {
     .app-sider {
         box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
         position: relative;
+        height: 100%;
+        min-height: 100%;
         z-index: 10;
         &.app-sider-theme-light {
             background-color: white;
@@ -24,9 +27,9 @@
             margin-right: 10px;
         }
         .logo {
-            height: 64px;
+            height: @header-bar-height;
             position: relative;
-            line-height: 64px;
+            line-height: @header-bar-height;
             padding-left: 24px;
             transition: all 0.3s;
             background: #002140;
@@ -41,7 +44,7 @@
                 color: white;
                 display: inline-block;
                 vertical-align: middle;
-                font-size: 20px;
+                font-size: 18px;
                 margin: 0 0 0 12px;
                 font-family: 'Myriad Pro', 'Helvetica Neue', Arial, Helvetica, sans-serif;
                 font-weight: 400;

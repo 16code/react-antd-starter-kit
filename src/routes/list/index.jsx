@@ -1,8 +1,7 @@
-import AsyncComponent from 'components/AsyncComponent';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-const Search = AsyncComponent(() => import('./search'));
-const Tablelist = AsyncComponent(() => import('./table-list'));
+const Search = asyncComponent(() => import('./search'));
+const Tablelist = asyncComponent(() => import('./table-list'));
 
 export default class Forms extends React.PureComponent {
     render() {

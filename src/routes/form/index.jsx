@@ -1,9 +1,8 @@
 import { Redirect, Route, Switch, Link } from 'react-router-dom';
-import AsyncComponent from 'components/AsyncComponent';
 import PageHeaderLayout from 'layouts/PageHeaderLayout';
 
-const Basic = AsyncComponent(() => import('./basic-form'));
-const Step = AsyncComponent(() => import('./step-form'));
+const Basic = asyncComponent(() => import('./basic-form'));
+const Step = asyncComponent(() => import('./step-form'));
 
 const Topic = ({ match }) => (
     <div>

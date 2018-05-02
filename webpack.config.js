@@ -102,7 +102,8 @@ function webpackConfig(env) {
         new webpack.ProvidePlugin({
             React: 'react',
             ReactDOM: 'react-dom',
-            moment: 'moment'
+            moment: 'moment',
+            asyncComponent: 'AsyncComponent'
         }),
         new webpack.LoaderOptionsPlugin({
             minimize: true,
@@ -193,7 +194,7 @@ function webpackConfig(env) {
             contentBase: distPath,
             publicPath: '/',
             historyApiFallback: true,
-            port: 9000,
+            port: 8282,
             disableHostCheck: true,
             https: false,
             stats: 'errors-only',
@@ -222,7 +223,8 @@ function webpackConfig(env) {
                 store: path.join(__dirname, 'src/store'),
                 utils: path.join(__dirname, 'src/utils'),
                 libs: path.join(__dirname, 'src/libs'),
-                styles: path.join(__dirname, 'src/styles')
+                styles: path.join(__dirname, 'src/styles'),
+                AsyncComponent: path.join(__dirname, 'src/components/AsyncComponent/index.jsx')
             }
         },
         module: {

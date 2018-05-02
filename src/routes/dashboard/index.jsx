@@ -1,8 +1,7 @@
-import AsyncComponent from 'components/AsyncComponent';
 import { Switch, Redirect, Route } from 'react-router-dom';
 
-const Monitor = AsyncComponent(() => import('./monitor'));
-const Analysis = AsyncComponent(() => import('./analysis'));
+const Monitor = asyncComponent(() => import('./monitor'));
+const Analysis = asyncComponent(() => import('./analysis'));
 
 export default class Dashboard extends React.Component {
     render() {

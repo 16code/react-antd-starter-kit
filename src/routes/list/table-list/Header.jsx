@@ -48,16 +48,6 @@ const extra = (
     </Row>
 );
 
-const breadcrumbList = [{
-    title: '一级菜单',
-    href: '/'
-}, {
-    title: '二级菜单',
-    href: '/'
-}, {
-    title: '三级菜单'
-}];
-
 const tabList = [{
     key: 'detail',
     tab: '列表1'
@@ -77,7 +67,6 @@ export default function D(props) {
             action={action}
             content={description}
             extraContent={extra}
-            breadcrumbList={breadcrumbList}
             tabList={tabList}
             tabActiveKey="detail"
             onTabChange={onTabChange}

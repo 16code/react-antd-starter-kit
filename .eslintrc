@@ -6,6 +6,8 @@
         "ReactDOM": true,
         "moment": true,
         "console": true,
+        "System": true,
+        "asyncComponent": true,
         "__MOCK__": true
     },
     "env": {

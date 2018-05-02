@@ -1,4 +1,4 @@
-import { Loading } from '../Loading';
+const Loading = require('../Loading').Loading;
 const asyncComponent = getComponent => {
     return class AsyncComponent extends React.PureComponent {
         state = { Component: null };
@@ -31,4 +31,4 @@ const asyncComponent = getComponent => {
     };
 };
 
-export default asyncComponent;
+module.exports = asyncComponent;

@@ -1,12 +1,11 @@
 import { Switch, Route } from 'react-router-dom';
 import Authorized from 'components/AuthComponent';
-import AsyncComponent from 'components/AsyncComponent';
 import NotFound from 'routes/errors/404';
 
-const home = AsyncComponent(() => import('routes/home'));
-const dashboard = AsyncComponent(() => import('routes/dashboard'));
-const form = AsyncComponent(() => import('routes/form'));
-const list = AsyncComponent(() => import('routes/list'));
+const home = asyncComponent(() => System.import(/* webpackChunkName: "home" */ 'routes/home'));
+const dashboard = asyncComponent(() => System.import(/* webpackChunkName: "dashboard" */ 'routes/dashboard'));
+const form = asyncComponent(() => System.import(/* webpackChunkName: "forms" */ 'routes/form'));
+const list = asyncComponent(() => System.import(/* webpackChunkName: "lists" */ 'routes/list'));
 const page403 = require('routes/errors/403').default;
 
 export default class Routes extends React.PureComponent {

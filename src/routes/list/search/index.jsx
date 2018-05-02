@@ -1,8 +1,7 @@
 import { Redirect, Route, Switch } from 'react-router-dom';
-import AsyncComponent from 'components/AsyncComponent';
 
-const Articles = AsyncComponent(() => import('./articles'));
-const Projects = AsyncComponent(() => import('./projects'));
+const Articles = asyncComponent(() => import('./articles'));
+const Projects = asyncComponent(() => import('./projects'));
 
 export default class Forms extends React.PureComponent {
     render() {

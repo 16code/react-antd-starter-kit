@@ -13,7 +13,7 @@ export default function AppSiderMenu(props) {
             onMaskClick={() => {
                 props.onCollapse(true);
             }}
-            width="230px"
+            width="200px"
         >
             <SiderMenu {...props} collapsed={props.isMobile ? false : props.collapsed} />
         </DrawerMenu>

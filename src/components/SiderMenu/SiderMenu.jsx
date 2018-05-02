@@ -50,14 +50,9 @@ export default class SiderMenu extends PureComponent {
         return keys;
     }
     getDefaultCollapsedSubMenus(props) {
-        const {
-            location: { pathname }
-        } =
-            props || this.props;
+        const { location: { pathname } } = props || this.props;
         return urlToList(pathname)
-            .map(item => {
-                return getMeunMatcheys(this.flatMenuKeys, item)[0];
-            })
+            .map(item => getMeunMatcheys(this.flatMenuKeys, item)[0])
             .filter(item => item);
     }
     getSelectedMenuKeys = () => {
@@ -170,7 +165,7 @@ export default class SiderMenu extends PureComponent {
                 collapsed={collapsed}
                 breakpoint="lg"
                 onCollapse={() => onCollapse}
-                width={230}
+                width={200}
                 className={clsString}
             >
                 <div className="logo" key="logo">

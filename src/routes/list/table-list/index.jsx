@@ -1,5 +1,8 @@
+import { Input, Select } from 'antd';
 import DynamicTable from 'components/DynamicTable';
 import Header from './Header';
+const Option = Select.Option;
+
 export default class TableList extends React.PureComponent {
     handleClick = (record) => {
         console.log(record);
@@ -36,11 +39,26 @@ export default class TableList extends React.PureComponent {
                 sex: '男'
             });
         }
+        const extra = (<div>
+            <Select
+                showSearch
+                style={{ width: 200, marginRight: 8 }}
+                placeholder="Select a person"
+                optionFilterProp="children"
+                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+            >
+                <Option value="jack">Jack</Option>
+                <Option value="lucy">Lucy</Option>
+                <Option value="tom">Tom</Option>
+            </Select>
+            <Input.Search onSearch={value => console.log(value)} placeholder="Basic usage" />
+        </div>);
         return (
             <Header>
                 <DynamicTable
                     dataSource={data}
                     columns={columns}
+                    extra={extra}
                     pagination={{ pageSize: 10 }}
                     scroll={{ x: 1030 }}
                 />
