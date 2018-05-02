@@ -1,8 +1,9 @@
 import { Table } from 'antd';
 import PropTypes from 'prop-types';
+import connect from 'redux-connect-decorator';
 import ToolbarRight from './ToolbarRight';
 import './index.less';
-
+@connect(({ ajax }) => ({ isFetching: ajax.isFetching }))
 export default class DynamicTable extends React.PureComponent {
 	static propTypes = {
 	    extra: PropTypes.element,
@@ -23,7 +24,11 @@ export default class DynamicTable extends React.PureComponent {
     };
     render() {
         const { stateColumns } = this.state;
-        const tableProps = { ...this.props, columns: this.tableColumns, size: 'middle' };
+        const { pagination, columns, ...rest } = this.props;
+        if (!columns) return null;
+        if (pagination && pagination.showSizeChanger) {
+            pagination.pageSizeOptions = ['20', '30', '50', '80', '100'];
+        }
         return (
             <div className="data-table">
                 <div className="data-table-toolbar">
@@ -38,7 +43,13 @@ export default class DynamicTable extends React.PureComponent {
                     </div>
                 </div>
                 <div className="data-table-body">
-                    <Table {...tableProps} />
+                    <Table
+                        size="middle"
+                        loading={this.props.isFetching}	
+                        columns={this.tableColumns}
+                        pagination={pagination}
+                        {...rest}
+                    />
                 </div>
             </div>
         );

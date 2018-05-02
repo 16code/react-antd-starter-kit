@@ -3,8 +3,8 @@ export default class Home extends React.PureComponent {
 	componentDidMount() {
 	    fetch('/list', {
 	        params: {
-	            page: 1,
-	            take: 10	
+	            page: 2,
+	            take: 20	
 	        }
 	    }).then(res => {
 	        this.setState({ list: res });
@@ -12,27 +12,9 @@ export default class Home extends React.PureComponent {
 	        .catch(error => {
 	            console.info(error, 'list');
 	        });
-	    fetch('/test').then(res => {
-	        this.setState({ test: res });
-	    })
-	        .catch(error => {
-	            console.info(error, 'test');
-	        });
-	    fetch('/post', {
-	        method: 'POST',
-	        body: {
-	            user: 'lx',
-	            pwd: 'hhahahah'
-	        }
-	    }).then(res => {
-	        this.setState({ post: res });
-	    })
-	        .catch(error => {
-	            console.info(error, 'test');
-	        });
 	}
 	render() {
 	    console.log(this.state);
-	    return <div>13131</div>;
+	    return <div>Home</div>;
 	}
 }
