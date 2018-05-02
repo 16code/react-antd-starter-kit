@@ -170,7 +170,7 @@ export default class SiderMenu extends PureComponent {
                 collapsed={collapsed}
                 breakpoint="lg"
                 onCollapse={() => onCollapse}
-                width={230}
+                width={200}
                 className={clsString}
             >
                 <div className="logo" key="logo">

@@ -12,7 +12,7 @@ app.use('/api', proxy('http://localhost:3000', {
 app.get('*', (req, res) => {
     res.sendFile(path.join(`${__dirname}/dist/index.html`));
 });
-app.listen(9000, () => {
-    console.log('App listening on port 9000!');
+app.listen(8282, () => {
+    console.log('App listening on port 8282!');
 });
 module.exports = app;
