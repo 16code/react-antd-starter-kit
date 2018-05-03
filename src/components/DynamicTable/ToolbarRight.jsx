@@ -1,4 +1,6 @@
 import { Button, Tooltip, Popover, Checkbox } from 'antd';
+import styles from './index.less';
+
 export default class ToolbarRight extends React.PureComponent {
     state = {
         visible: false,
@@ -32,10 +34,10 @@ export default class ToolbarRight extends React.PureComponent {
         const { columns } = this.props;
         const { key } = this.state;
         return (
-            <div className="col-selection">
-                <div className="col-selection-list" key={key}>
+            <div className={styles['selection-wrapper']}>
+                <div className={styles['selection-list']} key={key}>
                     {columns.map((c, index) => (
-                        c.dataIndex && <div className="col-selection-item" key={index}>
+                        c.dataIndex && <div className={styles['selection-item']} key={index}>
                             <Checkbox
                                 onChange={event => this.handleCheckboxChange(c, event)}	
                                 value={c.dataIndex}
@@ -44,7 +46,7 @@ export default class ToolbarRight extends React.PureComponent {
                         </div>
                     ))}
                 </div>
-                <div className="col-selection-actions">
+                <div className={styles['selection-actions']}>
                     <Button
                         onClick={this.handleConfirm}
                         htmlType="button"
