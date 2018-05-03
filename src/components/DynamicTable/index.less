@@ -1,3 +1,5 @@
+@import '~antd/lib/style/themes/default.less';
+
 :global {
     .data-table {
         background: #fff;
@@ -17,15 +19,17 @@
     .data-table-toolbar-right {
         position: absolute;
         right: 8px;
-        top: 8px;
+        top: 12px;
     }
     .data-table-toolbar-left {
-        .ant-select {
-            min-width: 60px;
-            max-width: 180px;
+        padding-right: 48px;
+        .tool-item {
+            padding-top: 4px;
+            padding-bottom: 4px;
         }
-        .ant-input-search {
-            width: 200px;
+        .ant-select,
+        .ant-calendar-picker {
+            width: 100%;
         }
     }
     .data-table-body {
@@ -49,5 +53,13 @@
         padding: 8px 8px 0;
         background-color: #fff;
         bottom: 0;
+    }
+    @media screen and (max-width: @screen-sm) {
+        .data-table-toolbar-right {
+            display: none;
+        }
+        .data-table-toolbar-left {
+            padding-right: 0;
+        }
     }
 }
