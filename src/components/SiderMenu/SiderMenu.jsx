@@ -3,11 +3,10 @@ import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import { pathToRegexp, urlToList } from 'utils';
 import classNames from 'classnames';
-
 import './index.less';
 
 const { Sider } = Layout;
-const { SubMenu } = Menu;
+const { SubMenu, Item: MenuItem } = Menu;
 const getIcon = icon => {
     if (typeof icon === 'string' && icon.indexOf('http') === 0) {
         return <img src={icon} alt="icon" className={'icon sider-menu-item-img'} />;
@@ -96,7 +95,7 @@ export default class SiderMenu extends PureComponent {
             }
             return null;
         } else {
-            return <Menu.Item key={item.path}>{this.getMenuItemPath(item)}</Menu.Item>;
+            return <MenuItem key={item.path}>{this.getMenuItemPath(item)}</MenuItem>;
         }
     };
     conversionPath = path => {

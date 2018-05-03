@@ -37,12 +37,14 @@ export default class ToolbarRight extends React.PureComponent {
             <div className={styles['selection-wrapper']}>
                 <div className={styles['selection-list']} key={key}>
                     {columns.map((c, index) => (
-                        c.dataIndex && <div className={styles['selection-item']} key={index}>
+                        c.dataIndex &&
+                        <div className={styles['selection-item']} key={index}>
                             <Checkbox
                                 onChange={event => this.handleCheckboxChange(c, event)}	
                                 value={c.dataIndex}
                                 defaultChecked={c.checked || true}
-                            >{c.title}</Checkbox>
+                            >{c.title}
+                            </Checkbox>
                         </div>
                     ))}
                 </div>
@@ -58,7 +60,8 @@ export default class ToolbarRight extends React.PureComponent {
                     <Button
                         onClick={this.handleReset}
                         htmlType="button"
-                    >重置</Button>
+                    >重置
+                    </Button>
                 </div>
             </div>
         );

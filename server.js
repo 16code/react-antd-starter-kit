@@ -1,8 +1,10 @@
 const express = require('express');
 const path = require('path');
+const compression = require('compression');
 const proxy = require('express-http-proxy');
 const app = express();
 // gzip
+// app.use(compression());
 app.use(express.static(`${__dirname}/dist`));
 app.use('/api', proxy('http://localhost:3000', {
 	proxyReqPathResolver: function (req) {

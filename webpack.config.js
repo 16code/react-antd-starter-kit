@@ -28,7 +28,7 @@ const cssLoaderConfig = ExtractTextPlugin.extract({
             options: {
                 importLoaders: 2,
                 modules: true,
-                localIdentName: '[local]--[hash:base64:5]'
+                localIdentName: '[path][name]__[local]--[hash:base64:8]'
             }
         },
         {
@@ -277,7 +277,7 @@ function webpackConfig(env) {
                                     root: '.',
                                     importLoaders: 1,
                                     modules: true,
-                                    localIdentName: '[local]--[hash:base64:5]'
+                                    localIdentName: '[path][name]__[local]--[hash:base64:8]'
                                 }
                             },
                             {

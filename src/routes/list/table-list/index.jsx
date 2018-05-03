@@ -1,50 +1,61 @@
-import { Input, Select, Tag, Avatar } from 'antd';
+import { Input, Select, Tag, Avatar, DatePicker } from 'antd';
 import DynamicTable from 'components/DynamicTable';
 import Header from './Header';
 const Option = Select.Option;
 
 export default class TableList extends React.PureComponent {
-    state = {
-        list: [],
-        pagination: {
-            current: 1,
-            pageSize: 20,
-            showSizeChanger: true,
-            onChange: this.handleShowSizeChange.bind(this),
-            onShowSizeChange: this.handleShowSizeChange.bind(this)
-        }
-    };
+	state = {
+	    params: {}
+	};
     handleClick = record => {
         console.log(record);
     };
-    handleShowSizeChange(current, pagSize) {
-        const { pagination } = this.state;
-        pagination.current = current;
-        pagination.pageSize = pagSize;
-        this.setState({ pagination }, () => {
-            this.fetchData();
-        });
-    };
-    componentDidMount() {
-        this.fetchData();
+    handleUpdateParams(key, value = '') {
+        const { params } = this.state;
+        if (!params[key] && value.trim() === '') return;
+        if (params[key] !== value) {			
+            params[key] = value;
+            this.setState({ params: { ...params } });
+        }
     }
-    fetchData() {
-        const { current, pageSize } = this.state.pagination;
-        fetch('/list', {
-            params: {
-                pageSize,
-                current
-            }
-        })
-            .then(res => {
-                this.setState({
-                    list: res.data,
-                    pagination: Object.assign(this.state.pagination, res.meta)
-                });
-            })
-            .catch(error => {
-                console.info(error, 'list');
-            });
+    personSelect() {
+        return (
+            <Select
+                showSearch
+                key="searchPerson"
+                placeholder="性别"
+                optionFilterProp="children"
+                onChange={v => this.handleUpdateParams('gender', v)}
+                filterOption={(input, option) =>
+                    option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                }
+            >
+                <Option value="">不限</Option>
+                <Option value="male">男</Option>
+                <Option value="female">女</Option>
+            </Select>
+        );
+    }
+    searchInput() {
+        return [
+            <Input.Search
+                key="searchUser"	
+                onBlur={event => this.handleUpdateParams('username', event.target.value)}	
+                onSearch={v => this.handleUpdateParams('username', v)}
+                placeholder="姓名"
+            />,
+            <Input.Search
+                key="searchPhone"	
+                onBlur={event => this.handleUpdateParams('phone', event.target.value)}	
+                onSearch={v => this.handleUpdateParams('phone', v)}
+                placeholder="电话"
+            />,
+            <DatePicker
+                key="searchDate"	
+                onChange={(v, dateString) => this.handleUpdateParams('createAt', dateString)}
+                placeholder="创建时间"
+            />
+        ];
     }
     render() {
         const columns = [
@@ -71,17 +82,17 @@ export default class TableList extends React.PureComponent {
                     return <Tag color={gender.color}>{gender.name}</Tag>;
                 }
             },
-            { title: '电话', dataIndex: 'phone', key: 'phone' },
+            { title: '电话', dataIndex: 'phone', key: 'phone', width: 140 },
             { title: '邮件', dataIndex: 'email', key: 'email' },
             { title: '公司', dataIndex: 'company', key: 'company' },
             { title: '地址', dataIndex: 'address', key: 'address' },
             { title: '邮编', dataIndex: 'zipcode', key: 'zipcode' },
-            { title: '更新时间', dataIndex: 'createAt', key: 'createAt' },
+            { title: '创建时间', dataIndex: 'createAt', key: 'createAt' },
             {
                 title: 'Action',
                 key: 'operation',
                 fixed: 'right',
-                width: 120,
+                width: 80,
                 render: record => {
                     return (
                         <a href="javascript:;" onClick={() => this.handleClick(record)}>
@@ -91,33 +102,18 @@ export default class TableList extends React.PureComponent {
                 }
             }
         ];
-        const extra = (
-            <div>
-                <Select
-                    showSearch
-                    style={{ width: 200, marginRight: 8 }}
-                    placeholder="Select a person"
-                    optionFilterProp="children"
-                    filterOption={(input, option) =>
-                        option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                    }
-                >
-                    <Option value="jack">Jack</Option>
-                    <Option value="lucy">Lucy</Option>
-                    <Option value="tom">Tom</Option>
-                </Select>
-                <Input.Search onSearch={value => console.log(value)} placeholder="Basic usage" />
-            </div>
-        );
+        const extra = [this.personSelect(), this.searchInput()];
         return (
             <Header>
                 <DynamicTable
                     rowKey="id"
-                    dataSource={this.state.list}
+                    url="/list"
+                    searchParams={this.state.params}
+                    fieldKey="data"
                     columns={columns}
                     extra={extra}
-                    pagination={this.state.pagination}
-                    scroll={{ x: 1200 }}
+                    scroll={{ x: 1240 }}
+                    showSizeChanger
                 />
             </Header>
         );

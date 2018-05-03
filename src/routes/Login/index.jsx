@@ -15,10 +15,6 @@ class Login extends React.PureComponent {
     };
     handleLoginSuccess(user) {
         const { history, location } = this.props;
-        user.client_id = '55d584fa0d074d71bebcaeea613013c3';
-        user.grant_type = 'password';
-        user.terminal = 'MC';
-        user.terminal_type = 'terminal_type';
         this.props.userLogin(user, { location, history });
     }
     handleSubmit = e => {
