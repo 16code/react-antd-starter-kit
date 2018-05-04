@@ -9,8 +9,8 @@ export default class ToolbarRight extends React.PureComponent {
 	handleCheckboxChange = (item, event) => {
 	    item.checked = event.target.checked;
 	};
-	handleClick = () => {
-	    this.setState(prevState => ({ visible: !prevState.visible }));
+	handleVisibleChange = (visible) => {
+	    this.setState({ visible });
 	}
 	handleConfirm = () => {
 	    this.setState({ visible: false });
@@ -74,9 +74,15 @@ export default class ToolbarRight extends React.PureComponent {
                 visible={this.state.visible}
                 title="选择显示字段"
                 trigger="click"
+                onVisibleChange={this.handleVisibleChange}
             >
                 <Tooltip placement="top" title="表头设置">
-                    <Button type="default" shape="circle" icon="setting" onClick={this.handleClick} />
+                    <Button
+                        type="default"
+                        shape="circle"
+                        icon="setting" 
+                        onClick={() => this.handleVisibleChange(false)}
+                    />
                 </Tooltip>
             </Popover>
         );
