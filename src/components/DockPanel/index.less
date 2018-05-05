@@ -1,0 +1,125 @@
+@import '../../styles/theme.less';
+@prefix: dock;
+.@{prefix}-panel-wrapper {
+    zoom: 1;
+}
+.@{prefix}-panel-mask {
+    display: block;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: #373737;
+    background-color: rgba(55, 55, 55, 0.2);
+    height: 100%;
+    z-index: -1;
+    opacity: 0;
+    transition: all 0.5s ease;
+    visibility: hidden;
+    &.visible {
+        visibility: visible;
+        opacity: 1;
+        z-index: 800;
+    }
+}
+.@{prefix}-panel {
+    position: fixed;
+    top: @header-bar-height;
+    bottom: 0;
+    right: -40px;
+    transform: translate3d(100%, 0, 0);
+    transition: transform 358ms ease;
+    background-color: #fff;
+    z-index: 801;
+    &.visible {
+        right: 0;
+        transform: translate3d(0, 0, 0);
+    }
+    &.large {
+        width: 88%;
+        max-width: 1024px;
+    }
+    &.middle {
+        size: 720px;
+    }
+    &.small {
+        width: 420px;
+    }
+    :global(.ant-spin-nested-loading),
+    :global(.ant-spin-container) {
+        height: 100%;
+    }
+    :global(.ant-spin-container) {
+        position: relative;
+        zoom: 1;
+    }
+}
+.@{prefix}-panel-head {
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    padding: 0 16px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.@{prefix}-panel-body {
+    position: absolute;
+    top: 48px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    z-index: 1;
+    background: #f7f7f7;
+    padding: 16px;
+    :global(.ant-card-body) {
+        padding: 0;
+    }
+}
+.with-header-extra {
+    top: 112px;
+}
+.head-title {
+    display: flex;
+    padding: 8px 0;
+    line-height: 30px;
+    font-size: 18px;
+    font-weight: 500;
+    position: relative;
+}
+.head-right {
+    position: absolute;
+    right: 0;
+    top: 8px;
+    > span {
+        padding-left: 8px;
+    }
+}
+.head-extra {
+    height: 64px;
+    .extars {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .extars > span {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: 600;
+        color: rgba(0, 0, 0, 0.65);
+    }
+}
+.head-actions {
+    :global {
+        .ant-menu-vertical {
+            border-right-width: 0;
+        }
+        .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+            background-color: transparent;
+        }
+    }
+}

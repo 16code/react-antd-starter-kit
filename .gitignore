@@ -16,7 +16,6 @@ dist
 .vscode
 .eslintcache
 docs/*
-*doc*
 .vscode
 typings
 .idea

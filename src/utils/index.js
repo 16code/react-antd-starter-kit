@@ -19,7 +19,10 @@ export function createReducer(initialState, handlers) {
     );
 }
 
-// 字符串加密
+/**
+ * 字符串加密
+ * @param {string} str
+ */
 export function encrypt(str) {
     let c = String.fromCharCode(str.charCodeAt(0) + str.length);
     for (let i = 1; i < str.length; i++) {
@@ -27,8 +30,10 @@ export function encrypt(str) {
     }
     return c;
 }
-
-// 字符串解密
+/**
+ * 字符串解密
+ * @param {string} str
+ */
 export function decrypt(str) {
     let c = String.fromCharCode(str.charCodeAt(0) - str.length);
     for (let i = 1; i < str.length; i++) {
