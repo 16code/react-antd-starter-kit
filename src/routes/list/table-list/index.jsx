@@ -1,56 +1,40 @@
-import { Input, Select, Tag, Avatar, DatePicker, Modal } from 'antd';
+import { Input, Select, Tag, Avatar, DatePicker, Modal, Card, Collapse, Timeline } from 'antd';
 import connect from 'redux-connect-decorator';
 import DynamicTable from 'components/DynamicTable';
 import DockPanel from 'components/DockPanel';
+import DescriptionList from 'components/DescriptionList';
 import { delay } from 'utils/index.js';
 import Header from './Header';
+
+const { Description } = DescriptionList;
+const Panel = Collapse.Panel;
 const Option = Select.Option;
 
 @connect(({ ajax }) => ({ isFetching: ajax.isFetching }))
 export default class TableList extends React.PureComponent {
     state = {
         params: {},
-        panelVisible: false
+        panelVisible: false,
+        record: {}
     };
-	actions = {
-	    delete: {
-	        label: '删除用户',
-	        icon: 'delete'
-	    },
-	    export: {
-	        label: '导出数据',
-	        icon: 'export'
-	    },
-	    share: {
-	        label: '分享用户',
-	        icon: 'share-alt'
-	    }
-	}
+    actions = ['delete', 'export', 'share'];
     handleShowDock = record => {
-        const { address, createAt, userName, email } = record;
+        const { address, userName, email } = record;
         const panelExtraData = {
             userName: {
                 label: '姓名',
-                value: userName,
-                colSize: 3
+                value: userName
             },
             email: {
                 label: '邮箱',
-                value: email,
-                colSize: 6
+                value: email
             },
             address: {
                 label: '地址',
-                value: address,
-                colSize: 10
-            },
-            createAt: {
-                label: '创建日期',
-                value: createAt,
-                colSize: 5
+                value: address
             }
         };
-        this.setState({ panelVisible: true, panelExtraData });
+        this.setState({ panelVisible: true, panelExtraData, record });
     };
     handleColseDock = () => {
         this.setState({ panelVisible: false });
@@ -100,15 +84,15 @@ export default class TableList extends React.PureComponent {
             />
         ];
     }
-	handleConfirmOk = async () => {
-	    await delay(3000);
-	    this.setState({ panelVisible: false });
-	}
+    handleConfirmOk = async () => {
+        await delay(3000);
+        this.setState({ panelVisible: false });
+    };
     handleClickAction = (key, extra) => {
         if (key === 'delete') {
             showDeleteConfirm({
                 title: `你确定要删除用户${extra.userName.value}吗?`,
-                content: `该操作执行后不可恢复, 用户创建日期: ${extra.createAt.value}`,
+                content: `该操作执行后不可恢复, 用户地址: ${extra.address.value}`,
                 onOk: this.handleConfirmOk
             });
         }
@@ -151,7 +135,7 @@ export default class TableList extends React.PureComponent {
                     return (
                         <div>
                             <a href="javascript:;" onClick={() => this.handleShowDock(record)}>
-								详情
+                                详情
                             </a>
                         </div>
                     );
@@ -180,11 +164,57 @@ export default class TableList extends React.PureComponent {
                     extra={this.state.panelExtraData}
                     actions={this.actions}
                     onClickAction={this.handleClickAction}
-                />
+                >
+                    <Card>
+                        <Collapse bordered={false} defaultActiveKey={['1']}>
+                            <Panel header="主信息" key="1">
+                                <DescriptionList size="small" col="2">
+                                    <Description term="用户ID">{this.state.record.id}</Description>
+                                    <Description term="姓名">{this.state.record.userName}</Description>
+                                    <Description term="性别">{this.state.record.gender}</Description>
+                                    <Description term="职位">{this.state.record.profession}</Description>
+                                    <Description term="电话">{this.state.record.phone}</Description>
+                                    <Description term="生日">{this.state.record.birthday}</Description>
+                                </DescriptionList>
+                            </Panel>
+                            <Panel header="其它信息" key="2">
+                                <DescriptionList size="small" col="2">
+                                    <Description term="年龄">{this.state.record.age}</Description>
+                                    <Description term="国家">{this.state.record.country}</Description>
+                                    <Description term="邮箱">{this.state.record.email}</Description>
+                                    <Description term="主页">{this.state.record.website}</Description>
+                                    <Description term="公司">{this.state.record.company}</Description>
+                                    <Description term="IP">{this.state.record.ip}</Description>
+                                    <Description term="注册">{this.state.record.createAt}</Description>
+                                    <Description term="最后登录">{this.state.record.updateAt}</Description>
+                                </DescriptionList>
+                                <br />
+                                <DescriptionList size="small" col="1">
+                                    <Description term="代理">{this.state.record.userAgent}</Description>
+                                </DescriptionList>
+                            </Panel>
+                            <Panel header="操作日志" key="3">
+                                <Timeline>
+                                    <Timeline.Item>Create a services site 2017-09-01</Timeline.Item>
+                                    <Timeline.Item>Solve initial network problems 2017-09-01</Timeline.Item>
+                                    <Timeline.Item>Technical testing 2018-01-01</Timeline.Item>
+                                    <Timeline.Item>Network problems being solved 2018-04-01</Timeline.Item>
+                                    <Timeline.Item>Solve initial network problems 2017-09-01</Timeline.Item>
+                                    <Timeline.Item>Network problems being solved 2018-04-01</Timeline.Item>
+                                    <Timeline.Item>Technical testing 2018-01-01</Timeline.Item>
+                                    <Timeline.Item>Network problems being solved 2018-04-01</Timeline.Item>
+                                    <Timeline.Item>Solve initial network problems 2017-09-01</Timeline.Item>
+                                    <Timeline.Item>Network problems being solved 2018-04-01</Timeline.Item>
+                                </Timeline>
+                            </Panel>
+                        </Collapse>
+
+                    </Card>	
+                </DockPanel>	
             </Header>
         );
     }
-};
+}
 
 function showDeleteConfirm({ title, content, ...rest }) {
     Modal.confirm({

@@ -18,11 +18,12 @@ export default class DynamicTable extends React.PureComponent {
 	        stateColumns: this.props.columns || [],
 	        pagination: {
 	            current: 1,
-	            pageSize: 20,
+	            pageSize: 10,
 	            showSizeChanger: !!showSizeChanger,
 	            onChange: this.handleShowSizeChange,
 	            onShowSizeChange: this.handleShowSizeChange,
-	            pageSizeOptions: ['20', '30', '50', '80', '100']
+	            pageSizeOptions: ['10', '20', '30', '50', '80', '100'],
+	            showTotal: (total) => `共 ${total} 条`
 	        }
 	    };
 	}
