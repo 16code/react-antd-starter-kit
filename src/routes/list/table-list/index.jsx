@@ -1,14 +1,27 @@
-import { Input, Select, Tag, Avatar, DatePicker, Modal, Card, Collapse, Timeline } from 'antd';
+import { Input, Radio, Tag, Avatar, DatePicker, Modal, Card, Collapse, Timeline, Button } from 'antd';
 import connect from 'redux-connect-decorator';
 import DynamicTable from 'components/DynamicTable';
 import DockPanel from 'components/DockPanel';
 import DescriptionList from 'components/DescriptionList';
 import { delay } from 'utils/index.js';
-import Header from './Header';
+import PageHeaderLayout from 'layouts/PageHeaderLayout';
 
 const { Description } = DescriptionList;
 const Panel = Collapse.Panel;
-const Option = Select.Option;
+const RadioButton = Radio.Button;
+const RadioGroup = Radio.Group;
+const { RangePicker } = DatePicker;
+const ButtonGroup = Button.Group;
+
+const action = (
+    <div>
+        <ButtonGroup>
+            <Button>导出</Button>
+            <Button>导入</Button>
+        </ButtonGroup>
+        <Button type="primary">添加</Button>
+    </div>
+);
 
 @connect(({ ajax }) => ({ isFetching: ajax.isFetching }))
 export default class TableList extends React.PureComponent {
@@ -47,24 +60,16 @@ export default class TableList extends React.PureComponent {
             this.setState({ params: { ...params } });
         }
     }
-    personSelect() {
-        return (
-            <Select
-                showSearch
-                key="searchPerson"
-                placeholder="性别"
-                optionFilterProp="children"
-                onChange={v => this.handleUpdateParams('gender', v)}
-                filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-            >
-                <Option value="">不限</Option>
-                <Option value="male">男</Option>
-                <Option value="female">女</Option>
-            </Select>
-        );
-    }
-    searchInput() {
+    extra() {
         return [
+            <RadioGroup
+                key="searchPerson"
+                onChange={e => this.handleUpdateParams('gender', e.target.value)}
+            >
+                <RadioButton value="">不限</RadioButton>
+                <RadioButton value="male">男</RadioButton>
+                <RadioButton value="female">女</RadioButton>
+            </RadioGroup>,
             <Input.Search
                 key="searchUser"
                 onBlur={event => this.handleUpdateParams('username', event.target.value)}
@@ -81,7 +86,8 @@ export default class TableList extends React.PureComponent {
                 key="searchDate"
                 onChange={(v, dateString) => this.handleUpdateParams('createAt', dateString)}
                 placeholder="创建时间"
-            />
+            />,
+            <RangePicker key="searchRangePicker" placeholder={['开始日期', '结束日期']} />
         ];
     }
     handleConfirmOk = async () => {
@@ -142,9 +148,13 @@ export default class TableList extends React.PureComponent {
                 }
             }
         ];
-        const extra = [this.personSelect(), this.searchInput()];
+        const extra = this.extra();
         return (
-            <Header>
+            <PageHeaderLayout
+                title="用户列表"
+                logo={<img alt="" src="https://gw.alipayobjects.com/zos/rmsportal/nxkuOJlFJuAUhzlMTCEe.png" />}
+                action={action}
+            >
                 <DynamicTable
                     rowKey="id"
                     url="/users"
@@ -211,7 +221,7 @@ export default class TableList extends React.PureComponent {
 
                     </Card>	
                 </DockPanel>	
-            </Header>
+            </PageHeaderLayout>
         );
     }
 }

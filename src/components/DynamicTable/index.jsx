@@ -1,4 +1,4 @@
-import { Table, Row, Col } from 'antd';
+import { Table } from 'antd';
 import PropTypes from 'prop-types';
 import connect from 'redux-connect-decorator';
 import ToolbarRight from './ToolbarRight';
@@ -67,18 +67,16 @@ export default class DynamicTable extends React.PureComponent {
     };
     render() {
         const { stateColumns, pagination } = this.state;
-        const { columns, ...rest } = this.props;
+        const { columns, extra, ...rest } = this.props;
         if (!columns) return null;
         return (
             <div className={styles['dynamic-table']}>
                 <div className={styles['dynamic-table-toolbar']}>
-                    {this.props.extra &&
+                    {extra &&
                     <div className={styles['dynamic-table-left']}>
-                        <Row gutter={16}>
-                            {React.Children.map(this.props.extra, item => (
-                                <Col className={styles['col-item']} xs={24} sm={8} md={6} xl={3}>{item}</Col>
-						        ))}
-                        </Row>
+                        {React.Children.map(extra, item => (
+                            <div className={styles['col-item']}>{item}</div>
+                        ))}
                     </div>}
                     <div className={styles['dynamic-table-right']}>
                         <ToolbarRight

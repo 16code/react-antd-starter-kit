@@ -12,16 +12,14 @@ export default class Routes extends React.PureComponent {
     render() {
         const { currentUserRole: role } = this.props;
         return (
-            <div>
-                <Switch>
-                    <Authorized userRole={role} path="/home" component={home} exact />
-                    <Authorized userRole={role} path="/dashboard" component={dashboard} />
-                    <Authorized userRole={role} path="/form" component={form} />
-                    <Authorized userRole={role} path="/list" component={list} />
-                    <Authorized userRole={role} path="/403" component={page403} />
-                    <Route component={NotFound} />
-                </Switch>
-            </div>
+            <Switch>
+                <Authorized userRole={role} path="/home" component={home} exact />
+                <Authorized userRole={role} path="/dashboard" component={dashboard} />
+                <Authorized userRole={role} path="/form" component={form} />
+                <Authorized userRole={role} path="/list" component={list} />
+                <Authorized userRole={role} path="/403" component={page403} />
+                <Route component={NotFound} />
+            </Switch>
         );
     }
 }

@@ -1,4 +1,4 @@
-@import '../../styles/theme.less';
+@import '~styles/theme.less';
 @prefix: dock;
 .@{prefix}-panel-wrapper {
     zoom: 1;
@@ -30,7 +30,7 @@
     right: -40px;
     transform: translate3d(100%, 0, 0);
     transition: transform 358ms ease;
-    background-color: #fff;
+    background-color: @dock-panel-background-color;
     z-index: 801;
     &.visible {
         right: 0;
@@ -60,7 +60,7 @@
     overflow: hidden;
     z-index: 2;
     padding: 0 16px;
-    background: #fff;
+    background: @dock-panel-head-background-color;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 .@{prefix}-panel-body {
@@ -72,7 +72,7 @@
     overflow-x: hidden;
     overflow-y: auto;
     z-index: 1;
-    background: #f7f7f7;
+    background: @dock-panel-body-background-color;
     padding: 16px;
     :global(.ant-card-body) {
         padding: 0;

@@ -1,57 +1,21 @@
-import { PureComponent } from 'react';
-import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { Breadcrumb, Tabs } from 'antd';
+import { Tabs } from 'antd';
 import classNames from 'classnames';
-import { urlToList } from 'utils';
-import { getMenuData, getMenuDataPathKeys } from 'common/menuData';
+import Breadcrumb from 'components/Breadcrumb';
+
 import styles from './index.less';
-const menuData = getMenuData();
-const menuDataPathKeys = getMenuDataPathKeys(menuData);
 const { TabPane } = Tabs;
-class PageHeader extends PureComponent {
-	static defaultProps = {
-	    routesMap: menuDataPathKeys
-	}
+export default class PageHeader extends React.PureComponent {
     static propTypes = {
-        routesMap: PropTypes.object.isRequired,
-        location: PropTypes.object.isRequired
+        onTabChange: PropTypes.func,
+        tabList: PropTypes.array,
+        action: PropTypes.element,
+        title: PropTypes.string
     };
     handleOnChange = key => {
         if (this.props.onTabChange) {
             this.props.onTabChange(key);
         }
-    };
-    renderItem = (url, routeName) => {
-        return (
-            <Breadcrumb.Item key={url}>
-                <Link to={url}>{routeName}</Link>
-            </Breadcrumb.Item>
-        );
-    };
-    renderLast = (url, routeName) => <Breadcrumb.Item key={url}>{routeName}</Breadcrumb.Item>;
-    conversionBreadcrumbList = () => {
-        const { location, routesMap } = this.props;
-        const pathSnippets = urlToList(location.pathname);
-        const extraBreadcrumbItems = pathSnippets.map((url, index) => {
-            const routeName = routesMap[url] && routesMap[url].name;
-            const isLast = index === pathSnippets.length - 1;
-            const isFirst = index === 0;
-            if (routeName) {
-                if (isFirst || isLast) {
-                    return this.renderLast(url, routeName);
-                } else {
-                    return this.renderItem(url, routeName);
-                }
-            }
-            return null;
-        });
-        const breadcrumbItems = [
-            <Breadcrumb.Item key="home">
-                <Link to="/">Home</Link>
-            </Breadcrumb.Item>
-        ].concat(extraBreadcrumbItems);
-        return <Breadcrumb className={styles.breadcrumb}>{breadcrumbItems}</Breadcrumb>;
     };
 
     renderTabs(tabList, tabBarExtraContent) {
@@ -75,23 +39,17 @@ class PageHeader extends PureComponent {
         );
     }
     render() {
-        const { title, logo, action, content, extraContent, tabList, className, tabBarExtraContent } = this.props;
+        const { title, logo, action, tabList, className, tabBarExtraContent } = this.props;
         const clsString = classNames(styles.pageHeader, className);
-        const breadcrumb = this.conversionBreadcrumbList();
-
         return (
             <div className={clsString}>
-                {breadcrumb}
-                <div className={styles.detail}>
+                <Breadcrumb />
+                <div className={classNames(styles.detail, { [styles['with-tabs']]: tabList })}>
                     {logo && <div className={styles.logo}>{logo}</div>}
                     <div className={styles.main}>
                         <div className={styles.row}>
                             {title && <h1 className={styles.title}>{title}</h1>}
                             {action && <div className={styles.action}>{action}</div>}
-                        </div>
-                        <div className={styles.row}>
-                            {content && <div className={styles.content}>{content}</div>}
-                            {extraContent && <div className={styles.extraContent}>{extraContent}</div>}
                         </div>
                     </div>
                 </div>
@@ -99,5 +57,4 @@ class PageHeader extends PureComponent {
             </div>
         );
     }
-}
-export default withRouter(PageHeader);
+};

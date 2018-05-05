@@ -136,7 +136,7 @@ class BasicLayout extends React.PureComponent {
                         />
                     </Header>
                     <ButterBar key="ButterBar" visible={this.props.isFetching} />
-                    <Content className="page-content">
+                    <Content className="page-content not-scroll-x">
                         <Routes
                             currentUserRole={this.currentUserRole}
                             location={location}
