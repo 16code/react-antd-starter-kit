@@ -1,17 +1,17 @@
-@import '~antd/lib/style/themes/default.less';
 @import '~styles/theme.less';
 
-.page-header-layout {
-    margin: -@page-content-padding -@page-content-padding @page-content-padding;
+.page-header {
+    background: @component-background;
+    height: auto;
+    line-height: 1;
+    padding: @page-content-padding @page-content-padding 0;
+    border-bottom: @border-width-base @border-style-base @border-color-split;
 }
 
 .pageHeader {
-    background: @component-background;
-    padding: @page-content-padding @page-content-padding 0;
-    border-bottom: @border-width-base @border-style-base @border-color-split;
-
     .detail {
         display: flex;
+        align-items: center;
         margin-bottom: 16px;
     }
     .with-tabs {
@@ -19,6 +19,7 @@
     }
     .row {
         display: flex;
+        align-items: center;
     }
 
     .tabs {
@@ -34,7 +35,7 @@
     .logo {
         flex: 0 1 auto;
         margin-right: 16px;
-        padding-top: 1px;
+        padding: 0;
         > img {
             width: 28px;
             height: 28px;

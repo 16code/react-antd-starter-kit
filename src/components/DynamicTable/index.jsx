@@ -1,6 +1,7 @@
 import { Table } from 'antd';
 import PropTypes from 'prop-types';
 import connect from 'redux-connect-decorator';
+import classNames from 'classnames';
 import ToolbarRight from './ToolbarRight';
 import styles from './index.less';
 @connect(({ ajax }) => ({ isFetching: ajax.isFetching }))
@@ -8,6 +9,9 @@ export default class DynamicTable extends React.PureComponent {
 	static propTypes = {
 	    extra: PropTypes.array,
 	    columns: PropTypes.array
+	}
+	static defaultProps = {
+	    searchParams: {}
 	}
 	constructor(props) {
 	    super(props);
@@ -18,7 +22,7 @@ export default class DynamicTable extends React.PureComponent {
 	        stateColumns: this.props.columns || [],
 	        pagination: {
 	            current: 1,
-	            pageSize: 10,
+	            pageSize: 30,
 	            showSizeChanger: !!showSizeChanger,
 	            onChange: this.handleShowSizeChange,
 	            onShowSizeChange: this.handleShowSizeChange,
@@ -30,17 +34,20 @@ export default class DynamicTable extends React.PureComponent {
 	componentDidMount() {
 	    this.fetchData();
 	}
+	componentWillUnmount() {
+	    if(this.timer) window.clearTimeout(this.timer);
+	}
 	componentWillReceiveProps(nextProps) {
 	    if (nextProps.searchParams && (nextProps.searchParams !== this.props.searchParams)) {
-	        this.fetchData();
+	        this.timer = window.setTimeout(() => this.fetchData(nextProps.searchParams), 300);
 	    }
 	}
-	async fetchData() {
+	async fetchData(searchParams = {}) {
 	    const { current, pageSize } = this.state.pagination;
-	    const { url, fieldKey, searchParams } = this.props;
-	    const params = searchParams ? Object.assign({ pageSize, current }, searchParams) : { pageSize, current };
-	    const result = await fetch(url, { params }).catch(e => {
-	        console.info(e, 'list');
+	    const { url, fieldKey, searchParams: prevSearchParams } = this.props;
+	    const mergeParams = Object.assign({ pageSize, current }, prevSearchParams, searchParams);
+	    const result = await fetch(url, { params: mergeParams }).catch(e => {
+	        console.info(e, '获取列表数据失败');
 	    });
 	    result && this.setState({
 	        dataSource: fieldKey ? result[fieldKey] : result,
@@ -69,9 +76,10 @@ export default class DynamicTable extends React.PureComponent {
         const { stateColumns, pagination } = this.state;
         const { columns, extra, ...rest } = this.props;
         if (!columns) return null;
+        const toolbarCls = classNames(styles['dynamic-table-toolbar'], { [styles['without-extra']]: !extra });
         return (
             <div className={styles['dynamic-table']}>
-                <div className={styles['dynamic-table-toolbar']}>
+                <div className={toolbarCls}>
                     {extra &&
                     <div className={styles['dynamic-table-left']}>
                         {React.Children.map(extra, item => (

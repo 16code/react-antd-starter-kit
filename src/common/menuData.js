@@ -42,8 +42,12 @@ const menuData = [
         path: 'list',
         children: [
             {
-                name: '查询表格',
-                path: 'table-list'
+                name: '用户列表',
+                path: 'users'
+            },
+            {
+                name: '产品列表',
+                path: 'products'
             },
             {
                 name: '搜索列表',

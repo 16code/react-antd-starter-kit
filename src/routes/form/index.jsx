@@ -1,5 +1,5 @@
 import { Redirect, Route, Switch, Link } from 'react-router-dom';
-import PageHeaderLayout from 'layouts/PageHeaderLayout';
+import { PageHeaderLayout } from 'layouts';
 
 const Basic = asyncComponent(() => import('./basic-form'));
 const Step = asyncComponent(() => import('./step-form'));

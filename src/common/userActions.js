@@ -1,6 +1,6 @@
 export default {
     delete: {
-        label: '删除用户',
+        label: '删除',
         icon: 'delete'
     },
     export: {
@@ -8,7 +8,7 @@ export default {
         icon: 'export'
     },
     share: {
-        label: '分享用户',
+        label: '分享',
         icon: 'share-alt'
     }
 };

@@ -15,7 +15,7 @@ import Routes from 'routes/index';
 import { enquireScreen, unenquireScreen } from 'utils/enquire';
 import logo from '../assets/logo.svg';
 
-const { Content, Header } = Layout;
+const { Header } = Layout;
 const query = {
     'screen-xs': {
         maxWidth: 575
@@ -136,7 +136,7 @@ class BasicLayout extends React.PureComponent {
                         />
                     </Header>
                     <ButterBar key="ButterBar" visible={this.props.isFetching} />
-                    <Content className="page-content not-scroll-x">
+                    <Layout>
                         <Routes
                             currentUserRole={this.currentUserRole}
                             location={location}
@@ -144,7 +144,7 @@ class BasicLayout extends React.PureComponent {
                             match={match}
                             staticContext={staticContext}
                         />
-                    </Content>
+                    </Layout>
                 </Layout>
             </Layout>
         );

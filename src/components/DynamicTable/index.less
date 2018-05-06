@@ -57,6 +57,9 @@
     background-color: #fff;
     bottom: 0;
 }
+.without-extra {
+    justify-content: flex-end;
+}
 @media screen and (max-width: @screen-lg) {
     .dynamic-table-toolbar {
         flex-direction: column;
@@ -64,6 +67,10 @@
     }
     .dynamic-table-right {
         display: none;
+    }
+    .without-extra .dynamic-table-right {
+        display: flex;
+        justify-content: flex-end;
     }
     .dynamic-table-left {
         padding-right: 0;
