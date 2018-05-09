@@ -1,5 +1,5 @@
 import { Radio, Tag, Modal, Button, Steps, Form, Input, Select, Upload, Icon } from 'antd';
-import { PageDrawerLayout } from 'layouts';
+import { SideDrawerLayout } from 'layouts';
 import connect from 'redux-connect-decorator';
 import DockPanel from 'components/DockPanel';
 import DynamicTable from 'components/DynamicTable';
@@ -162,7 +162,7 @@ export default class Products extends React.PureComponent {
             </FormItem>
         );
         return (
-            <PageDrawerLayout sidebar={form} sidebarWidth={240} action={action}>
+            <SideDrawerLayout sidebar={form} sidebarWidth={240} action={action}>
                 <DynamicTable
                     rowKey="id"
                     url="/products"
@@ -196,7 +196,7 @@ export default class Products extends React.PureComponent {
                         <Step title="上传文件" description={step3} />
                     </Steps>
                 </DockPanel>
-            </PageDrawerLayout>
+            </SideDrawerLayout>
         );
     }
 }

@@ -25,7 +25,7 @@ function HeaderMenu(props) {
                     src={require('../../assets/avatar.png')}
                     className={styles.avatar}
                 />
-                <span className={styles.name}>Liuxin Test</span>
+                <span className={styles.name}>Liuxin</span>
             </span>
         </Dropdown>
     );

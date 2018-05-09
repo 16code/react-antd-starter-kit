@@ -6,7 +6,7 @@ import styles from './style.less';
 
 const { Header, Sider, Content } = Layout;
 
-export default class PageDrawerLayout extends React.PureComponent {
+export default class SideDrawerLayout extends React.PureComponent {
     state = {
         collapsed: false
     };
