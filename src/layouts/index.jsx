@@ -1,2 +1,2 @@
 export { default as PageHeaderLayout } from './PageHeaderLayout';
-export { default as PageDrawerLayout } from './PageSideLayout';
+export { default as PageDrawerLayout } from './PageDrawerLayout';

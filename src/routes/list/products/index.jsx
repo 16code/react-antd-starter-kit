@@ -1,4 +1,4 @@
-import { Radio, Tag, Modal } from 'antd';
+import { Radio, Tag, Modal, Button, Steps, Form, Input, Select, Upload, Icon } from 'antd';
 import { PageDrawerLayout } from 'layouts';
 import connect from 'redux-connect-decorator';
 import DockPanel from 'components/DockPanel';
@@ -7,16 +7,20 @@ import SearchForm from './SearchForm';
 
 const RadioGroup = Radio.Group;
 const RadioButton = Radio.Button;
+const Step = Steps.Step;
+const FormItem = Form.Item;
+const Option = Select.Option;
 
 @connect(({ ajax }) => ({ isFetching: ajax.isFetching }))
 export default class Products extends React.PureComponent {
     state = {
         params: {},
         panelVisible: false,
+        importPanelVisible: false,
         record: {}
     };
     handleColseDock = () => {
-        this.setState({ panelVisible: false });
+        this.setState({ panelVisible: false, importPanelVisible: false });
     };
     handleShowDock = record => {
         const { name, origin, sales, stock } = record;
@@ -63,6 +67,9 @@ export default class Products extends React.PureComponent {
             });
         }
     };
+    handleImport = () => {
+        this.setState({ importPanelVisible: true });
+    };
     render() {
         const columns = [
             {
@@ -72,7 +79,7 @@ export default class Products extends React.PureComponent {
                 render: (value, record) => {
                     return (
                         <div>
-                            <img src={value} width="64" height="48" />
+                            <img src={value} width="50" height="67" />
                             <a
                                 href="javascript:;"
                                 style={{ paddingLeft: '8px' }}
@@ -124,15 +131,45 @@ export default class Products extends React.PureComponent {
         const form = (
             <SearchForm loading={this.props.isFetching} onSearch={this.handleSearch} onReset={this.handleReset} />
         );
+        const action = (
+            <Button icon="to-top" onClick={this.handleImport}>导入</Button>
+        );
+        const step1 = (
+            <div>
+                <FormItem>
+                    <Input placeholder="产品名称" />
+                </FormItem>
+                <FormItem label="数据来源">
+                    <Select placeholder="来源" style={{ width: '100%' }}>
+                        <Option value="self">自有产品</Option>
+                        <Option value="external">外部采购</Option>
+                    </Select>
+                </FormItem>
+            </div>
+        );
+        const step2 = (
+            <FormItem>
+                <Button href="#" icon="download" style={{ width: '100%' }}>下载模板</Button>
+            </FormItem>	
+        );
+        const Dragger = Upload.Dragger;
+        const step3 = (
+            <FormItem>
+                <Dragger>
+                    <p className="ant-upload-drag-icon"><Icon type="inbox" /></p>
+                    <p className="ant-upload-text">点击或拖拽文件至此区域</p>				
+                </Dragger>
+            </FormItem>
+        );
         return (
-            <PageDrawerLayout sidebar={form} sidebarWidth={240}>
+            <PageDrawerLayout sidebar={form} sidebarWidth={240} action={action}>
                 <DynamicTable
                     rowKey="id"
                     url="/products"
                     searchParams={this.state.params}
                     fieldKey="data"
                     columns={columns}
-                    scroll={{ x: 1280 }}
+                    scroll={{ x: 1360 }}
                     extra={extra}
                     showSizeChanger
                 />
@@ -146,6 +183,18 @@ export default class Products extends React.PureComponent {
                     onClickAction={this.handleClickAction}
                 >
                     <pre>{JSON.stringify(this.state.record, null, 2)}</pre>
+                </DockPanel>
+                <DockPanel
+                    title="产品导入"
+                    size="small"
+                    visible={this.state.importPanelVisible}
+                    onClose={this.handleColseDock}
+                >
+                    <Steps direction="vertical" size="small" current={-1}>
+                        <Step title="设置选项" description={step1} />
+                        <Step title="下载模板" description={step2} />
+                        <Step title="上传文件" description={step3} />
+                    </Steps>
                 </DockPanel>
             </PageDrawerLayout>
         );

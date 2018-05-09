@@ -194,7 +194,7 @@ function webpackConfig(env) {
             contentBase: distPath,
             publicPath: '/',
             historyApiFallback: true,
-            port: 8282,
+            port: 9001,
             disableHostCheck: true,
             https: false,
             stats: 'errors-only',

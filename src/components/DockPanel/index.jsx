@@ -47,7 +47,7 @@ class DockPanel extends React.PureComponent {
                         onActionMenuClick={this.handleActionMenuClick}
                     />
                     <DockPanelBody extra={extra}>
-                        <Spin spinning={visible && loading}>{children}</Spin>
+                        <Spin spinning={visible && !!loading}>{children}</Spin>
                     </DockPanelBody>
                 </DockPanelWrapper>
             </div>

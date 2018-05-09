@@ -16,10 +16,10 @@ const ButtonGroup = Button.Group;
 const action = (
     <div>
         <ButtonGroup>
-            <Button>导出</Button>
-            <Button>导入</Button>
+            <Button icon="download">导出</Button>
+            <Button icon="to-top">导入</Button>
         </ButtonGroup>
-        <Button type="primary">添加</Button>
+        <Button type="primary" icon="plus">添加</Button>
     </div>
 );
 

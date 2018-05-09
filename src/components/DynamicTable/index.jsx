@@ -4,6 +4,7 @@ import connect from 'redux-connect-decorator';
 import classNames from 'classnames';
 import ToolbarRight from './ToolbarRight';
 import styles from './index.less';
+
 @connect(({ ajax }) => ({ isFetching: ajax.isFetching }))
 export default class DynamicTable extends React.PureComponent {
 	static propTypes = {
@@ -13,6 +14,7 @@ export default class DynamicTable extends React.PureComponent {
 	static defaultProps = {
 	    searchParams: {}
 	}
+	static pageContent;
 	constructor(props) {
 	    super(props);
 	    const { showSizeChanger } = props;
@@ -32,6 +34,7 @@ export default class DynamicTable extends React.PureComponent {
 	    };
 	}
 	componentDidMount() {
+	    this.pageContent = document.querySelector('.page-content');
 	    this.fetchData();
 	}
 	componentWillUnmount() {
@@ -41,6 +44,9 @@ export default class DynamicTable extends React.PureComponent {
 	    if (nextProps.searchParams && (nextProps.searchParams !== this.props.searchParams)) {
 	        this.timer = window.setTimeout(() => this.fetchData(nextProps.searchParams), 300);
 	    }
+	}
+	scrollToBoxTop() {
+	    this.pageContent.scrollTo(0, 0);
 	}
 	async fetchData(searchParams = {}) {
 	    const { current, pageSize } = this.state.pagination;
@@ -53,6 +59,7 @@ export default class DynamicTable extends React.PureComponent {
 	        dataSource: fieldKey ? result[fieldKey] : result,
 	        pagination: Object.assign(this.state.pagination, result.meta)
 	    });
+	    this.scrollToBoxTop();
 	}
 	handleShowSizeChange(current, pagSize) {
 	    const { pagination } = this.state;

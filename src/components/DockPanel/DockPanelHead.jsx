@@ -1,4 +1,4 @@
-import { Button, Popover, Menu, Icon, Badge } from 'antd';
+import { Button, Popover, Menu, Icon } from 'antd';
 import DescriptionList from 'components/DescriptionList';
 import Ellipsis from 'components/Ellipsis';
 import userActions from '../../common/userActions';
@@ -76,9 +76,6 @@ export default class DockPanelHead extends React.PureComponent {
             <div className={styles['dock-panel-head']}>
                 <div className={styles['head-title']}>
                     <span style={{ paddingRight: '8px' }}>{title}</span>
-                    <span>
-                        <Badge status="success" />
-                    </span>
                     <div className={styles['head-right']}>
                         {actions && this.renderAction()}
                         <span className={styles['head-close']}>

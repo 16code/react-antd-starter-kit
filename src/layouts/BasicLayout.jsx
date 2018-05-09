@@ -80,9 +80,9 @@ class BasicLayout extends React.PureComponent {
         const { location } = this.props;
         const { pathname } = location;
         const routerData = this.getFlatMenuKeys(this.menus);
-        let title = 'React Admin';
+        let title = 'Admin';
         if (routerData[pathname] && routerData[pathname].name) {
-            title = `${routerData[pathname].name} - React Admin`;
+            title = `${routerData[pathname].name} - Admin`;
         }
         return title;
     }

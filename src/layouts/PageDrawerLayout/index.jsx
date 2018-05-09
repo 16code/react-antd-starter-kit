@@ -15,14 +15,14 @@ export default class PageDrawerLayout extends React.PureComponent {
         this.setState({ collapsed: collapsed });
     };
     render() {
-        const { children, sidebar, sidebarWidth = 220, wrapperClassName, ...restProps } = this.props;
+        const { children, sidebar, sidebarWidth = 220, wrapperClassName, action } = this.props;
         const { collapsed } = this.state;
         const direction = collapsed ? 'right' : 'left';
         const tooltipText = collapsed ? '展开' : '收起';
         return (
             <Layout className={classNames('drawer-layout-wrapper', wrapperClassName)}>
                 <Header className={styles['drawer-layout-header']}>
-                    <PageHeader key="pageheader" {...restProps} />
+                    <PageHeader key="pageheader" action={action} />
                 </Header>
                 <Layout>
                     <Sider
