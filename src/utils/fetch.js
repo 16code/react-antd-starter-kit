@@ -65,7 +65,7 @@ fetchIntercept.register({
                     handleRefreshToken(requestArgs, resolve, reject);
                     break;
                 default:
-                    reject(handleResponseError(response));
+                    handleResponseError(response, requestArgs).then(reject).catch(reject);
                     break;
             }
             if (!pendingRequest.length) {
@@ -115,11 +115,11 @@ function handleResponseOk(response) {
         .catch(errs => errs);
 }
 
-function handleResponseError(response) {
+function handleResponseError(response, requestArgs) {
     return response
         .json()
-        .then(json => handleErrorData(response, json))
-        .catch(() => handleErrorData(response));
+        .then(json => handleErrorData({ response, json, requestArgs }))
+        .catch(() => handleErrorData({ response, requestArgs }));
 }
 function handleResponseData(response) {
     const contentType = response.headers.get('content-type');
@@ -135,15 +135,22 @@ function handleResponseData(response) {
     }
 }
 
-function handleErrorData(response, json) {
+function handleErrorData({ response, json, requestArgs }) {
+    const { url, status, statusText } = response;
     const errorInfo = {
-        status: response.status,
-        statusText: response.statusText,
+        apiInfo: { url, requestArgs, status, statusText },
+        pageInfo: {
+            origin: window.location.origin,
+            pathname: window.location.pathname,
+            title: document.title
+        },
+        status,
+        statusText,
         msg: null
     };
     if (response.status >= 500) {
         errorInfo.msg = response.statusText;
-    } else {
+    } else if(json) {
         if (Array.isArray(json)) {
             json.forEach(err => {
                 errorInfo.msg = err.error_description;

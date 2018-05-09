@@ -1,4 +1,4 @@
-import pathToRegexp from 'path-to-regexp';
+export { default as pathToRegexp } from 'path-to-regexp';
 
 /**
  * urlToList
@@ -42,6 +42,34 @@ export function decrypt(str) {
     return c;
 }
 
-const delay = (ms) => new Promise(res => setTimeout(res, ms));
+export const delay = (ms) => new Promise(res => setTimeout(res, ms));
 
-export { pathToRegexp, delay };
+/**
+ * 全屏切换
+ * @param {string} element
+ */
+export function toggleFullScreen(el) {
+    if (!document.fullscreenElement &&
+		!document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+        if (document.documentElement.requestFullscreen) {
+            el.requestFullscreen();
+        } else if (document.documentElement.msRequestFullscreen) {
+            el.msRequestFullscreen();
+        } else if (document.documentElement.mozRequestFullScreen) {
+            el.mozRequestFullScreen();
+        } else if (document.documentElement.webkitRequestFullscreen) {
+            el.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+    }
+}
+

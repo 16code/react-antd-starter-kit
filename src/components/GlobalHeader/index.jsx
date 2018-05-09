@@ -17,7 +17,7 @@ function HeaderMenu(props) {
         </Menu>
     );
     return (
-        <Dropdown overlay={menu}>
+        <Dropdown overlay={menu} trigger={['click']}>
             <span className={`${styles.action} ${styles.account}`}>
                 <Avatar
                     size="small"

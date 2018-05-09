@@ -53,7 +53,7 @@ export default class DynamicTable extends React.PureComponent {
 	    const { url, fieldKey, searchParams: prevSearchParams } = this.props;
 	    const mergeParams = Object.assign({ pageSize, current }, prevSearchParams, searchParams);
 	    const result = await fetch(url, { params: mergeParams }).catch(e => {
-	        console.info(e, '获取列表数据失败');
+	        console.info(e);
 	    });
 	    result && this.setState({
 	        dataSource: fieldKey ? result[fieldKey] : result,
@@ -76,12 +76,15 @@ export default class DynamicTable extends React.PureComponent {
 	        return c;
 	    }).filter(c => c.checked);
 	}
+	handleReloadData = () => {
+	    this.fetchData();
+	}
     handleColumnChange = newColumns => {
         this.setState({ stateColumns: [...newColumns] });
     };
     render() {
         const { stateColumns, pagination } = this.state;
-        const { columns, extra, ...rest } = this.props;
+        const { columns, extra, isFetching, ...rest } = this.props;
         if (!columns) return null;
         const toolbarCls = classNames(styles['dynamic-table-toolbar'], { [styles['without-extra']]: !extra });
         return (
@@ -95,7 +98,9 @@ export default class DynamicTable extends React.PureComponent {
                     </div>}
                     <div className={styles['dynamic-table-right']}>
                         <ToolbarRight
+                            loading={isFetching}		
                             columns={stateColumns}
+                            onReload={this.handleReloadData}
                             onConfirm={this.handleColumnChange}
                         />
                     </div>
@@ -104,7 +109,7 @@ export default class DynamicTable extends React.PureComponent {
                     <Table
                         dataSource={this.state.dataSource}	
                         size="middle"
-                        loading={this.props.isFetching}	
+                        loading={isFetching}	
                         columns={this.tableColumns}
                         pagination={pagination}
                         {...rest}
