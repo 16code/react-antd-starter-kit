@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Breadcrumb from 'components/Breadcrumb';
-
 export default class PageHeader extends React.PureComponent {
     static propTypes = {
         action: PropTypes.element

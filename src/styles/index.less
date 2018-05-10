@@ -1,3 +1,5 @@
+@import './theme.less';
+
 :global {
     html,
     body {
@@ -45,6 +47,117 @@
         .text-center;
     }
 }
+
+:global {
+    .drawer-trigger-wrapper {
+        position: absolute;
+        top: 0;
+        right: -16px;
+        bottom: 0;
+        width: 16px;
+        display: flex;
+        justify-content: center;
+        &.top {
+            width: 100%;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: auto;
+            bottom: -16px;
+            height: 16px;
+            .drawer-trigger {
+                &:after,
+                &:before {
+                    width: 8px;
+                    height: 2px;
+                }
+                &:before {
+                    left: -6px;
+                    bottom: -1px;
+                }
+                &:after {
+                    top: -1px;
+                }
+            }
+        }
+    }
+    .drawer-trigger-wrapper,
+    .drawer-trigger {
+        align-items: center;
+    }
+    .drawer-trigger {
+        cursor: pointer;
+        &:after,
+        &:before {
+            content: '';
+            display: block;
+            position: relative;
+            width: 2px;
+            height: 8px;
+            background-color: #ccc;
+            border-radius: 1px;
+            transition: all 0.3s ease-in-out;
+            z-index: 2;
+        }
+        &:before {
+            bottom: -1px;
+        }
+    }
+    .layout-header-wraper {
+        background: #fcfcfcf2;
+        height: auto;
+        line-height: 1;
+        padding: @layout-header-padding-base @page-content-padding 0;
+        border-bottom: @border-width-base @border-style-base @border-color-split;
+        box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.14);
+        &.ant-layout-header {
+            height: auto;
+            line-height: 1;
+        }
+    }
+    .layout-header {
+        padding-bottom: @layout-header-padding-base;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        :global(.ant-breadcrumb) {
+            margin-bottom: 0;
+        }
+        :global(.ant-btn-group) {
+            margin-right: 8px;
+        }
+    }
+    .drawer-trigger-wrapper:hover {
+        .drawer-trigger {
+            &.left:before,
+            &.right:after {
+                transform: rotate(30deg);
+            }
+
+            &.left:after,
+            &.right:before {
+                transform: rotate(-30deg);
+            }
+
+            &.down:before,
+            &.up:after {
+                transform: rotate(30deg);
+            }
+
+            &.down:after,
+            &.up:before {
+                transform: rotate(-30deg);
+            }
+
+            &:after,
+            &:before {
+                background-color: @primary-color;
+            }
+        }
+    }
+}
+
 :fullscreen,
 :-webkit-full-screen :global(.page-content) {
     width: 100%;

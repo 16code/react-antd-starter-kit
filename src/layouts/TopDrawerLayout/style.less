@@ -1,0 +1,27 @@
+@import '~styles/theme.less';
+
+.top-drawer-wrapper {
+    position: relative;
+    background: #fff;
+    padding: @page-content-padding @page-content-padding 0;
+    &.collapsed {
+        padding: 0;
+        .top-drawer-inner {
+            display: none;
+        }
+    }
+}
+.top-drawer-wrapper + :global(.page-content) {
+    margin-top: 16px;
+}
+
+.top-drawer-inner {
+    :global {
+        .ant-btn {
+            min-width: 82px;
+        }
+        .ant-form-item {
+            margin-bottom: 8px;
+        }
+    }
+}

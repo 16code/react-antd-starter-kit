@@ -134,8 +134,8 @@ class BasicLayout extends React.PureComponent {
                             onMenuClick={this.handleMenuClick}
                             onCollapse={this.handleToggleCollapse}
                         />
+                        <ButterBar key="ButterBar" visible={this.props.isFetching} />
                     </Header>
-                    <ButterBar key="ButterBar" visible={this.props.isFetching} />
                     <Layout>
                         <Routes
                             currentUserRole={this.currentUserRole}

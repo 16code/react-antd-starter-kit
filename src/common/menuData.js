@@ -16,6 +16,10 @@ const menuData = [
             {
                 name: '产品列表',
                 path: 'products'
+            },
+            {
+                name: '订单列表',
+                path: 'orders'
             }
         ]
     }
