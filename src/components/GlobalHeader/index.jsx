@@ -2,18 +2,21 @@ import { Icon, Menu, Dropdown, Avatar, Tooltip, Divider } from 'antd';
 import { Link } from 'react-router-dom';
 import styles from './index.less';
 
+const MenuItem = Menu.Item;
+const MenuDivider = Menu.Divider;
+
 function HeaderMenu(props) {
     const menu = (
         <Menu onClick={props.onMenuClick} className={styles.menu} selectedKeys={[]}>
-            <Menu.Item disabled>
+            <MenuItem disabled>
                 <Icon type="user" />个人中心
-            </Menu.Item>
-            <Menu.Item disabled>
+            </MenuItem>
+            <MenuItem disabled>
                 <Icon type="setting" />设置
-            </Menu.Item>
-            <Menu.Item key="changeTheme"><Icon type="setting" />切换主题</Menu.Item>
-            <Menu.Divider />
-            <Menu.Item key="logout"><Icon type="logout" /> 退出登录</Menu.Item>
+            </MenuItem>
+            <MenuItem key="changeTheme"><Icon type="setting" />切换主题</MenuItem>
+            <MenuDivider />
+            <MenuItem key="logout"><Icon type="logout" /> 退出登录</MenuItem>
         </Menu>
     );
     return (

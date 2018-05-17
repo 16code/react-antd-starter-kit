@@ -169,7 +169,7 @@ export default class Products extends React.PureComponent {
                     searchParams={this.state.params}
                     fieldKey="data"
                     columns={columns}
-                    scroll={{ x: 1360 }}
+                    scroll={{ x: 1440 }}
                     extra={extra}
                     showSizeChanger
                 />

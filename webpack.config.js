@@ -9,6 +9,7 @@ const autoprefixer = require('autoprefixer');
 const CompressionPlugin = require('compression-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const srcPath = path.join(__dirname, './src');
 const distPath = path.join(__dirname, './dist');
@@ -53,6 +54,7 @@ const cssLoaderConfig = ExtractTextPlugin.extract({
 function webpackConfig(env) {
     const isMock = env.mock;
     const plugins = [
+        new BundleAnalyzerPlugin(),
         new webpack.DefinePlugin({
             __MOCK__: isMock,
             'process.env': {
@@ -123,10 +125,7 @@ function webpackConfig(env) {
         new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/)
     ];
     const entry = {
-        vendor: [
-            './src/polyfills.js',
-            './src/vendor.js'
-        ],
+        vendor: './src/vendor.js',
         app: ['./src/styles/index.less', './src/index.jsx']
     };
     // 开发环境
@@ -310,6 +309,22 @@ function webpackConfig(env) {
             moment: true
         },
         plugins,
+        optimization: {
+            occurrenceOrder: true,
+            splitChunks: {
+                cacheGroups: {
+                    commons: {
+                        name: 'commons',
+                        chunks: 'initial',
+                        minChunks: 2,
+                        minSize: 0
+                    }
+                }
+            }
+        },
+        performance: {
+            hints: false
+        },
         cache: true,
         watch: false,
         devtool: isMock ? 'source-map' : 'source-map'
