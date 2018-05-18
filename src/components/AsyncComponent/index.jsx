@@ -26,7 +26,7 @@ const asyncComponent = getComponent => {
             if (Component) {
                 return <Component key="Component" ref={node => (this.child = node)} {...this.props} />;
             }
-            return <Loading key="Loading" size="small" />;
+            return <div style={{ paddingTop: '80px' }}><Loading key="Loading" size="small" /></div>;
         }
     };
 };

@@ -12,6 +12,8 @@ const RadioButton = Radio.Button;
 const RadioGroup = Radio.Group;
 const { RangePicker } = DatePicker;
 const ButtonGroup = Button.Group;
+const TimelineItem = Timeline.Item;
+const InputSearch = Input.Search;
 
 const action = (
     <div>
@@ -70,13 +72,13 @@ export default class TableList extends React.PureComponent {
                 <RadioButton value="male">男</RadioButton>
                 <RadioButton value="female">女</RadioButton>
             </RadioGroup>,
-            <Input.Search
+            <InputSearch
                 key="searchUser"
                 onBlur={event => this.handleUpdateParams('username', event.target.value)}
                 onSearch={v => this.handleUpdateParams('username', v)}
                 placeholder="姓名"
             />,
-            <Input.Search
+            <InputSearch
                 key="searchPhone"
                 onBlur={event => this.handleUpdateParams('phone', event.target.value)}
                 onSearch={v => this.handleUpdateParams('phone', v)}
@@ -205,16 +207,16 @@ export default class TableList extends React.PureComponent {
                             </Panel>
                             <Panel header="操作日志" key="3">
                                 <Timeline>
-                                    <Timeline.Item>Create a services site 2017-09-01</Timeline.Item>
-                                    <Timeline.Item>Solve initial network problems 2017-09-01</Timeline.Item>
-                                    <Timeline.Item>Technical testing 2018-01-01</Timeline.Item>
-                                    <Timeline.Item>Network problems being solved 2018-04-01</Timeline.Item>
-                                    <Timeline.Item>Solve initial network problems 2017-09-01</Timeline.Item>
-                                    <Timeline.Item>Network problems being solved 2018-04-01</Timeline.Item>
-                                    <Timeline.Item>Technical testing 2018-01-01</Timeline.Item>
-                                    <Timeline.Item>Network problems being solved 2018-04-01</Timeline.Item>
-                                    <Timeline.Item>Solve initial network problems 2017-09-01</Timeline.Item>
-                                    <Timeline.Item>Network problems being solved 2018-04-01</Timeline.Item>
+                                    <TimelineItem>Create a services site 2017-09-01</TimelineItem>
+                                    <TimelineItem>Solve initial network problems 2017-09-01</TimelineItem>
+                                    <TimelineItem>Technical testing 2018-01-01</TimelineItem>
+                                    <TimelineItem>Network problems being solved 2018-04-01</TimelineItem>
+                                    <TimelineItem>Solve initial network problems 2017-09-01</TimelineItem>
+                                    <TimelineItem>Network problems being solved 2018-04-01</TimelineItem>
+                                    <TimelineItem>Technical testing 2018-01-01</TimelineItem>
+                                    <TimelineItem>Network problems being solved 2018-04-01</TimelineItem>
+                                    <TimelineItem>Solve initial network problems 2017-09-01</TimelineItem>
+                                    <TimelineItem>Network problems being solved 2018-04-01</TimelineItem>
                                 </Timeline>
                             </Panel>
                         </Collapse>
