@@ -27,3 +27,4 @@ typings.json
 .uglifycache
 .eslintcache
 ./libs
+*.gz
