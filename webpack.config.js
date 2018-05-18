@@ -126,7 +126,7 @@ function webpackConfig(env) {
     ];
     const entry = {
         vendor: './src/vendor.js',
-        app: ['./src/styles/index.less', './src/index.jsx']
+        app: ['./src/styles/keyframes.css', './src/styles/index.less', './src/index.jsx']
     };
     // 开发环境
     if (isMock) {
@@ -315,6 +315,13 @@ function webpackConfig(env) {
                 cacheGroups: {
                     commons: {
                         name: 'commons',
+                        chunks: 'initial',
+                        minChunks: 2,
+                        minSize: 0
+                    },
+                    antd: {
+                        test: /antd/,
+                        name: 'vendor',
                         chunks: 'initial',
                         minChunks: 2,
                         minSize: 0

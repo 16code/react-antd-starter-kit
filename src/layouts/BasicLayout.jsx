@@ -98,7 +98,6 @@ class BasicLayout extends React.PureComponent {
         this.props.userLogout();
     };
     handleMenuClick = ({ key }) => {
-        console.info(key);
         switch (key) {
             case 'changeTheme':
                 this.handleToggleTheme();
@@ -111,7 +110,7 @@ class BasicLayout extends React.PureComponent {
         }
     };
     get layout() {
-        const { theme, location, history, match, staticContext } = this.props;
+        const { theme, location, history, match, staticContext, isFetching } = this.props;
         return (
             <Layout className="ant-layout-wrapper">
                 <SiderMenu
@@ -134,7 +133,7 @@ class BasicLayout extends React.PureComponent {
                             onMenuClick={this.handleMenuClick}
                             onCollapse={this.handleToggleCollapse}
                         />
-                        <ButterBar key="ButterBar" visible={this.props.isFetching} />
+                        <ButterBar key="ButterBar" visible={isFetching} />
                     </Header>
                     <Layout>
                         <Routes

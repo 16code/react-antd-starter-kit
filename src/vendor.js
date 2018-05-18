@@ -5,4 +5,3 @@ import 'react-router-dom';
 import 'redux';
 import 'react-redux';
 import 'redux-saga';
-import './utils/fetch';
