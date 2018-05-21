@@ -43,6 +43,22 @@
 .dynamic-table-body {
     clear: both;
     position: relative;
+    min-height: 300px;
+}
+.table-loading-mask {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 5;
+    background-color: rgba(255, 255, 255, 0.8);
+    > :global(.loading) {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 320px;
+    }
 }
 .selection-wrapper {
     padding-bottom: 48px;

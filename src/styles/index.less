@@ -1,5 +1,4 @@
 @import './theme.less';
-
 :global {
     html,
     body {
@@ -27,6 +26,13 @@
     }
     .page-content {
         padding: 16px;
+        opacity: 0;
+    }
+    *[animated='page-enter'] {
+        animation: fadeInUp 1s both;
+    }
+    *[animated='page-leave'] {
+        opacity: 0;
     }
     .not-scroll-x {
         overflow-x: hidden;

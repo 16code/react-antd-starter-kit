@@ -5,6 +5,7 @@ const asyncComponent = getComponent => {
         constructor() {
             super();
             this.unMount = false;
+            this.componentRef = React.createRef();
         }
         componentWillMount() {
             if (!this.state.Component) {
@@ -17,16 +18,35 @@ const asyncComponent = getComponent => {
                     });
             }
         }
+        componentDidUpdate() {
+            this.applyRouterTransition();
+        }
         componentWillUnmount() {
             this.unMount = true;
-            if(this.child) this.child.setState = () => {};
+            if(this.componentRef) this.componentRef.setState = () => {};
+        }
+        getAnimatedDomNode() {
+            let element;
+            const ref = this.componentRef.current;
+			const elementRef = ReactDOM.findDOMNode(ref); // eslint-disable-line
+            if (ref && elementRef) {
+                element = elementRef.querySelector('.page-content');
+            }
+            return element;
+        }
+        applyRouterTransition() {
+            const element = this.getAnimatedDomNode();
+            element && element.setAttribute('animated', 'page-enter');
+        }		
+        get renderLoading() {
+            return <div style={{ paddingTop: '80px' }}><Loading key="Loading" size="small" /></div>;
+        }
+        renderComponent(Component) {
+            return <Component key="Component" ref={this.componentRef} {...this.props} />;
         }
         render() {
             const { Component } = this.state;
-            if (Component) {
-                return <Component key="Component" ref={node => (this.child = node)} {...this.props} />;
-            }
-            return <div style={{ paddingTop: '80px' }}><Loading key="Loading" size="small" /></div>;
+            return Component ? this.renderComponent(Component) : this.renderLoading;
         }
     };
 };

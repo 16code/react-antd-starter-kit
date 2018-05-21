@@ -1,5 +1,4 @@
-import Route from 'react-router-dom/Route';
-import Switch from 'react-router-dom/Switch';
+import { Route, Switch } from 'react-router-dom';
 import Authorized from 'components/AuthComponent';
 import NotFound from 'routes/errors/404';
 
