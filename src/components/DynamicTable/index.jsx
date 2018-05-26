@@ -25,7 +25,7 @@ export default class DynamicTable extends React.PureComponent {
             stateColumns: this.props.columns || [],
             pagination: {
                 current: 1,
-                pageSize: 30,
+                pageSize: 20,
                 showSizeChanger: !!showSizeChanger,
                 onChange: this.handleShowSizeChange,
                 onShowSizeChange: this.handleShowSizeChange,

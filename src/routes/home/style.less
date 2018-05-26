@@ -1,0 +1,45 @@
+@import '~styles/theme.less';
+
+.left-container {
+    flex: 0 0 240px;
+    margin-right: 20px;
+    background-color: #fff;
+}
+.right-container {
+    width: 620px;
+    background-color: #fff;
+}
+.drag-container {
+    display: flex;
+    justify-content: stretch;
+}
+.drag-list {
+    padding: 0;
+    min-height: 300px;
+}
+.drag-list-dragging {
+    background-color: #f8f8f8;
+}
+.item {
+    user-select: none;
+    padding: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ddd;
+}
+.item-dragging {
+    background-color: @primary-color;
+    color: white;
+}
+.right-container {
+    .item {
+        border-color: transparent;
+    }
+    .item + .item {
+        border-top-color: #ddd;
+    }
+    .item-dragging {
+        background-color: white;
+        height: 39px;
+        color: @primary-color;
+    }
+}

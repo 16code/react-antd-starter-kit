@@ -2,8 +2,8 @@ import { Route, Switch } from 'react-router-dom';
 import Authorized from 'components/AuthComponent';
 import NotFound from 'routes/errors/404';
 
-const home = asyncComponent(() => import( 'routes/home'));
-const list = asyncComponent(() => import( 'routes/list'));
+const home = asyncComponent(() => import('routes/home'));
+const list = asyncComponent(() => import('routes/list'));
 const page403 = require('routes/errors/403').default;
 
 export default class Routes extends React.PureComponent {
