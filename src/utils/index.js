@@ -42,7 +42,12 @@ export function decrypt(str) {
     return c;
 }
 
-export const delay = (ms) => new Promise(res => setTimeout(res, ms));
+export const delay = (ms) => new Promise(res => {
+    const timer = setTimeout(() => { 
+        clearTimeout(timer);
+        res();
+    }, ms);
+});
 
 /**
  * 全屏切换

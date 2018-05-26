@@ -25,12 +25,13 @@
         overflow-x: hidden;
     }
     .page-content {
-        padding: 16px;
-        opacity: 0;
+        padding: @page-content-padding;
+        opacity: 1;
         scroll-behavior: smooth;
     }
     *[animated='page-enter'] {
-        animation: fadeInUp 1s both;
+        opacity: 0;
+        animation: fadeInUp 0.8s both;
     }
     *[animated='page-leave'] {
         opacity: 0;

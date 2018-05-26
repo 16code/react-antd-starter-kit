@@ -1,3 +1,4 @@
+const delay = require('utils/index').delay;
 const Loading = require('../Loading').Loading;
 const asyncComponent = getComponent => {
     return class AsyncComponent extends React.PureComponent {
@@ -34,9 +35,13 @@ const asyncComponent = getComponent => {
             }
             return element;
         }
-        applyRouterTransition() {
+        async applyRouterTransition() {
             const element = this.getAnimatedDomNode();
-            element && element.setAttribute('animated', 'page-enter');
+            if (element) {
+                element.setAttribute('animated', 'page-enter');
+                await delay(1200);
+                element.removeAttribute('animated');
+            }
         }		
         get renderLoading() {
             return <div style={{ paddingTop: '80px' }}><Loading key="Loading" size="small" /></div>;

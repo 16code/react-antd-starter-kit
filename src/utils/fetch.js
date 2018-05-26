@@ -1,6 +1,7 @@
 import { notification } from 'antd';
 import { types as authTypes } from 'reducers/auth';
 import { types as ajaxTypes } from 'reducers/ajax';
+import { delay } from 'utils/index';
 import fetchIntercept from '../utils/fetch-intercept';
 import AuthService from '../services/auth.service';
 import { store } from '../containers/Store';
@@ -53,9 +54,13 @@ fetchIntercept.register({
         return Promise.reject(error);
     },
 
-    response: function (response, requestArgs) {
+    response: async function (response, requestArgs) {
         pendingRequest.shift();
         const status = response.status;
+        if (pendingRequest.length === 0) {
+            await delay(1000);
+            store.dispatch({ type: ajaxTypes.ajaxDone });
+        }		
         return new Promise((resolve, reject) => {
             switch (true) {
                 case status >= 200 && status < 300:
@@ -67,12 +72,6 @@ fetchIntercept.register({
                 default:
                     handleResponseError(response, requestArgs).then(reject).catch(reject);
                     break;
-            }
-            if (!pendingRequest.length) {
-                const timer = setTimeout(() => {
-                    clearTimeout(timer);
-                    store.dispatch({ type: ajaxTypes.ajaxDone });
-                }, 1000);
             }
         });
     },

@@ -44,6 +44,9 @@
     clear: both;
     position: relative;
     min-height: 300px;
+    :global(.ant-table-placeholder) {
+        min-height: 320px;
+    }
 }
 .table-loading-mask {
     position: absolute;
@@ -52,7 +55,7 @@
     top: 0;
     bottom: 0;
     z-index: 5;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.2);
     > :global(.loading) {
         display: flex;
         justify-content: center;
