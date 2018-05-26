@@ -54,7 +54,6 @@ const cssLoaderConfig = ExtractTextPlugin.extract({
 function webpackConfig(env) {
     const isMock = env.mock;
     const plugins = [
-        new BundleAnalyzerPlugin(),
         new webpack.DefinePlugin({
             __MOCK__: isMock,
             'process.env': {
@@ -135,6 +134,7 @@ function webpackConfig(env) {
         plugins.push(...hotPlugins);
     } else {
         const productionPlugins = [
+            new BundleAnalyzerPlugin(),
             new CleanWebpackPlugin([distPath]),
             new webpack.NoEmitOnErrorsPlugin(),
             new UglifyJSPlugin({
