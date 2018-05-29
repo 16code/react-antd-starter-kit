@@ -94,16 +94,16 @@ export default class SiderMenu extends PureComponent {
                 );
             }
             return null;
-        } else {
-            return <MenuItem key={item.path}>{this.getMenuItemPath(item)}</MenuItem>;
-        }
+        } 
+        return <MenuItem key={item.path}>{this.getMenuItemPath(item)}</MenuItem>;
+        
     };
     conversionPath = path => {
         if (path && path.indexOf('http') === 0) {
             return path;
-        } else {
-            return `/${path || ''}`.replace(/\/+/g, '/');
-        }
+        } 
+        return `/${path || ''}`.replace(/\/+/g, '/');
+        
     };
     getMenuItemPath = item => {
         const itemPath = this.conversionPath(item.path);

@@ -28,7 +28,7 @@ fetchIntercept.register({
             }
         };
         if (!isHttpUrl(url)) {
-            url = `${API_GATEWAY}${/^\//.test(url) ? url : '/' + url}`;
+            url = `${API_GATEWAY}${/^\//.test(url) ? url : `/${ url}`}`;
         }
         const config = Object.assign({}, baseConfig, cfg);
         const user = AuthService.getUser();
@@ -129,9 +129,9 @@ function handleResponseData(response) {
 
     if (contentType.includes('application/json')) {
         return response.json();
-    } else {
-        return response.blob();
-    }
+    } 
+    return response.blob();
+    
 }
 
 function handleErrorData({ response, json, requestArgs }) {

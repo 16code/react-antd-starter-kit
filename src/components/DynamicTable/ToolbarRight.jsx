@@ -83,7 +83,7 @@ export default class ToolbarRight extends React.PureComponent {
                     disabled={this.props.loading}	
                     shape="circle"
                     icon="reload"
-                    onClick={() => this.props.onReload && this.props.onReload() || undefined}
+                    onClick={() => (this.props.onReload && this.props.onReload()) || undefined}
                 />
             </Tooltip>,
             <Tooltip placement="top" key="fullScreen" title="全屏切换">

@@ -21,7 +21,9 @@ const action = (
             <Button icon="download">导出</Button>
             <Button icon="to-top">导入</Button>
         </ButtonGroup>
-        <Button type="primary" icon="plus">添加</Button>
+        <Button type="primary" icon="plus">
+            添加
+        </Button>
     </div>
 );
 
@@ -64,10 +66,7 @@ export default class TableList extends React.PureComponent {
     }
     extra() {
         return [
-            <RadioGroup
-                key="searchPerson"
-                onChange={e => this.handleUpdateParams('gender', e.target.value)}
-            >
+            <RadioGroup key="searchPerson" onChange={e => this.handleUpdateParams('gender', e.target.value)}>
                 <RadioButton value="">不限</RadioButton>
                 <RadioButton value="male">男</RadioButton>
                 <RadioButton value="female">女</RadioButton>
@@ -220,9 +219,8 @@ export default class TableList extends React.PureComponent {
                                 </Timeline>
                             </Panel>
                         </Collapse>
-
-                    </Card>	
-                </DockPanel>	
+                    </Card>
+                </DockPanel>
             </PageHeaderLayout>
         );
     }

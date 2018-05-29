@@ -2,7 +2,7 @@
 * Configuration for React-Native's package system
 * @providesModule whatwg-fetch
 */
-
+/* eslint no-shadow: 0 */
 // Uses Emscripten stategy for determining environment
 const ENVIRONMENT_IS_REACT_NATIVE = typeof navigator === 'object' && navigator.product === 'ReactNative';
 const ENVIRONMENT_IS_NODE = typeof process === 'object' && typeof require === 'function';
