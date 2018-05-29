@@ -20,11 +20,11 @@ function* userLogin({ payload }) {
         yield AuthService.setUser(loggedInUser);
         const { state } = location || {};
         if (history && (state && state.from)) {
-            const toPathName = state.from.pathname || '/home';
+            const toPathName = state.from.pathname || '/';
             history.push({ pathname: toPathName });
             // window.location.href = toPathName;
         } else {
-            window.location.href = '/home';
+            window.location.href = '/';
         }
     } catch (error) {
         yield put({ type: types.userLoginFailure, payload: error });

@@ -1,8 +1,8 @@
 const menuData = [
     {
-        name: '首页',
-        icon: 'home',
-        path: 'home'
+        name: 'Dashboard',
+        icon: 'dashboard',
+        path: 'dashboard'
     },
     {
         name: '列表页',

@@ -10,7 +10,7 @@ const Container = () => (
         <BrowserRouter>
             <Switch>
                 <Route path="/login" component={LoginLayout} exact />
-                <Redirect from="/" to="/home" exact />
+                <Redirect from="/" to="/dashboard" exact />
                 <Route
                     path="/"
                     render={props => store.getState().auth.token ?
