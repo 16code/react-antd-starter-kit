@@ -8,7 +8,7 @@ const asyncComponent = getComponent => {
             this.unMount = false;
             this.componentRef = React.createRef();
         }
-        componentWillMount() {
+        componentDidMount() {
             if (!this.state.Component) {
                 getComponent()
                     .then(({ default: Component }) => {

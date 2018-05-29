@@ -1,7 +1,6 @@
 import { AppContainer as RootContainer } from 'react-hot-loader';
 import AppContainer from './containers/AppContainer';
 import './utils/fetch';
-
 const rootElement = document.getElementById('app-root');
 const render = Component => {
     ReactDOM.render(
