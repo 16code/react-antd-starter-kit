@@ -15,42 +15,6 @@ const srcPath = path.join(__dirname, './src');
 const distPath = path.join(__dirname, './dist');
 const libPath = path.join(__dirname, './libs');
 
-const cssLoaderConfig = ExtractTextPlugin.extract({
-    fallback: 'style-loader',
-    use: [
-        {
-            loader: 'cache-loader',
-            options: {
-                cacheDirectory: path.resolve('.csscache')
-            }
-        },
-        {
-            loader: 'css-loader',
-            options: {
-                importLoaders: 2,
-                modules: true,
-                localIdentName: '[name]__[local]--[hash:base64:8]'
-            }
-        },
-        {
-            loader: 'postcss-loader',
-            options: {
-                plugins: () => [
-                    autoprefixer({
-                        browsers: ['last 3 version']
-                    })
-                ]
-            }
-        },
-        {
-            loader: 'less-loader',
-            options: {
-                javascriptEnabled: true
-            }
-        }
-    ]
-});
-
 function webpackConfig(env) {
     const isMock = env.mock;
     const plugins = [
@@ -124,8 +88,8 @@ function webpackConfig(env) {
         new webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /zh-cn/)
     ];
     const entry = {
-        vendor: './src/vendor.js',
-        app: ['./src/styles/keyframes.css', './src/styles/index.less', './src/index.jsx']
+        vendors: ['./src/vendors.js'],
+        app: ['babel-polyfill', './src/styles/keyframes.css', './src/styles/index.less', './src/index.jsx']
     };
     // 开发环境
     if (isMock) {
@@ -134,7 +98,7 @@ function webpackConfig(env) {
         plugins.push(...hotPlugins);
     } else {
         const productionPlugins = [
-            new BundleAnalyzerPlugin(),
+            new BundleAnalyzerPlugin({ openAnalyzer: false }),
             new CleanWebpackPlugin([distPath]),
             new webpack.NoEmitOnErrorsPlugin(),
             new UglifyJSPlugin({
@@ -258,9 +222,9 @@ function webpackConfig(env) {
                 {
                     test: /\.less$/,
                     include: srcPath,
-                    use: isMock
-                        ? [
-                            'style-loader',
+                    use: ExtractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        use: [
                             {
                                 loader: 'cache-loader',
                                 options: {
@@ -270,10 +234,19 @@ function webpackConfig(env) {
                             {
                                 loader: 'css-loader',
                                 options: {
-                                    root: '.',
-                                    importLoaders: 1,
+                                    importLoaders: 2,
                                     modules: true,
                                     localIdentName: '[name]__[local]--[hash:base64:8]'
+                                }
+                            },
+                            {
+                                loader: 'postcss-loader',
+                                options: {
+                                    plugins: () => [
+                                        autoprefixer( isMock ? false : {
+                                            browsers: ['last 3 version']
+                                        })
+                                    ]
                                 }
                             },
                             {
@@ -283,7 +256,7 @@ function webpackConfig(env) {
                                 }
                             }
                         ]
-                        : cssLoaderConfig,
+                    }),
                     exclude: /(node_modules)/
                 },
                 {
@@ -313,18 +286,16 @@ function webpackConfig(env) {
             occurrenceOrder: true,
             splitChunks: {
                 cacheGroups: {
-                    commons: {
-                        name: 'commons',
-                        chunks: 'initial',
-                        minChunks: 2,
-                        minSize: 0
-                    },
-                    antd: {
-                        test: /antd/,
-                        name: 'vendor',
-                        chunks: 'initial',
-                        minChunks: 2,
-                        minSize: 0
+                    vendors: {
+                        // test: /[\\/]node_modules[\\/]/,
+                        test: 'vendors',
+                        priority: 10,
+                        enforce: true,
+                        name: 'vendors',
+                        chunks: 'all',
+                        minChunks: 1,
+                        minSize: 0,
+                        reuseExistingChunk: true
                     }
                 }
             }
@@ -334,7 +305,7 @@ function webpackConfig(env) {
         },
         cache: true,
         watch: false,
-        devtool: isMock ? 'source-map' : 'source-map'
+        devtool: isMock ? 'source-map' : false
     };
 }
 
