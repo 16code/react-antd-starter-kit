@@ -14,7 +14,43 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const srcPath = path.join(__dirname, './src');
 const distPath = path.join(__dirname, './dist');
 const libPath = path.join(__dirname, './libs');
-
+const cssLoaderConfig = function (env) { 
+    return {
+        fallback: 'style-loader',
+        use: [
+            {
+                loader: 'cache-loader',
+                options: {
+                    cacheDirectory: path.resolve('.csscache')
+                }
+            },
+            {
+                loader: 'css-loader',
+                options: {
+                    importLoaders: 2,
+                    modules: true,
+                    localIdentName: '[name]__[local]--[hash:base64:8]'
+                }
+            },
+            {
+                loader: 'postcss-loader',
+                options: {
+                    plugins: () => [
+                        autoprefixer( env.mock ? false : {
+                            browsers: ['last 3 version']
+                        })
+                    ]
+                }
+            },
+            {
+                loader: 'less-loader',
+                options: {
+                    javascriptEnabled: true
+                }
+            }
+        ]
+    };
+};
 function webpackConfig(env) {
     const isMock = env.mock;
     const plugins = [
@@ -222,41 +258,8 @@ function webpackConfig(env) {
                 {
                     test: /\.less$/,
                     include: srcPath,
-                    use: ExtractTextPlugin.extract({
-                        fallback: 'style-loader',
-                        use: [
-                            {
-                                loader: 'cache-loader',
-                                options: {
-                                    cacheDirectory: path.resolve('.csscache')
-                                }
-                            },
-                            {
-                                loader: 'css-loader',
-                                options: {
-                                    importLoaders: 2,
-                                    modules: true,
-                                    localIdentName: '[name]__[local]--[hash:base64:8]'
-                                }
-                            },
-                            {
-                                loader: 'postcss-loader',
-                                options: {
-                                    plugins: () => [
-                                        autoprefixer( isMock ? false : {
-                                            browsers: ['last 3 version']
-                                        })
-                                    ]
-                                }
-                            },
-                            {
-                                loader: 'less-loader',
-                                options: {
-                                    javascriptEnabled: true
-                                }
-                            }
-                        ]
-                    }),
+                    use: isMock ? ['style-loader', ...cssLoaderConfig(env).use]
+                        : ExtractTextPlugin.extract(cssLoaderConfig(env)),
                     exclude: /(node_modules)/
                 },
                 {
