@@ -26,5 +26,6 @@ typings.json
 .csscache
 .uglifycache
 .eslintcache
+.uglifyVendorCache
 ./libs
 *.gz
