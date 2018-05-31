@@ -6,7 +6,7 @@
     "scripts": {
         "start": "cross-env BABEL_ENV=development webpack-dev-server --inline --hot --env.mock",
         "build:css": "webpack --config webpack.css.js -p",
-        "build": "cross-env BABEL_ENV=production webpack -p --progress --colors --display minimal --env.prod",
+        "build": "cross-env BABEL_ENV=production webpack --progress --colors --display minimal --env.prod",
         "lint": "node_modules/.bin/eslint --cache --cache-location '.eslintcache/' --config .eslintrc --quiet './src/**/*.js' './src/**/*.jsx'"
     },
     "repository": {
@@ -36,8 +36,8 @@
         "babel-core": "^6.26.3",
         "babel-eslint": "^8.2.3",
         "babel-loader": "^7.1.4",
-        "babel-plugin-dynamic-import-webpack": "^1.0.2",
         "babel-plugin-import": "^1.7.0",
+        "babel-plugin-syntax-dynamic-import": "^6.18.0",
         "babel-plugin-transform-class-properties": "^6.24.1",
         "babel-plugin-transform-decorators-legacy": "^1.3.4",
         "babel-plugin-transform-object-rest-spread": "^6.26.0",

@@ -140,11 +140,11 @@ function webpackConfig(env) {
             new UglifyJSPlugin({
                 cache: '.uglifycache',
                 sourceMap: true,
+                parallel: true,
                 uglifyOptions: {
-                    comments: false,
                     ecma: 5,
                     output: {
-                        comments: false,
+                        comments: /webpackChunkName/,
                         beautify: false
                     },
                     compress: {
