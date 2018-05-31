@@ -44,9 +44,17 @@ export default class DynamicTable extends React.PureComponent {
         this.setState = () => {};
         if (this.timer) window.clearTimeout(this.timer);
     }
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.searchParams && nextProps.searchParams !== this.props.searchParams) {
-            this.timer = window.setTimeout(() => this.fetchData(nextProps.searchParams), 300);
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (!Object.is(nextProps.searchParams, prevState.searchParams)) {
+            return {
+                dataHasLoaded: false
+            };
+        }
+        return null;
+    }
+    componentDidUpdate(prevProps) {
+        if (!this.state.dataHasLoaded && !Object.is(prevProps.searchParams, this.props.searchParams)) {
+            this.fetchData(this.props.searchParams);
         }
     }
     scrollToBoxTop() {
@@ -60,10 +68,11 @@ export default class DynamicTable extends React.PureComponent {
             console.info(e);
         });
         result &&
-            this.setState({
-                dataSource: fieldKey ? result[fieldKey] : result,
-                pagination: Object.assign(this.state.pagination, result.meta)
-            });
+			this.setState({
+			    dataHasLoaded: true,
+			    dataSource: fieldKey ? result[fieldKey] : result,
+			    pagination: Object.assign(this.state.pagination, result.meta)
+			});
         this.scrollToBoxTop();
     }
     handleShowSizeChange(current, pagSize) {
