@@ -5,7 +5,7 @@
 }
 .header {
     height: @header-bar-height;
-    padding: 0 12px 0 0;
+    padding: 0 0.12rem 0 0;
     background: #fff;
     box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
     position: relative;
@@ -16,9 +16,9 @@
     line-height: 58px;
     vertical-align: top;
     display: inline-block;
-    padding: 0 0 0 24px;
+    padding: 0 0 0 0.24rem;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 0.2rem;
     img {
         display: inline-block;
         vertical-align: middle;
@@ -39,7 +39,7 @@ i.trigger {
     line-height: @header-bar-height;
     cursor: pointer;
     transition: all 0.3s, padding 0s;
-    padding: 0 24px;
+    padding: 0 0.24rem;
     &:hover {
         background: @primary-1;
     }
@@ -50,7 +50,7 @@ i.trigger {
     height: 100%;
     .action {
         cursor: pointer;
-        padding: 0 12px;
+        padding: 0 0.12rem;
         display: inline-block;
         transition: all 0.3s;
         height: 100%;
@@ -64,13 +64,6 @@ i.trigger {
             background: @primary-1;
         }
     }
-    .search {
-        padding: 0;
-        margin: 0 12px;
-        &:hover {
-            background: transparent;
-        }
-    }
     .account {
         .avatar {
             margin: 0 8px 0 0;
@@ -81,31 +74,5 @@ i.trigger {
     }
 }
 
-@media only screen and (max-width: @screen-md) {
-    .header {
-        :global(.ant-divider-vertical) {
-            vertical-align: unset;
-        }
-        .name {
-            display: none;
-        }
-        i.trigger {
-            padding: 0 12px;
-        }
-        .logo {
-            padding-right: 12px;
-            position: relative;
-        }
-        .right {
-            position: absolute;
-            right: 12px;
-            top: 0;
-            background: #fff;
-            .account {
-                .avatar {
-                    margin-right: 0;
-                }
-            }
-        }
-    }
+@media screen and (max-width: @screen-xs-min) {
 }

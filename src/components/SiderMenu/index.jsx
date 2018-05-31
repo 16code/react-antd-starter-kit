@@ -9,13 +9,14 @@ export default function AppSiderMenu(props) {
             parent={null}
             level={null}
             iconChild={null}
+            placement="left"
+            handleChild={false}
             open={!props.collapsed}
             onMaskClick={() => {
                 props.onCollapse(true);
             }}
-            width="200px"
         >
-            <SiderMenu {...props} collapsed={props.isMobile ? false : props.collapsed} />
+            <SiderMenu width="200px" {...props} collapsed={props.isMobile ? false : props.collapsed} />
         </DrawerMenu>
     ) : (
         <SiderMenu {...props} />

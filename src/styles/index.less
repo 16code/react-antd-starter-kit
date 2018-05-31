@@ -29,6 +29,11 @@
         opacity: 1;
         scroll-behavior: smooth;
     }
+    @media screen and (max-width: @screen-xs-min) {
+        .page-content {
+            padding: @page-content-padding / 2;
+        }
+    }
     *[animated='page-enter'] {
         opacity: 0;
         animation: fadeInUp 0.8s both;

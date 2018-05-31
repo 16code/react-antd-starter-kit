@@ -22,14 +22,12 @@ export default class SearchForm extends React.PureComponent {
         const { getFieldDecorator, isFieldsTouched } = this.props.form;
         const layout = {
             sm: 12,
-            md: 6,
-            lg: 6,
             xl: 6
         };
         const formItemLayout = {};
         return (
-            <Row gutter={8}>
-                <Col span={20}>
+            <Row gutter={{ sm: 4, md: 8 }}>
+                <Col xs={17} lg={20}>
                     <Form layout="vertical" onSubmit={this.handleSubmit}>
                         <Row gutter={8}>
                             <Col {...layout}>
@@ -85,7 +83,7 @@ export default class SearchForm extends React.PureComponent {
                         </Row>
                     </Form>
                 </Col>
-                <Col span={4}>
+                <Col xs={7} lg={4}>
                     <div style={{ textAlign: 'right' }}>
                         <FormItem>
                             <Button type="primary" htmlType="button" onClick={this.handleSubmit}>

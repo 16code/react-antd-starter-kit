@@ -1,4 +1,4 @@
-import { Input, Radio, Tag, Avatar, DatePicker, Modal, Card, Collapse, Timeline, Button } from 'antd';
+import { Input, Radio, Tag, Avatar, DatePicker, Modal, Card, Collapse, Timeline, Button, message } from 'antd';
 import { connect } from 'react-redux';
 import DynamicTable from 'components/DynamicTable';
 import DockPanel from 'components/DockPanel';
@@ -93,7 +93,7 @@ export default class TableList extends React.PureComponent {
     }
     handleConfirmOk = async () => {
         await delay(3000);
-        this.setState({ panelVisible: false });
+        this.setState({ panelVisible: false }, () => message.success('数据操作成功!'));
     };
     handleClickAction = (key, extra) => {
         if (key === 'delete') {

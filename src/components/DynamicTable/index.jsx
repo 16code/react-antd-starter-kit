@@ -19,6 +19,7 @@ export default class DynamicTable extends React.PureComponent {
     constructor(props) {
         super(props);
         const { showSizeChanger } = props;
+        this.unMount = false;
         this.handleShowSizeChange = this.handleShowSizeChange.bind(this);
         this.state = {
             dataSource: [],
@@ -39,6 +40,8 @@ export default class DynamicTable extends React.PureComponent {
         this.fetchData();
     }
     componentWillUnmount() {
+        this.unMount = true;
+        this.setState = () => {};
         if (this.timer) window.clearTimeout(this.timer);
     }
     componentWillReceiveProps(nextProps) {

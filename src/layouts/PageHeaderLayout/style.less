@@ -1,5 +1,6 @@
 @import '~styles/theme.less';
 
+@half-padding: @page-content-padding / 2;
 .page-header {
     background: @component-background;
     height: auto;
@@ -11,7 +12,11 @@
         line-height: 1;
     }
 }
-
+@media screen and (max-width: @screen-xs-min) {
+    .page-header {
+        padding: @half-padding @half-padding 0;
+    }
+}
 .pageHeader {
     .detail {
         display: flex;
@@ -49,7 +54,7 @@
     }
 
     .title {
-        font-size: 20px;
+        font-size: 0.2rem;
         font-weight: 500;
         color: @heading-color;
         margin-bottom: 0;
@@ -81,14 +86,17 @@
     }
 }
 
-@media screen and (max-width: @screen-xs) {
+@media screen and (max-width: @screen-xs-min) {
     .pageHeader {
         .logo {
             margin-right: 8px;
         }
+        .title {
+            display: none;
+        }
         .action {
             margin-left: 8px;
-            min-width: unset;
+            min-width: auto;
             :global {
                 .ant-btn-group > .ant-btn {
                     display: inline-block;
