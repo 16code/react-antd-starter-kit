@@ -2,8 +2,8 @@ import { Route, Switch } from 'react-router-dom';
 import Authorized from 'components/AuthComponent';
 import NotFound from 'routes/errors/404';
 
-const dashboard = asyncComponent(() => import('routes/dashboard'));
-const list = asyncComponent(() => import('routes/list'));
+const dashboard = asyncComponent(() => import(/* webpackChunkName: "dashboard" */ 'routes/dashboard'));
+const list = asyncComponent(() => import(/* webpackChunkName: "table-list" */ 'routes/list'));
 const page403 = require('routes/errors/403').default;
 
 export default class Routes extends React.PureComponent {
