@@ -1,6 +1,6 @@
 import { Table } from 'antd';
 import PropTypes from 'prop-types';
-import connect from 'redux-connect-decorator';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 import ToolbarRight from './ToolbarRight';
 import styles from './index.less';

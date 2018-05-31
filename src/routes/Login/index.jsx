@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import connect from 'redux-connect-decorator';
+import { connect } from 'react-redux';
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import { userActions } from 'reducers/auth';
 

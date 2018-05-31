@@ -1,5 +1,5 @@
 import { Input, Radio, Tag, Avatar, DatePicker, Modal, Card, Collapse, Timeline, Button } from 'antd';
-import connect from 'redux-connect-decorator';
+import { connect } from 'react-redux';
 import DynamicTable from 'components/DynamicTable';
 import DockPanel from 'components/DockPanel';
 import DescriptionList from 'components/DescriptionList';

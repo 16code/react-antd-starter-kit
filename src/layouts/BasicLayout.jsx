@@ -1,5 +1,5 @@
 import { Layout } from 'antd';
-import connect from 'redux-connect-decorator';
+import { connect } from 'react-redux';
 import classNames from 'classnames';
 import { ContainerQuery } from 'react-container-query';
 import SiderMenu from 'components/SiderMenu';

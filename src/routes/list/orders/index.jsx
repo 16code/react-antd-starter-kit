@@ -1,6 +1,6 @@
 import { Radio, Tag, Modal, Button, Steps, Form, Input, Select, Upload, Icon } from 'antd';
 import { TopDrawerLayout } from 'layouts';
-import connect from 'redux-connect-decorator';
+import { connect } from 'react-redux';
 import DockPanel from 'components/DockPanel';
 import DynamicTable from 'components/DynamicTable';
 import SearchForm from './SearchForm';

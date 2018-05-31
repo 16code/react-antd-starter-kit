@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 import { getMenuData, getMenuDataPathKeys } from 'common/menuData';
-import connect from 'redux-connect-decorator';
+import { connect } from 'react-redux';
 
 const menuData = getMenuData();
 const menuDataPathKeys = getMenuDataPathKeys(menuData);
