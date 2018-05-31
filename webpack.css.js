@@ -36,9 +36,11 @@ function webpackConfig() {
                             {
                                 loader: 'postcss-loader',
                                 options: {
-                                    plugins: () => [autoprefixer({
-                                        browsers: ['Firefox >= 55', 'Chrome >= 55', 'Safari >= 10']
-                                    })]
+                                    plugins: () => [
+                                        autoprefixer({
+                                            browsers: ['Firefox >= 55', 'Chrome >= 55', 'Safari >= 10']
+                                        })
+                                    ]
                                 }
                             },
                             {

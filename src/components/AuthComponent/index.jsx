@@ -31,10 +31,11 @@ const AuthorizedRoute = ({ component: ComposedComponent, ...rest }) => {
 	@connect(({ auth }) => ({ token: auth.token }))
     class AuthComponent extends React.PureComponent {
         componentRender = props => {
-            const { location } = props;
+            const { location: { pathname } } = props;
             const { userRole } = rest;
-            if (this.props.token) {
-                const { authRole } = menuDataPathKeys[location.pathname] || {};
+            const { token } = this.props;			
+            if (token && token !== '') {
+                const { authRole } = menuDataPathKeys[pathname] || {};
                 if (authRole && userRole && !~authRole.indexOf(userRole)) {
                     return prmissionDeniedePage(props);
                 }
