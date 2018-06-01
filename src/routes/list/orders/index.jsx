@@ -19,7 +19,7 @@ export default class Products extends React.PureComponent {
         importPanelVisible: false,
         record: {}
     };
-    handleColseDock = () => {
+    handleCloseDock = () => {
         this.setState({ panelVisible: false, importPanelVisible: false });
     };
     handleShowDock = record => {
@@ -177,7 +177,7 @@ export default class Products extends React.PureComponent {
                     title="产品详情"
                     size="middle"
                     visible={this.state.panelVisible}
-                    onClose={this.handleColseDock}
+                    onClose={this.handleCloseDock}
                     loading={this.props.isFetching}
                     extra={this.state.panelExtraData}
                     onClickAction={this.handleClickAction}
@@ -188,7 +188,7 @@ export default class Products extends React.PureComponent {
                     title="产品导入"
                     size="small"
                     visible={this.state.importPanelVisible}
-                    onClose={this.handleColseDock}
+                    onClose={this.handleCloseDock}
                 >
                     <Steps direction="vertical" size="small" current={-1}>
                         <Step title="设置选项" description={step1} />
