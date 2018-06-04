@@ -59,7 +59,7 @@
         "eslint-loader": "^2.0.0",
         "eslint-plugin-import": "^2.11.0",
         "eslint-plugin-prettier": "^2.6.0",
-        "eslint-plugin-react": "^7.7.0",
+        "eslint-plugin-react": "^7.9.0",
         "express-http-proxy": "^1.2.0",
         "extract-text-webpack-plugin": "^4.0.0-beta.0",
         "fetch-intercept": "^2.2.3",
@@ -84,7 +84,7 @@
         "url-loader": "^1.0.1",
         "webpack": "^4.10.1",
         "webpack-bundle-analyzer": "^2.12.0",
-        "webpack-cli": "^2.1.4",
+        "webpack-cli": "^3.0.1",
         "webpack-dev-server": "^3.1.4"
     },
     "precommit": {
