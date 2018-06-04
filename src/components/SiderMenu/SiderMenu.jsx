@@ -2,7 +2,6 @@ import { PureComponent } from 'react';
 import { Layout, Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 import { pathToRegexp, urlToList } from 'utils';
-import classNames from 'classnames';
 import './index.less';
 
 const { Sider } = Layout;
@@ -17,48 +16,63 @@ const getIcon = icon => {
     return icon;
 };
 
-const getMeunMatcheys = (flatMenuKeys, path) => {
+const getMeunMatcheys = (flatMenuKeys = [], path) => {
     return flatMenuKeys.filter(item => {
         return pathToRegexp(item).test(path);
     });
 };
+
+const getFlatMenuKeys = (menus = []) => {
+    let keys = [];
+    menus.forEach(item => {
+        if (item.children) {
+            keys = keys.concat(getFlatMenuKeys(item.children));
+        }
+        keys.push(item.path);
+    });
+    return keys;
+};
+let flatMenuKeys = [];
 export default class SiderMenu extends PureComponent {
     constructor(props) {
         super(props);
         this.menus = props.menuData;
-        this.flatMenuKeys = this.getFlatMenuKeys(this.menus);
+        flatMenuKeys = getFlatMenuKeys(this.menus);
         this.state = {
-            openKeys: this.getDefaultCollapsedSubMenus(props)
+            openKeys: this.constructor.getDefaultCollapsedSubMenus(props)
         };
     }
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.location.pathname !== this.props.location.pathname) {
-            this.setState({
-                openKeys: this.getDefaultCollapsedSubMenus(nextProps)
-            });
+    static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.location.pathname !== prevState.pathname) {
+            return {
+                pathname: nextProps.location.pathname,
+                openKeys: SiderMenu.getDefaultCollapsedSubMenus(nextProps)
+            };
         }
+        return null;
     }
+	
     getFlatMenuKeys(menus) {
         let keys = [];
         menus.forEach(item => {
             if (item.children) {
-                keys = keys.concat(this.getFlatMenuKeys(item.children));
+                keys = keys.concat(getFlatMenuKeys(item.children));
             }
             keys.push(item.path);
         });
         return keys;
     }
-    getDefaultCollapsedSubMenus(props) {
+    static getDefaultCollapsedSubMenus(props) {
         const { location: { pathname } } = props || this.props;
         return urlToList(pathname)
-            .map(item => getMeunMatcheys(this.flatMenuKeys, item)[0])
+            .map(item => getMeunMatcheys(flatMenuKeys, item)[0])
             .filter(item => item);
     }
     getSelectedMenuKeys = () => {
         const {
             location: { pathname }
         } = this.props;
-        return urlToList(pathname).map(itemPath => getMeunMatcheys(this.flatMenuKeys, itemPath).pop());
+        return urlToList(pathname).map(itemPath => getMeunMatcheys(flatMenuKeys, itemPath).pop());
     };
     isMainMenu = key => {
         return this.menus.some(item => key && (item.key === key || item.path === key));
@@ -156,16 +170,16 @@ export default class SiderMenu extends PureComponent {
         if (!selectedKeys.length) {
             selectedKeys = [openKeys[openKeys.length - 1]];
         }
-        const clsString = classNames({ 'app-sider-theme-light': theme === 'light' }, 'app-sider');
         return (
             <Sider
+                width={200}
+                theme={theme}
+                breakpoint="lg"
+                className="app-sider"
+                collapsed={collapsed}
+                onCollapse={() => onCollapse}
                 trigger={null}
                 collapsible
-                collapsed={collapsed}
-                breakpoint="lg"
-                onCollapse={() => onCollapse}
-                width={200}
-                className={clsString}
             >
                 <div className="logo" key="logo">
                     <Link to="/">

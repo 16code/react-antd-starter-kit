@@ -50,12 +50,6 @@ export default class Ellipsis extends React.Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.lines !== nextProps.lines) {
-            this.computeLine();
-        }
-    }
-
     computeLine = () => {
         const { lines } = this.props;
         if (lines && !isSupportLineClamp) {
@@ -122,9 +116,9 @@ export default class Ellipsis extends React.Component {
         this.root = n;
     };
 
-    handleContent = n => {
-        this.content = n;
-    };
+	handleContent = n => {
+	    this.content = n;
+	};
 
     handleNode = n => {
         this.node = n;
