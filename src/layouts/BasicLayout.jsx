@@ -41,10 +41,13 @@ let isMobile;
 enquireScreen(b => {
     isMobile = b;
 });
-@connect(({ ui, ajax }) => ({ theme: ui.theme, sideBarCollapsed: ui.sideBarCollapsed, isFetching: ajax.isFetching }), {
-    ...uiActions,
-    userLogout: userActions.userLogout
-})
+@connect(
+    ({ ui, ajax }) => ({ theme: ui.theme, sideBarCollapsed: ui.sideBarCollapsed, isFetching: ajax.isFetching }),
+    {
+        ...uiActions,
+        userLogout: userActions.userLogout
+    }
+)
 class BasicLayout extends React.PureComponent {
     state = {
         isMobile

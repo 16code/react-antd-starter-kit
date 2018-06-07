@@ -14,20 +14,19 @@ function HeaderMenu(props) {
             <MenuItem disabled>
                 <Icon type="setting" />设置
             </MenuItem>
-            <MenuItem key="changeTheme"><Icon type="setting" />切换主题</MenuItem>
+            <MenuItem key="changeTheme">
+                <Icon type="setting" />切换主题
+            </MenuItem>
             <MenuDivider />
-            <MenuItem key="logout"><Icon type="logout" /> 退出登录</MenuItem>
+            <MenuItem key="logout">
+                <Icon type="logout" /> 退出登录
+            </MenuItem>
         </Menu>
     );
     return (
         <Dropdown overlay={menu} trigger={['click']}>
             <span className={`${styles.action} ${styles.account}`}>
-                <Avatar
-                    size="small"
-                    icon="user"
-                    src={require('../../assets/avatar.png')}
-                    className={styles.avatar}
-                />
+                <Avatar size="small" icon="user" src={require('../../assets/avatar.png')} className={styles.avatar} />
                 <span className={styles.name}>Liuxin</span>
             </span>
         </Dropdown>
@@ -50,18 +49,12 @@ export default function GlobalHeader({ logo, isMobile, collapsed, onCollapse, on
             />
             <div className={styles.right}>
                 <Tooltip title="使用文档">
-                    <a
-                        target="_blank"
-                        href="#"
-                        rel="noopener noreferrer"
-                        className={styles.action}
-                    >
+                    <a target="_blank" href="#" rel="noopener noreferrer" className={styles.action}>
                         <Icon type="question-circle-o" />
                     </a>
                 </Tooltip>
                 <HeaderMenu onMenuClick={onMenuClick} />
             </div>
-
         </div>
     );
 }

@@ -15,7 +15,7 @@ const middlewares = [sagaMiddleware];
 //     middlewares.unshift(loggerMiddleware);
 // }
 
-const store = ((initialState) => {
+const store = (initialState => {
     const s = createStore(
         rootReducers,
         initialState,

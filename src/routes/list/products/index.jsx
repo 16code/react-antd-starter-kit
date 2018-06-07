@@ -132,7 +132,9 @@ export default class Products extends React.PureComponent {
             <SearchForm loading={this.props.isFetching} onSearch={this.handleSearch} onReset={this.handleReset} />
         );
         const action = (
-            <Button icon="to-top" onClick={this.handleImport}>导入</Button>
+            <Button icon="to-top" onClick={this.handleImport}>
+                导入
+            </Button>
         );
         const step1 = (
             <div>
@@ -149,15 +151,19 @@ export default class Products extends React.PureComponent {
         );
         const step2 = (
             <FormItem>
-                <Button href="#" icon="download" style={{ width: '100%' }}>下载模板</Button>
-            </FormItem>	
+                <Button href="#" icon="download" style={{ width: '100%' }}>
+                    下载模板
+                </Button>
+            </FormItem>
         );
         const Dragger = Upload.Dragger;
         const step3 = (
             <FormItem>
                 <Dragger>
-                    <p className="ant-upload-drag-icon"><Icon type="inbox" /></p>
-                    <p className="ant-upload-text">点击或拖拽文件至此区域</p>				
+                    <p className="ant-upload-drag-icon">
+                        <Icon type="inbox" />
+                    </p>
+                    <p className="ant-upload-text">点击或拖拽文件至此区域</p>
                 </Dragger>
             </FormItem>
         );

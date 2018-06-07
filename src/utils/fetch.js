@@ -28,7 +28,7 @@ fetchIntercept.register({
             }
         };
         if (!isHttpUrl(url)) {
-            url = `${API_GATEWAY}${/^\//.test(url) ? url : `/${ url}`}`;
+            url = `${API_GATEWAY}${/^\//.test(url) ? url : `/${url}`}`;
         }
         const config = Object.assign({}, baseConfig, cfg);
         const user = AuthService.getUser();
@@ -37,8 +37,9 @@ fetchIntercept.register({
         }
         const { method, body, headers, params } = config;
         if (POST_HTTP_METHODS.includes(method.toUpperCase()) && body) {
-            config.body = headers['Content-Type'].includes('urlencoded') ?
-                config.body = objToUrlParams(body) : JSON.stringify(body);
+            config.body = headers['Content-Type'].includes('urlencoded')
+                ? (config.body = objToUrlParams(body))
+                : JSON.stringify(body);
         }
         if (params) {
             url = `${url}?${objToUrlParams(params)}`;
@@ -54,13 +55,13 @@ fetchIntercept.register({
         return Promise.reject(error);
     },
 
-    response: async function (response, requestArgs) {
+    response: async function(response, requestArgs) {
         pendingRequest.shift();
         const status = response.status;
         if (pendingRequest.length === 0) {
             await delay(1000);
             store.dispatch({ type: ajaxTypes.ajaxDone });
-        }		
+        }
         return new Promise((resolve, reject) => {
             switch (true) {
                 case status >= 200 && status < 300:
@@ -70,7 +71,9 @@ fetchIntercept.register({
                     handleRefreshToken(requestArgs, resolve, reject);
                     break;
                 default:
-                    handleResponseError(response, requestArgs).then(reject).catch(reject);
+                    handleResponseError(response, requestArgs)
+                        .then(reject)
+                        .catch(reject);
                     break;
             }
         });
@@ -84,24 +87,30 @@ fetchIntercept.register({
 
 function handleWatchState(requestArgs, resolve, reject) {
     const unSubscribe = store.subscribe(() => {
-        if (!(store.getState().auth.isRefreshing)) {
+        if (!store.getState().auth.isRefreshing) {
             unSubscribe();
-            fetch(...requestArgs).then(resolve).catch(reject);
+            fetch(...requestArgs)
+                .then(resolve)
+                .catch(reject);
         }
     });
 }
 function handleRefreshToken(requestArgs, resolve, reject) {
-    const { auth: { isRefreshing } } = store.getState();
-    if (isRefreshing) { 
+    const {
+        auth: { isRefreshing }
+    } = store.getState();
+    if (isRefreshing) {
         handleWatchState(requestArgs, resolve, reject);
     } else {
         store.dispatch({ type: authTypes.authRefreshToken });
         AuthService.refreshToken()
             .then(res => {
                 store.dispatch({ type: authTypes.authRefreshTokenSuccess, user: res });
-                fetch(...requestArgs).then(resolve).catch(reject);
+                fetch(...requestArgs)
+                    .then(resolve)
+                    .catch(reject);
             })
-            .catch((err) => {
+            .catch(err => {
                 reject(err);
                 store.dispatch({ type: authTypes.authRefreshTokenFailure });
             });
@@ -129,9 +138,8 @@ function handleResponseData(response) {
 
     if (contentType.includes('application/json')) {
         return response.json();
-    } 
+    }
     return response.blob();
-    
 }
 
 function handleErrorData({ response, json, requestArgs }) {
@@ -149,7 +157,7 @@ function handleErrorData({ response, json, requestArgs }) {
     };
     if (response.status >= 500) {
         errorInfo.msg = response.statusText;
-    } else if(json) {
+    } else if (json) {
         if (Array.isArray(json)) {
             json.forEach(err => {
                 errorInfo.msg = err.error_description;

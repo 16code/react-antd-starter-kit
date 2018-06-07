@@ -28,12 +28,14 @@ const prmissionDeniedePage = props => (
     />
 );
 const AuthorizedRoute = ({ component: ComposedComponent, ...rest }) => {
-	@connect(({ auth }) => ({ token: auth.token }))
+    @connect(({ auth }) => ({ token: auth.token }))
     class AuthComponent extends React.PureComponent {
         componentRender = props => {
-            const { location: { pathname } } = props;
+            const {
+                location: { pathname }
+            } = props;
             const { userRole } = rest;
-            const { token } = this.props;			
+            const { token } = this.props;
             if (token && token !== '') {
                 const { authRole } = menuDataPathKeys[pathname] || {};
                 if (authRole && userRole && !~authRole.indexOf(userRole)) {
@@ -47,8 +49,8 @@ const AuthorizedRoute = ({ component: ComposedComponent, ...rest }) => {
         render() {
             return <Route {...rest} render={this.componentRender} />;
         }
-	}
-	return <AuthComponent />;
+    }
+    return <AuthComponent />;
 };
 AuthorizedRoute.propTypes = {
     component: PropTypes.func

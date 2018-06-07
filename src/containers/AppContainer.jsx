@@ -13,8 +13,9 @@ const Container = () => (
                 <Redirect from="/" to="/dashboard" exact />
                 <Route
                     path="/"
-                    render={props => store.getState().auth.token ?
-                        <BasicLayout {...props} /> : <Redirect to="/login" />}
+                    render={props =>
+                        store.getState().auth.token ? <BasicLayout {...props} /> : <Redirect to="/login" />
+                    }
                 />
             </Switch>
         </BrowserRouter>

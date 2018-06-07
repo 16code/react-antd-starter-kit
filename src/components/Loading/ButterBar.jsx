@@ -6,5 +6,5 @@ export default function ButterBar({ visible }) {
         <div className={classNames(butterBar, { [active]: visible })}>
             <span className={bar} />
         </div>
-    );	
+    );
 }

@@ -13,9 +13,9 @@ export class CustomBreadcrumb extends React.PureComponent {
         routesMap: PropTypes.object.isRequired,
         location: PropTypes.object.isRequired
     };
-	    static defaultProps = {
-	        routesMap: menuDataPathKeys
-	    };
+    static defaultProps = {
+        routesMap: menuDataPathKeys
+    };
     renderItem = (url, routeName) => {
         return (
             <BreadcrumbItem key={url}>
@@ -32,12 +32,15 @@ export class CustomBreadcrumb extends React.PureComponent {
             const isLast = index === pathSnippets.length - 1;
             const isFirst = index === 0;
             if (routeName) {
-                return (isFirst || isLast) ? this.renderLast(url, routeName) : this.renderItem(url, routeName);
+                return isFirst || isLast ? this.renderLast(url, routeName) : this.renderItem(url, routeName);
             }
             return null;
         });
-        const breadcrumbItems = [<BreadcrumbItem key="home"><Link to="/">首页</Link></BreadcrumbItem>]
-            .concat(extraBreadcrumbItems);
+        const breadcrumbItems = [
+            <BreadcrumbItem key="home">
+                <Link to="/">首页</Link>
+            </BreadcrumbItem>
+        ].concat(extraBreadcrumbItems);
         return <Breadcrumb className={styles.breadcrumb}>{breadcrumbItems}</Breadcrumb>;
     };
     render() {

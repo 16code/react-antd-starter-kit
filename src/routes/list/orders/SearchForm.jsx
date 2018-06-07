@@ -87,7 +87,7 @@ export default class SearchForm extends React.PureComponent {
                     <div style={{ textAlign: 'right' }}>
                         <FormItem>
                             <Button type="primary" htmlType="button" onClick={this.handleSubmit}>
-								查询
+                                查询
                             </Button>
                         </FormItem>
                         <FormItem>
@@ -97,10 +97,10 @@ export default class SearchForm extends React.PureComponent {
                                 onClick={this.handleReset}
                                 disabled={!isFieldsTouched()}
                             >
-								重置
+                                重置
                             </Button>
-                        </FormItem>	
-                    </div>	
+                        </FormItem>
+                    </div>
                 </Col>
             </Row>
         );

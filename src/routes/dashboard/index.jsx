@@ -32,7 +32,7 @@ const title = {
 const label = {
     autoRotate: true,
     offset: 15
-}; 
+};
 export default class Dashboard extends React.PureComponent {
     renderChart() {
         return (
@@ -50,9 +50,7 @@ export default class Dashboard extends React.PureComponent {
             <BlockLayout>
                 <Row>
                     <Col span={12}>
-                        <Card title="销售量">
-                            {this.renderChart()}
-                        </Card>	
+                        <Card title="销售量">{this.renderChart()}</Card>
                     </Col>
                 </Row>
             </BlockLayout>

@@ -41,8 +41,5 @@ function* userLogout() {
 }
 
 export function* authSaga() {
-    yield all([
-        takeLatest(types.userLogin, userLogin),
-        takeLatest(types.userLogout, userLogout)
-    ]);
+    yield all([takeLatest(types.userLogin, userLogin), takeLatest(types.userLogout, userLogout)]);
 }

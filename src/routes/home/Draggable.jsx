@@ -46,12 +46,12 @@ export default class AppDraggable extends React.PureComponent {
         droppable: 'items',
         droppable2: 'selected'
     };
-	
-    componentWillReceiveProps(nextProps) {
-        if (nextProps.data) {
-            this.setState({ items: nextProps.data });
-        }
-    }
+
+    // componentWillReceiveProps(nextProps) {
+    //     if (nextProps.data) {
+    //         this.setState({ items: nextProps.data });
+    //     }
+    // }
     getList = id => this.state[this.id2List[id]];
 
     handleOnDragEnd = result => {

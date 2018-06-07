@@ -1,5 +1,5 @@
 /* eslint-disable */
-import {Echarts , Chart} from 'components/Echarts';
+import { Echarts, Chart } from 'components/Echarts';
 import Draggable from './Draggable';
 
 class Home extends React.PureComponent {
@@ -24,10 +24,10 @@ class Home extends React.PureComponent {
         fetch('/charts/radar').then(response => {
             radarChart.setOption(response.data);
         });
-        lineChart.on('click', (params) => {
+        lineChart.on('click', params => {
             console.log(params);
         });
-        lineChart.on('legendselectchanged', (params) => {
+        lineChart.on('legendselectchanged', params => {
             console.log('legendselectchanged', params);
         });
     };
@@ -36,10 +36,7 @@ class Home extends React.PureComponent {
             <div className="page-content ant-layout-content" style={{ opacity: 1 }}>
                 <Draggable data={this.state.data} />
 
-                <Echarts
-                    onCreated={this.handleEchartCreated}
-                    className="echart-wrapper-custom"
-                >
+                <Echarts onCreated={this.handleEchartCreated} className="echart-wrapper-custom">
                     <Chart type="bar" name="barChart" />
                     <Chart type="line" style={{ width: '48%', float: 'left' }} name="lineChart" />
                     <Chart type="pie" style={{ width: '48%', float: 'right' }} name="pieChart" />

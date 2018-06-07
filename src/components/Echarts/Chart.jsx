@@ -12,7 +12,7 @@ export default class Chart extends React.PureComponent {
         this.chart = echarts.init(this.dom.current, theme);
         this.setOption();
         onCreated(this.chart, name);
-        window.addEventListener('resize', this.handleResize);	
+        window.addEventListener('resize', this.handleResize);
     }
     componentDidUpdate() {
         this.setOption();
@@ -24,10 +24,18 @@ export default class Chart extends React.PureComponent {
     setOption() {
         const { option } = this.props;
         option.color = [
-            '#19d4ae', '#5ab1ef', '#fa6e86',
-            '#ffb980', '#0067a6', '#c4b4e4',
-            '#d87a80', '#9cbbff', '#d9d0c7',
-            '#87a997', '#d49ea2', '#5b4947',
+            '#19d4ae',
+            '#5ab1ef',
+            '#fa6e86',
+            '#ffb980',
+            '#0067a6',
+            '#c4b4e4',
+            '#d87a80',
+            '#9cbbff',
+            '#d9d0c7',
+            '#87a997',
+            '#d49ea2',
+            '#5b4947',
             '#7ba3a8'
         ];
         this.chart && this.chart.setOption(option);

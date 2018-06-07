@@ -64,7 +64,9 @@ export default class DockPanelHead extends React.PureComponent {
             >
                 {data.map(item => (
                     <Description key={item} term={extra[item].label}>
-                        <Ellipsis lines={1} tooltip>{extra[item].value}</Ellipsis>
+                        <Ellipsis lines={1} tooltip>
+                            {extra[item].value}
+                        </Ellipsis>
                     </Description>
                 ))}
             </DescriptionList>

@@ -6,7 +6,10 @@ import { userActions } from 'reducers/auth';
 import './index.less';
 const FormItem = Form.Item;
 
-@connect(({ auth }) => ({ token: auth.token, isloading: auth.isloading }), { userLogin: userActions.userLogin })
+@connect(
+    ({ auth }) => ({ token: auth.token, isloading: auth.isloading }),
+    { userLogin: userActions.userLogin }
+)
 @Form.create({})
 class Login extends React.PureComponent {
     static propTypes = {

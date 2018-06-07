@@ -3,10 +3,13 @@ export const types = {
     ajaxRequest: 'ajax/request',
     ajaxDone: 'ajax/done'
 };
-export const ajaxReducer = createReducer({ isFetching: false }, {
-    [types.ajaxRequest]: cb,
-    [types.ajaxDone]: cb
-});
+export const ajaxReducer = createReducer(
+    { isFetching: false },
+    {
+        [types.ajaxRequest]: cb,
+        [types.ajaxDone]: cb
+    }
+);
 
 export const ajaxActions = {
     ajaxRequest: () => ({ type: types.ajaxRequest }),
@@ -16,4 +19,3 @@ export const ajaxActions = {
 function cb(state, action) {
     return action.type === types.ajaxRequest ? { isFetching: true } : { isFetching: false };
 }
-

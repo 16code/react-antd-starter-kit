@@ -33,7 +33,7 @@ export default class SideDrawerLayout extends React.PureComponent {
                                 <i className={classNames('drawer-trigger', direction)} />
                             </a>
                         </Tooltip>
-                    </div>	
+                    </div>
                     <Content className="page-content">{children && children}</Content>
                 </Layout>
             </Layout>

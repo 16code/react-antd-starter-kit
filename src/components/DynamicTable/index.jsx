@@ -68,11 +68,11 @@ export default class DynamicTable extends React.PureComponent {
             console.info(e);
         });
         result &&
-			this.setState({
-			    dataHasLoaded: true,
-			    dataSource: fieldKey ? result[fieldKey] : result,
-			    pagination: Object.assign(this.state.pagination, result.meta)
-			});
+            this.setState({
+                dataHasLoaded: true,
+                dataSource: fieldKey ? result[fieldKey] : result,
+                pagination: Object.assign(this.state.pagination, result.meta)
+            });
         this.scrollToBoxTop();
     }
     handleShowSizeChange(current, pagSize) {

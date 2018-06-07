@@ -51,7 +51,7 @@ export default class SiderMenu extends PureComponent {
         }
         return null;
     }
-	
+
     getFlatMenuKeys(menus) {
         let keys = [];
         menus.forEach(item => {
@@ -63,7 +63,10 @@ export default class SiderMenu extends PureComponent {
         return keys;
     }
     static getDefaultCollapsedSubMenus(props) {
-        const { location: { pathname } } = props || this.props;
+        const {
+            location: { pathname }
+        } =
+            props || this.props;
         return urlToList(pathname)
             .map(item => getMeunMatcheys(flatMenuKeys, item)[0])
             .filter(item => item);
@@ -108,16 +111,14 @@ export default class SiderMenu extends PureComponent {
                 );
             }
             return null;
-        } 
+        }
         return <MenuItem key={item.path}>{this.getMenuItemPath(item)}</MenuItem>;
-        
     };
     conversionPath = path => {
         if (path && path.indexOf('http') === 0) {
             return path;
-        } 
+        }
         return `/${path || ''}`.replace(/\/+/g, '/');
-        
     };
     getMenuItemPath = item => {
         const itemPath = this.conversionPath(item.path);

@@ -39,7 +39,7 @@ class DockPanel extends React.PureComponent {
             <div className={styles['dock-panel-wrapper']}>
                 <DockPanelMask visible={visible} onClick={this.handleClosePanel} />
                 <DockPanelWrapper visible={visible} size={size}>
-                    <DockPanelHead 
+                    <DockPanelHead
                         title={title}
                         actions={actions}
                         extra={extra}

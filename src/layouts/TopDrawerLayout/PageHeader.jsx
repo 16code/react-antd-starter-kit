@@ -15,4 +15,4 @@ export default class PageHeader extends React.PureComponent {
             </div>
         );
     }
-};
+}

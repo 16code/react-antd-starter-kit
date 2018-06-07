@@ -19,4 +19,3 @@ class PieChart extends React.PureComponent {
 }
 
 export default PieChart;
-

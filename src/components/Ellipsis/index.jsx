@@ -116,9 +116,9 @@ export default class Ellipsis extends React.Component {
         this.root = n;
     };
 
-	handleContent = n => {
-	    this.content = n;
-	};
+    handleContent = n => {
+        this.content = n;
+    };
 
     handleNode = n => {
         this.node = n;

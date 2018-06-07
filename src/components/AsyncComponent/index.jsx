@@ -24,12 +24,12 @@ const asyncComponent = getComponent => {
         }
         componentWillUnmount() {
             this.unMount = true;
-            if(this.componentRef) this.componentRef.setState = () => {};
+            if (this.componentRef) this.componentRef.setState = () => {};
         }
         getAnimatedDomNode() {
             let element;
             const ref = this.componentRef.current;
-			const elementRef = ReactDOM.findDOMNode(ref); // eslint-disable-line
+            const elementRef = ReactDOM.findDOMNode(ref); // eslint-disable-line
             if (ref && elementRef) {
                 element = elementRef.querySelector('.page-content');
             }
@@ -42,9 +42,13 @@ const asyncComponent = getComponent => {
                 await delay(1200);
                 element.removeAttribute('animated');
             }
-        }		
+        }
         get renderLoading() {
-            return <div style={{ paddingTop: '80px' }}><Loading key="Loading" size="small" /></div>;
+            return (
+                <div style={{ paddingTop: '80px' }}>
+                    <Loading key="Loading" size="small" />
+                </div>
+            );
         }
         renderComponent(Component) {
             return <Component key="Component" ref={this.componentRef} {...this.props} />;

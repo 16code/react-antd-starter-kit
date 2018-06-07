@@ -19,4 +19,3 @@ class LineChart extends React.PureComponent {
 }
 
 export default LineChart;
-

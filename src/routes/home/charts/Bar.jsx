@@ -1,4 +1,3 @@
-
 import { Echarts, Chart } from 'components/Echarts';
 
 class BarChart extends React.PureComponent {

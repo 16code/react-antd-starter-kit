@@ -14,9 +14,8 @@ export function urlToList(url) {
 }
 
 export function createReducer(initialState, handlers) {
-    return (state = initialState, action) => (
-        handlers.hasOwnProperty(action.type) ? handlers[action.type](state, action) : state
-    );
+    return (state = initialState, action) =>
+        handlers.hasOwnProperty(action.type) ? handlers[action.type](state, action) : state;
 }
 
 /**
@@ -42,20 +41,25 @@ export function decrypt(str) {
     return c;
 }
 
-export const delay = (ms) => new Promise(res => {
-    const timer = setTimeout(() => { 
-        clearTimeout(timer);
-        res();
-    }, ms);
-});
+export const delay = ms =>
+    new Promise(res => {
+        const timer = setTimeout(() => {
+            clearTimeout(timer);
+            res();
+        }, ms);
+    });
 
 /**
  * 全屏切换
  * @param {string} element
  */
 export function toggleFullScreen(el) {
-    if (!document.fullscreenElement &&
-		!document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+    if (
+        !document.fullscreenElement &&
+        !document.mozFullScreenElement &&
+        !document.webkitFullscreenElement &&
+        !document.msFullscreenElement
+    ) {
         if (document.documentElement.requestFullscreen) {
             el.requestFullscreen();
         } else if (document.documentElement.msRequestFullscreen) {
@@ -77,4 +81,3 @@ export function toggleFullScreen(el) {
         }
     }
 }
-

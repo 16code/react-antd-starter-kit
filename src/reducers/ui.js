@@ -14,18 +14,18 @@ export const uiReducer = createReducer(initialState, {
 });
 
 export const uiActions = {
-    toggleTheme: (theme) => ({ type: types.toggleTheme, theme }),
-    toggleSideBarMenu: (collapsed) => ({ type: types.toggleSideBarMenu, collapsed })
+    toggleTheme: theme => ({ type: types.toggleTheme, theme }),
+    toggleSideBarMenu: collapsed => ({ type: types.toggleSideBarMenu, collapsed })
 };
 
 // 切换主题
 function toggleTheme(state, action) {
-    return Object.assign({}, state, { theme: getChangeTheme(action.theme) } );
+    return Object.assign({}, state, { theme: getChangeTheme(action.theme) });
 }
 // 切换SideBar是否展开
 function toggleSideBarMenu(state, action) {
     localStorage.setItem('app-sidebar-collapsed', action.collapsed);
-    return Object.assign({}, state, { sideBarCollapsed: action.collapsed } );
+    return Object.assign({}, state, { sideBarCollapsed: action.collapsed });
 }
 
 function getChangeTheme(theme) {
