@@ -6,6 +6,7 @@
     "eslintIntegration": true,
     "stylelintIntegration": true,
     "singleQuote": true,
+    "noBracketSpacing": false,
     "jsxBracketSameLine": false,
     "arrowParens": "avoid",
     "overrides": [
